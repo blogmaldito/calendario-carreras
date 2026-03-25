@@ -24,17 +24,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .race-item{border:1px solid #eee;border-radius:8px;margin-bottom:6px;overflow:hidden;background:#fff}
 .race-header{display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer;user-select:none}
 .race-header:hover{background:#fafafa}
-.race-status{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.race-status{width:8px;height:8px;border-radius:50%;flex-shrink:0;align-self:flex-start;margin-top:4px}
 .status-confirmed{background:#2e7d32}
 .status-pending{background:#e65100}
-.race-name{font-size:14px;font-weight:500;color:#111;flex:1;min-width:0;word-break:break-word}
-.race-header{flex-wrap:wrap}
-.race-meta{flex-wrap:wrap}
-.race-meta{display:flex;gap:8px;flex-shrink:0;align-items:center}
-.race-date{font-size:12px;color:#888;white-space:nowrap}
-.race-dist{font-size:11px;font-weight:500;padding:2px 7px;border-radius:10px;background:#f0f0f0;color:#555;white-space:nowrap}
-.race-loc{font-size:12px;color:#aaa;white-space:nowrap;max-width:110px;overflow:hidden;text-overflow:ellipsis}
-.chevron{width:14px;height:14px;color:#bbb;transition:transform .2s;flex-shrink:0}
+.race-content{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.race-name{font-size:14px;font-weight:500;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.race-meta{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.race-date{font-size:11px;color:#888;white-space:nowrap}
+.race-dist{font-size:11px;font-weight:500;padding:1px 7px;border-radius:10px;background:#f0f0f0;color:#555;white-space:nowrap}
+.race-loc{font-size:11px;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px}
+.chevron{width:14px;height:14px;color:#bbb;transition:transform .2s;flex-shrink:0;align-self:flex-start;margin-top:3px}
 .chevron.open{transform:rotate(180deg)}
 .race-details{padding:0 14px 12px 32px;display:none;grid-template-columns:1fr 1fr;gap:5px}
 .race-details.open{display:grid}
@@ -212,9 +211,9 @@ const races=[
   {month:"Mayo",date:"31/05",name:"Corro Contra El Càncer",loc:"Sabadell",dist:"5k",terrain:"Asfalto",certified:false,confirmed:true,guide:false,web:"https://corrocontraelcancer.cat/"},
   {month:"Mayo",date:"31/05",name:"Pujada Al Coll De Pal",loc:"Bagà",dist:"19k",terrain:"Asfalto",certified:false,confirmed:true,guide:false,web:""},
   {month:"Mayo",date:"31/05",name:"Cursa Antiracista",loc:"Barcelona",dist:"5k",terrain:"Asfalto",certified:false,confirmed:false,guide:false,web:"https://cursaantiracista.com/"},
-  {month:"Junio",date:"06/06",name:"Abrera Corre D9",loc:"Abrera",dist:"10k y 5k",terrain:"Mixta",certified:false,confirmed:true,guide:false,web:""},
   {month:"Junio",date:"07/06",name:"Cursa Ela Sant Adrià",loc:"Sant Adrià de Besòs",dist:"5k",terrain:"Asfalto",certified:false,confirmed:true,guide:false,web:""},
   {month:"Junio",date:"07/06",name:"Els 10 Blaus",loc:"Barcelona",dist:"10k y 5k",terrain:"Mixta",certified:false,confirmed:true,guide:false,web:"https://cvg.cat/cursa"},
+  {month:"Junio",date:"07/06",name:"Abrera Corre D9",loc:"Abrera",dist:"10k y 5k",terrain:"Mixta",certified:false,confirmed:false,guide:false,web:""},
   {month:"Junio",date:"07/06",name:"Els 10 De Santa",loc:"Santa Perpètua de Mogoda",dist:"10k",terrain:"Mixta",certified:false,confirmed:false,guide:false,web:""},
   {month:"Junio",date:"07/06",name:"Cursa 3 Tossals",loc:"Alcoletge",dist:"10k y 5,5k",terrain:"Mixta",certified:false,confirmed:false,guide:false,web:"https://www.elstrestossals.com/"},
   {month:"Junio",date:"13/06",name:"Cursa Pineda De Mar",loc:"Pineda de Mar",dist:"10k",terrain:"Asfalto",certified:false,confirmed:true,guide:false,web:"https://gesport.cat/curses/"},
@@ -432,11 +431,13 @@ function render(){
         return `<div class="race-item">
           <div class="race-header" onclick="toggle('${id}')">
             <div class="race-status ${r.confirmed?'status-confirmed':'status-pending'}"></div>
-            <div class="race-name">${r.name}</div>
-            <div class="race-meta">
-              <span class="race-loc">${r.loc}</span>
-              <span class="race-date">${r.date}</span>
-              <span class="race-dist">${r.dist}</span>
+            <div class="race-content">
+              <div class="race-name">${r.name}</div>
+              <div class="race-meta">
+                <span class="race-loc">${r.loc}</span>
+                <span class="race-date">${r.date}</span>
+                <span class="race-dist">${r.dist}</span>
+              </div>
             </div>
             <svg class="chevron" id="chev${id}" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
           </div>
@@ -446,7 +447,7 @@ function render(){
             <div class="detail-item"><span class="detail-label">Estado</span>${r.confirmed?"Confirmada":"Pendiente"}</div>
             <div class="detail-links">
               ${r.web?`<a class="detail-link" href="${r.web}" target="_blank" rel="noopener">Web oficial</a>`:""}
-              ${r.guide?`<span class="guide-badge">Guía en el blog</span>`:""}
+              ${r.guideUrl?`<a class="detail-link" href="${r.guideUrl}" target="_blank" rel="noopener">Guía del recorrido ↗</a>`:r.guide?`<span class="guide-badge">Guía en el blog</span>`:""}
             </div>
           </div>
         </div>`;
