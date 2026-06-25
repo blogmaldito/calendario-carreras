@@ -79,11 +79,12 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
     <h4>✎ Modo edición de pines</h4>
     <p>Haz clic en un pin para seleccionarlo, luego arrástralo a su posición correcta. Las nuevas coordenadas se guardan automáticamente.</p>
     <div class="edit-coords" id="edit-coords">Selecciona un pin para ver sus coordenadas</div>
-    <button class="btn-copy" onclick="copyCoords()">Copiar coordenadas</button>
+    <button class="btn-copy" onclick="copyCoords()">Copiar coordenadas del pin</button>
+    <button class="btn-copy" style="margin-top:6px;background:#2e5e3e" onclick="exportCoords()">Exportar todos los cambios</button>
   </div>
   <div class="legend">
     <div class="legend-item"><div class="legend-dot" style="background:#4a7c59"></div>Confirmada</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#bbb"></div>Pendiente</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#c47c3e"></div>Pendiente</div>
   </div>
 </div>
 
@@ -588,7 +589,7 @@ function filteredRaces() {
 
 // Icons
 function makeIcon(confirmed, count) {
-  const bg = confirmed ? '#4a7c59' : '#bbb';
+  const bg = confirmed ? '#4a7c59' : '#c47c3e';
   const s = count > 9 ? 34 : count > 4 ? 30 : count > 1 ? 26 : 22;
   const badge = count > 1 ? `<div style="position:absolute;top:-7px;right:-7px;background:#e65100;color:#fff;font-size:9px;font-weight:700;border-radius:50%;width:15px;height:15px;display:flex;align-items:center;justify-content:center;line-height:1">${count}</div>` : '';
   return L.divIcon({
@@ -600,7 +601,7 @@ function makeIcon(confirmed, count) {
 function makePopupLoc(loc, rs) {
   const rows = rs.map(r =>
     `<div class="popup-race">
-      <div class="popup-dot" style="background:${r.confirmed?'#4a7c59':'#bbb'}"></div>
+      <div class="popup-dot" style="background:${r.confirmed?'#4a7c59':'#c47c3e'}"></div>
       <span class="popup-rname">${r.name}</span>
       <span class="popup-date">${r.date}</span>
       <span class="popup-dist">${r.dist}</span>
@@ -705,9 +706,27 @@ function updateEditPanel(loc, coords) {
 function copyCoords() {
   const text = document.getElementById('edit-coords').textContent;
   navigator.clipboard.writeText(text).then(() => {
-    const btn = document.querySelector('.btn-copy');
-    btn.textContent = '✓ Copiado';
-    setTimeout(() => btn.textContent = 'Copiar coordenadas', 2000);
+    const btns = document.querySelectorAll('.btn-copy');
+    btns[0].textContent = '✓ Copiado';
+    setTimeout(() => btns[0].textContent = 'Copiar coordenadas del pin', 2000);
+  });
+}
+
+function exportCoords() {
+  const saved = JSON.parse(localStorage.getItem('map_coords') || '{}');
+  if(Object.keys(saved).length === 0) {
+    alert('No hay coordenadas modificadas todavía. Mueve algún pin primero.');
+    return;
+  }
+  let text = 'COORDENADAS MODIFICADAS:\n';
+  text += '(Pega esto en el chat con Claude)\n\n';
+  Object.entries(saved).forEach(([loc, coords]) => {
+    text += `"${loc}": [${coords[0]}, ${coords[1]}]\n`;
+  });
+  navigator.clipboard.writeText(text).then(() => {
+    const btns = document.querySelectorAll('.btn-copy');
+    btns[1].textContent = '✓ Copiado — pégalo en el chat';
+    setTimeout(() => btns[1].textContent = 'Exportar todos los cambios', 3000);
   });
 }
 
