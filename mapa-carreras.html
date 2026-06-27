@@ -649,7 +649,8 @@ setTimeout(()=>{
   });
 },300);
 
-let selectedPin = null; // {loc, marker}
+let selectedPin = null;
+let allMarkers = []; // store all markers to toggle popups
 
 map.on('click', function(e) {
   if(!editMode || !selectedPin) return;
@@ -681,10 +682,13 @@ function titleClickEdit() {
   if(titleClicks >= 3) {
     titleClicks = 0;
     editMode = !editMode;
+    selectedPin = null;
     document.getElementById('edit-panel').classList.toggle('visible', editMode);
     renderMarkers();
   }
 }
+
+
 
 // Slider
 const sMin = document.getElementById('slider-min');
@@ -774,6 +778,7 @@ function makeIcon(confirmed, count) {
 
 function renderMarkers() {
   markersLayer.clearLayers();
+  allMarkers = [];
   const fr = filteredRaces();
   if(mode === 'locality') {
     const byLoc = {};
@@ -807,6 +812,7 @@ function renderMarkers() {
         <div style="margin-top:5px;font-size:11px;color:#777">${r.dist}</div>
         ${r.web?`<a class="popup-link" href="${r.web}" target="_blank">↗ Web oficial</a>`:''}
       </div>`,{maxWidth:280});
+      allMarkers.push({marker, name:r.name});
       markersLayer.addLayer(marker);
     });
     document.getElementById('stats').innerHTML=`<strong>${fr.length}</strong> carreras`;
