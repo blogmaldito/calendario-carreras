@@ -100,8 +100,9 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
     <p>Arrastra los pines para reposicionarlos. Los cambios se guardan en este navegador.</p>
     <div class="edit-coords" id="edit-coords">Selecciona un pin para ver sus coordenadas</div>
     <button class="btn-edit btn-dark" onclick="copyCoords()">Copiar pin seleccionado</button>
-    <button class="btn-edit btn-green" onclick="exportCoords()">Exportar todos los cambios</button>
-    <button class="btn-edit" style="background:#eee;color:#666;margin-top:8px" onclick="closeEdit()">Cerrar editor</button>
+    <button class="btn-edit btn-green" onclick="exportCoords()">Ver todos los cambios</button>
+    <textarea id="export-area" style="display:none;width:100%;margin-top:8px;font-size:10px;font-family:monospace;padding:6px;border:1px solid #ddd;border-radius:6px;height:120px;resize:vertical;color:#333" readonly></textarea>
+    <button class="btn-edit" style="background:#eee;color:#666;margin-top:6px" onclick="closeEdit()">Cerrar editor</button>
   </div>
   <div class="legend">
     <div class="legend-item"><div class="legend-dot" style="background:#4a7c59"></div>Confirmada</div>
@@ -616,7 +617,7 @@ const BASE_COORDS = {
 };
 
 // Saved coords from localStorage (only used by editor)
-const savedCoords = JSON.parse(localStorage.getItem('map_coords_v1') || '{}');
+const savedCoords = {}; // in-memory, no localStorage needed
 function getCoord(loc) {
   return savedCoords[loc] || BASE_COORDS[loc] || null;
 }
@@ -787,7 +788,7 @@ function renderMarkers() {
         marker.on('dragend', ()=>{
           const p=marker.getLatLng();
           savedCoords[loc]=[+p.lat.toFixed(5),+p.lng.toFixed(5)];
-          localStorage.setItem('map_coords_v1',JSON.stringify(savedCoords));
+          // coords stored in memory
           showEditCoords(loc,[p.lat,p.lng]);
         });
       }
@@ -819,14 +820,14 @@ function showEditCoords(loc, latlng) {
 
 function copyCoords() {
   const text=document.getElementById('edit-coords').textContent;
-  navigator.clipboard.writeText(text).then(()=>{
-    const btn=document.querySelectorAll('.btn-edit')[0];
-    btn.textContent='✓ Copiado'; setTimeout(()=>btn.textContent='Copiar pin seleccionado',2000);
-  });
+  const area=document.getElementById('export-area');
+  area.style.display='block';
+  area.value=text;
+  area.select();
 }
 
 function exportCoords() {
-  const saved=JSON.parse(localStorage.getItem('map_coords_v1')||'{}');
+  const saved=savedCoords;
   if(!Object.keys(saved).length){alert('No hay cambios todavía.');return;}
   let text='COORDENADAS MODIFICADAS:\n(Pega esto en el chat con Claude)\n\n';
   Object.entries(saved).forEach(([loc,c])=>{ text+=`"${loc}": [${c[0]}, ${c[1]}]\n`; });
