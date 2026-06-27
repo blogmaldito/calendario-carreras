@@ -69,10 +69,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
 <div class="topbar">
   <div class="topbar-row1">
     <span class="map-title" id="map-title" onclick="titleClickEdit()" style="cursor:default" title="">Carreras Cataluña 2026</span>
-    <div class="toggle-group">
-      <button class="toggle-btn active" id="btn-loc" onclick="setMode('locality')">Por localidad</button>
-      <button class="toggle-btn" id="btn-race" onclick="setMode('race')">Por carrera</button>
-    </div>
+
     <div class="search-wrap">
       <span class="search-icon">🔍</span>
       <input class="search-input" id="search-input" type="text" placeholder="Buscar localidad..."
@@ -669,7 +666,7 @@ map.on('click', function(e) {
   selectedPin = null;
 });
 
-let mode = 'locality';
+let mode = 'race';
 let editMode = false;
 let sliderMin = 1, sliderMax = 366;
 let searchFilter = null;
@@ -773,22 +770,7 @@ function makeIcon(confirmed, count) {
   });
 }
 
-function makePopupLoc(loc, rs) {
-  const rows = rs.map(r =>
-    `<div class="popup-race">
-      <div class="popup-dot" style="background:${r.confirmed?'#4a7c59':'#c47c3e'}"></div>
-      <span class="popup-rname">${r.name}</span>
-      <span class="popup-date">${r.date}</span>
-      <span class="popup-dist">${r.dist}</span>
-    </div>`).join('');
-  const links = rs.filter(r=>r.web).map(r=>
-    `<a class="popup-link" href="${r.web}" target="_blank">↗ ${r.name}</a>`).join('');
-  return `<div style="min-width:210px;max-width:270px">
-    <div class="popup-title">${loc}</div>
-    <div class="popup-sub">${rs.length} carrera${rs.length>1?'s':''}</div>
-    ${rows}${links}
-  </div>`;
-}
+
 
 function renderMarkers() {
   markersLayer.clearLayers();
@@ -880,12 +862,7 @@ function closeEdit() {
   renderMarkers();
 }
 
-function setMode(m) {
-  mode=m;
-  document.getElementById('btn-loc').classList.toggle('active',m==='locality');
-  document.getElementById('btn-race').classList.toggle('active',m==='race');
-  renderMarkers();
-}
+
 
 renderMarkers();
 </script>
