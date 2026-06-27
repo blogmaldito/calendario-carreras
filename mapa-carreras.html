@@ -10,31 +10,44 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f8f8f8;height:100vh;display:flex;flex-direction:column}
 .topbar{background:#fff;border-bottom:1px solid #e0e0e0;padding:10px 14px;flex-shrink:0}
-.topbar-row1{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
-.map-title{font-size:16px;font-weight:600;color:#111;margin-right:4px}
+.topbar-row1{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.map-title{font-size:15px;font-weight:600;color:#111;margin-right:2px}
 .toggle-group{display:flex;border:1px solid #ddd;border-radius:20px;overflow:hidden}
 .toggle-btn{font-size:11px;font-weight:600;padding:4px 12px;background:#fff;color:#777;border:none;cursor:pointer;transition:all .15s;white-space:nowrap}
 .toggle-btn.active{background:#222;color:#fff}
-.edit-btn{font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;border:1px solid #ddd;background:#fff;color:#777;cursor:pointer;transition:all .15s;white-space:nowrap}
-.edit-btn.active{background:#e65100;color:#fff;border-color:#e65100}
 .map-stats{font-size:11px;color:#aaa;margin-left:auto}
 .map-stats strong{color:#555}
-.slider-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.slider-label{font-size:11px;color:#888;white-space:nowrap;min-width:90px}
-.slider-wrap{flex:1;min-width:200px;position:relative;height:20px}
+.slider-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.slider-label{font-size:11px;color:#888;white-space:nowrap;min-width:100px}
+.slider-wrap{flex:1;min-width:150px;position:relative;height:20px}
 .slider-track{position:absolute;top:8px;left:0;right:0;height:4px;background:#e0e0e0;border-radius:2px}
-.slider-fill{position:absolute;top:8px;height:4px;background:#222;border-radius:2px}
+.slider-fill{position:absolute;top:8px;height:4px;background:#444;border-radius:2px}
 input[type=range]{position:absolute;width:100%;height:4px;top:8px;left:0;appearance:none;background:transparent;pointer-events:none}
 input[type=range]::-webkit-slider-thumb{appearance:none;width:16px;height:16px;border-radius:50%;background:#222;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.3);pointer-events:all;cursor:pointer}
 input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:#222;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.3);pointer-events:all;cursor:pointer}
-#map{flex:1}
+/* Search */
+.search-wrap{position:relative;flex:1;max-width:220px}
+.search-input{width:100%;font-size:12px;padding:5px 10px 5px 28px;border:1px solid #ddd;border-radius:20px;outline:none;color:#333;background:#fff}
+.search-input:focus{border-color:#888}
+.search-icon{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:#aaa;font-size:13px;pointer-events:none}
+.search-dropdown{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border:1px solid #ddd;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.12);z-index:2000;max-height:200px;overflow-y:auto;display:none}
+.search-dropdown.visible{display:block}
+.search-item{padding:7px 12px;font-size:12px;cursor:pointer;color:#333;display:flex;justify-content:space-between;align-items:center}
+.search-item:hover{background:#f5f5f5}
+.search-item span{font-size:10px;color:#aaa}
+.search-clear{position:absolute;right:9px;top:50%;transform:translateY(-50%);color:#aaa;cursor:pointer;font-size:14px;display:none}
+#map{flex:1;position:relative}
+/* Edit panel - hidden by default, only shown with secret key */
 .edit-panel{position:absolute;top:10px;right:10px;z-index:1000;background:#fff;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,.15);padding:14px;width:260px;display:none;font-size:12px}
 .edit-panel.visible{display:block}
 .edit-panel h4{font-size:13px;font-weight:600;color:#111;margin-bottom:8px}
-.edit-panel p{color:#777;margin-bottom:10px;line-height:1.5}
-.edit-coords{background:#f5f5f5;border-radius:6px;padding:8px;font-family:monospace;font-size:11px;color:#333;margin-bottom:8px;word-break:break-all}
-.btn-copy{width:100%;padding:7px;background:#222;color:#fff;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer}
-.btn-copy:hover{background:#444}
+.edit-panel p{color:#777;margin-bottom:10px;line-height:1.5;font-size:11px}
+.edit-coords{background:#f5f5f5;border-radius:6px;padding:8px;font-family:monospace;font-size:10px;color:#333;margin-bottom:8px;word-break:break-all;min-height:36px}
+.btn-edit{width:100%;padding:7px;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;margin-top:4px}
+.btn-dark{background:#222;color:#fff}
+.btn-green{background:#2e5e3e;color:#fff}
+.btn-dark:hover{background:#444}
+.btn-green:hover{background:#3d7a51}
 .legend{position:absolute;bottom:24px;left:10px;z-index:1000;background:rgba(255,255,255,.95);padding:8px 12px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.12);font-size:11px}
 .legend-item{display:flex;align-items:center;gap:6px;margin-bottom:3px;color:#555}
 .legend-item:last-child{margin-bottom:0}
@@ -55,17 +68,23 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
 
 <div class="topbar">
   <div class="topbar-row1">
-    <span class="map-title">Carreras Cataluña 2026</span>
+    <span class="map-title" id="map-title" onclick="titleClickEdit()" style="cursor:default" title="">Carreras Cataluña 2026</span>
     <div class="toggle-group">
       <button class="toggle-btn active" id="btn-loc" onclick="setMode('locality')">Por localidad</button>
       <button class="toggle-btn" id="btn-race" onclick="setMode('race')">Por carrera</button>
     </div>
-    <button class="edit-btn" id="edit-btn" onclick="toggleEdit()">✎ Mover pines</button>
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input class="search-input" id="search-input" type="text" placeholder="Buscar localidad..."
+        oninput="onSearchInput()" onfocus="onSearchFocus()" onblur="onSearchBlur()">
+      <span class="search-clear" id="search-clear" onclick="clearSearch()">✕</span>
+      <div class="search-dropdown" id="search-dropdown"></div>
+    </div>
     <span class="map-stats" id="stats"></span>
   </div>
   <div class="slider-row">
     <span class="slider-label" id="slider-label">Busca por fecha</span>
-    <div class="slider-wrap" id="slider-wrap">
+    <div class="slider-wrap">
       <div class="slider-track"></div>
       <div class="slider-fill" id="slider-fill"></div>
       <input type="range" id="slider-min" min="1" max="366" value="1">
@@ -74,13 +93,15 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
   </div>
 </div>
 
-<div id="map" style="position:relative">
+<div id="map">
+  <!-- Edit panel: only accessible via secret key combo -->
   <div class="edit-panel" id="edit-panel">
-    <h4>✎ Modo edición de pines</h4>
-    <p>Haz clic en un pin para seleccionarlo, luego arrástralo a su posición correcta. Las nuevas coordenadas se guardan automáticamente.</p>
+    <h4>✎ Editor de coordenadas</h4>
+    <p>Arrastra los pines para reposicionarlos. Los cambios se guardan en este navegador.</p>
     <div class="edit-coords" id="edit-coords">Selecciona un pin para ver sus coordenadas</div>
-    <button class="btn-copy" onclick="copyCoords()">Copiar coordenadas del pin</button>
-    <button class="btn-copy" style="margin-top:6px;background:#2e5e3e" onclick="exportCoords()">Exportar todos los cambios</button>
+    <button class="btn-edit btn-dark" onclick="copyCoords()">Copiar pin seleccionado</button>
+    <button class="btn-edit btn-green" onclick="exportCoords()">Exportar todos los cambios</button>
+    <button class="btn-edit" style="background:#eee;color:#666;margin-top:8px" onclick="closeEdit()">Cerrar editor</button>
   </div>
   <div class="legend">
     <div class="legend-item"><div class="legend-dot" style="background:#4a7c59"></div>Confirmada</div>
@@ -316,7 +337,7 @@ const RACES = [
 {name:"Cursa del gos de Massoteres",loc:"Massoteres",dist:"10k",date:"21/08",month:"Agosto",doy:233,confirmed:true,web:"https://www.instagram.com/joventut_massoteres/",lat:41.7,lng:1.2},
 {name:"Cursa Festa Major Manlleu",loc:"Manlleu",dist:"5k",date:"23/08",month:"Agosto",doy:235,confirmed:true,web:"https://www.olimpicmanlleu.cat/cursa-de-la-festa-major/",lat:42.0,lng:2.2833},
 {name:"Cursa Festa Major Castellbisbal",loc:"Castellbisbal",dist:"6,3k",date:"23/08",month:"Agosto",doy:235,confirmed:false,web:"https://www.mindundisteam.com/esdeveniments/",lat:41.4667,lng:1.9833},
-{name:"Cursa Pedestre Móra d´Ebre",loc:"Mora d'Ebre",dist:"1k",date:"29/08",month:"Agosto",doy:241,confirmed:false,web:"https://picossatrail.cat/tradicional-cursa-pedestre-mora-debre/",lat:41.1,lng:0.6333},
+{name:"Cursa Pedestre Móra d´Ebre",loc:"Mora d'Ebre",dist:"1k",date:"29/08",month:"Agosto",doy:241,confirmed:true,web:"https://picossatrail.cat/cursa-pedestre/",lat:41.1,lng:0.6333},
 {name:"Cursa Tossal de les Tenalles",loc:"Sidamon",dist:"10k y 5k",date:"29/08",month:"Agosto",doy:241,confirmed:true,web:"https://www.cursatossaldelestenalles.cat/",lat:41.6833,lng:0.9},
 {name:"Cursa La Farga",loc:"Barcelona",dist:"2k",date:"29/08",month:"Agosto",doy:241,confirmed:true,web:"https://www.corresolidaris.org/cursa-placa-la-farga/",lat:41.3851,lng:2.1734},
 {name:"Cursa Festa Major Ripollet",loc:"Ripollet",dist:"10k y 5k",date:"30/08",month:"Agosto",doy:242,confirmed:false,web:"https://www.ripolletua.com/cursa-de-festa-major-2025/",lat:41.4833,lng:2.1667},
@@ -356,13 +377,14 @@ const RACES = [
 {name:"Cursa La Llagosta",loc:"La Llagosta",dist:"10k y 5k",date:"27/09",month:"Septiembre",doy:270,confirmed:true,web:"https://www.lasansieventos.com/ca/cursa-de-la-llagosta",lat:41.5333,lng:2.2},
 {name:"Km Contra el Càncer La Pobla de Claramunt",loc:"La Pobla de Claramunt",dist:"7k",date:"27/09",month:"Septiembre",doy:270,confirmed:true,web:"https://barcelonaenmarxa.org/es/",lat:41.5333,lng:1.6833},
 {name:"Cursa Bacus De Verdú",loc:"Verdú",dist:"10k y 5k",date:"27/09",month:"Septiembre",doy:270,confirmed:false,web:"https://www.verdu.cat/actualitat/agenda/iia-cursa-bacus",lat:41.65,lng:1.15},
-{name:"Cursa Dona Girona",loc:"Girona",dist:"5,5k",date:"27/09",month:"Septiembre",doy:270,confirmed:false,web:"https://www.cursadeladonagirona.com/",lat:41.9833,lng:2.8167},
+{name:"Cursa Dona Girona",loc:"Girona",dist:"5,5k",date:"27/09",month:"Septiembre",doy:270,confirmed:true,web:"https://www.cursadeladonagirona.com/",lat:41.9833,lng:2.8167},
 {name:"Cursa Solidària I Inclusiva Del Trampolí",loc:"La Bisbal d'Empordà",dist:"10k y 5k",date:"27/09",month:"Septiembre",doy:270,confirmed:false,web:"https://www.instagram.com/p/DOYF4D4jLCc/",lat:41.9667,lng:3.0333},
 {name:"Cursa Sant Miquel (Iter 5)",loc:"Lleida",dist:"10k y 5k",date:"27/09",month:"Septiembre",doy:270,confirmed:true,web:"http://www.cursasantmiquel.net/",lat:41.6167,lng:0.6167},
 {name:"Sosciathlon",loc:"Salou",dist:"5k",date:"27/09",month:"Septiembre",doy:270,confirmed:true,web:"https://www.sosciathlon.org/ca/",lat:41.0833,lng:1.15},
 {name:"Cursa Can Jofresa",loc:"Terrassa",dist:"Por confirmar",date:"27/09",month:"Septiembre",doy:270,confirmed:true,web:"https://ceterrassa.cat/barris/",lat:41.5583,lng:2.0083},
 {name:"Cursa Matonera",loc:"Marganell",dist:"12k",date:"27/09",month:"Septiembre",doy:270,confirmed:true,web:"https://www.instagram.com/cursamatonera/",lat:41.6167,lng:1.85},
 {name:"Metropolitan Sky Run",loc:"L'Hospitalet de Llobregat",dist:"-",date:"03/10",month:"Octubre",doy:276,confirmed:true,web:"https://metropolitanskyrun.com/",lat:41.3667,lng:2.1},
+{name:"Cursa De La Tardor Sant Andreu Barca",loc:"Sant Andreu de la Barca",dist:"10k y 5k",date:"03/10",month:"Octubre",doy:276,confirmed:false,web:"https://cursadelatardor.com/",lat:41.45,lng:1.9667},
 {name:"Cursa Nick Horta",loc:"Barcelona",dist:"5k",date:"04/10",month:"Octubre",doy:277,confirmed:false,web:"https://www.instagram.com/cursa_nick_horta_/",lat:41.3851,lng:2.1734},
 {name:"Cursa Lo Carrilet",loc:"Tortosa",dist:"10k y 5k",date:"04/10",month:"Octubre",doy:277,confirmed:false,web:"https://www.runningseries.net/calendari/",lat:40.8167,lng:0.5167},
 {name:"Cursa Antiracista Sabadell",loc:"Sabadell",dist:"5k",date:"04/10",month:"Octubre",doy:277,confirmed:true,web:"https://cursaantiracista.com/",lat:41.55,lng:2.1083},
@@ -375,14 +397,13 @@ const RACES = [
 {name:"Cursa Antiracista Garrotxa",loc:"Olot",dist:"7k",date:"10/10",month:"Octubre",doy:283,confirmed:true,web:"https://cursaantiracista.com/",lat:42.1833,lng:2.4833},
 {name:"Cursa Del Torró D'Agramunt",loc:"Agramunt",dist:"10k y 5k",date:"11/10",month:"Octubre",doy:284,confirmed:false,web:"https://agramuntesports.cat/cursa-del-torro-2025/#:~:text=com%20sempre%20l'Ajuntament%20d,cursa%20%C3%A9s%20a%20les%2010h.",lat:41.7895,lng:1.1009},
 {name:"Cursa Del Remei",loc:"Santa Maria de Palautordera",dist:"10k",date:"11/10",month:"Octubre",doy:284,confirmed:false,web:"https://www.facebook.com/p/Cursa-10-Km-del-Remei-100064279255530/",lat:41.6833,lng:2.4333},
-{name:"10K Lleida Internacional Race",loc:"Lleida",dist:"10k",date:"11/10",month:"Octubre",doy:284,confirmed:true,web:"https://www.facebook.com/p/Cursa-10-Km-del-Remei-100064279255530/",lat:41.6167,lng:0.6167},
+{name:"10K Lleida Internacional Race",loc:"Lleida",dist:"10k",date:"11/10",month:"Octubre",doy:284,confirmed:true,web:"https://10klleida.com/",lat:41.6167,lng:0.6167},
 {name:"Volta Aeroport Alguaire",loc:"Alguaire",dist:"10k y 5,4k",date:"12/10",month:"Octubre",doy:285,confirmed:true,web:"https://lomakot.cat/cartell-2/",lat:41.7667,lng:0.5667},
 {name:"Lleida Mou-Te Contra El Càncer",loc:"Lleida",dist:"10k y 5k",date:"17/10",month:"Octubre",doy:290,confirmed:false,web:"https://enmarcha.contraelcancer.es/es/evento/lleida-en-marcha-contra-el-cancer-2025",lat:41.6167,lng:0.6167},
 {name:"Cursa Vertical Walden",loc:"Sant Just Desvern",dist:"-",date:"17/10",month:"Octubre",doy:290,confirmed:false,web:"https://trailbarcelona.com/ca/vertical-walden",lat:41.3833,lng:2.0667},
 {name:"Cursa Lluís Companys",loc:"Barcelona",dist:"10k y 5k",date:"17/10",month:"Octubre",doy:290,confirmed:false,web:"https://cursacompanys.cat/",lat:41.3851,lng:2.1734},
-{name:"Cros De Sants",loc:"Barcelona",dist:"10k",date:"18/10",month:"Octubre",doy:291,confirmed:false,web:"https://crospopulardesants.cat/",lat:41.3851,lng:2.1734},
-{name:"Cursa Mercabarna",loc:"Barcelona",dist:"10k y 5k",date:"18/10",month:"Octubre",doy:291,confirmed:false,web:"https://www.cursamercabarna.cat/",lat:41.3851,lng:2.1734},
-{name:"Milla Sagrada Família",loc:"Barcelona",dist:"Milla",date:"18/10",month:"Octubre",doy:291,confirmed:false,web:"https://claror.cat/es/la-milla/",lat:41.3851,lng:2.1734},
+{name:"Cros De Sants",loc:"Barcelona",dist:"10k",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://crospopulardesants.cat/",lat:41.3851,lng:2.1734},
+{name:"Cursa Mercabarna",loc:"Barcelona",dist:"10k y 5k",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://www.cursamercabarna.cat/",lat:41.3851,lng:2.1734},
 {name:"Km Contra el Càncer Santa Coloma",loc:"Santa Coloma de Gramenet",dist:"5k",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://barcelonaenmarxa.org/es/",lat:41.45,lng:2.2083},
 {name:"Km Contra el Càncer Sant Feliu",loc:"Sant Feliu de Llobregat",dist:"Por confirmar",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://barcelonaenmarxa.org/es/",lat:41.3833,lng:2.05},
 {name:"Cursa De La Dona Corbera",loc:"Corbera de Llobregat",dist:"7k",date:"18/10",month:"Octubre",doy:291,confirmed:false,web:"https://www.cinccims.cat/cursa-de-la-dona-19-10-25/",lat:41.4167,lng:1.9333},
@@ -391,16 +412,16 @@ const RACES = [
 {name:"Mitja Mollerussa",loc:"Mollerussa",dist:"21k y 5k",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://sites.google.com/mollerussa.cat/mitjamollerussa/",lat:41.6333,lng:0.8833},
 {name:"Mitja Puigcerdà",loc:"Puigcerdà",dist:"21k, 10k y 5k",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://www.puigcerda.cat/ca/serveis/esports/28a-mitja-marato-de-puigcerda-by-bwt-2026/",lat:42.4333,lng:1.9333},
 {name:"Mitja Vila-Seca",loc:"Vila-seca",dist:"21k, 10k, 5k",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://www.runnersvilaseca.com/",lat:41.1167,lng:1.15},
-{name:"Cursa Carrer 9 Girona",loc:"Girona",dist:"10k y 5k",date:"18/10",month:"Octubre",doy:291,confirmed:false,web:"https://cursacarrernou.cat/",lat:41.9833,lng:2.8167},
-{name:"Race For Life",loc:"Sabadell",dist:"5k",date:"18/10",month:"Octubre",doy:291,confirmed:false,web:"https://www.oncolliga.cat/oncolliga-sabadell-presenta-la-4a-race-for-life-pel-cancer-de-mama/",lat:41.55,lng:2.1083},
-{name:"Cursa De La Dona Figueres",loc:"Figueres",dist:"5k",date:"18/10",month:"Octubre",doy:291,confirmed:false,web:"https://www.figueres.cat/actualitat/cursa-de-la-dona",lat:42.2667,lng:2.9667},
-{name:"Cursa De Les Dones Torres De L'Ebre",loc:"Miravet",dist:"5k",date:"18/10",month:"Octubre",doy:291,confirmed:false,web:"https://www.instagram.com/cursadelesdonesebre/",lat:41.0167,lng:0.5167},
+{name:"Cursa Carrer 9 Girona",loc:"Girona",dist:"10k y 5k",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://cursacarrernou.cat/",lat:41.9833,lng:2.8167},
 {name:"Women Race Cursa Corte Inglés",loc:"Tarragona",dist:"5k",date:"18/10",month:"Octubre",doy:291,confirmed:false,web:"https://womenrace.cat/",lat:41.1167,lng:1.25},
 {name:"Carrera Km contra el cáncer Santa Coloma",loc:"Santa Coloma de Gramenet",dist:"5k",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://barcelonaenmarxa.org/es/#calendari",lat:41.45,lng:2.2083},
-{name:"Corre Per Les Mames",loc:"Diverses localitats Girona",dist:"3k-10k",date:"18/10",month:"Octubre",doy:291,confirmed:false,web:"https://oncolligagirona.cat/activitats-solidaries/corre-per-les-mames.html",lat:41.9833,lng:2.8167},
 {name:"Corre Cava",loc:"Sant Sadurní d'Anoia",dist:"10k",date:"18/10",month:"Octubre",doy:291,confirmed:false,web:"https://www.tretzesports.org/",lat:41.4167,lng:1.7833},
 {name:"Cursa Torresana",loc:"Terrassa",dist:"Por confirmar",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://ceterrassa.cat/barris/",lat:41.5583,lng:2.0083},
 {name:"La Vicentina",loc:"Sant Vicenç dels Horts",dist:"10k y 5k",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://gesport.cat/curses/",lat:41.3833,lng:2.0167},
+{name:"Race For Life",loc:"Sabadell",dist:"5k",date:"18/10",month:"Octubre",doy:291,confirmed:false,web:"https://www.oncolliga.cat/oncolliga-sabadell-presenta-la-4a-race-for-life-pel-cancer-de-mama/",lat:41.55,lng:2.1083},
+{name:"Cursa De La Dona Figueres",loc:"Figueres",dist:"5k",date:"18/10",month:"Octubre",doy:291,confirmed:false,web:"https://www.figueres.cat/actualitat/cursa-de-la-dona",lat:42.2667,lng:2.9667},
+{name:"Cursa De Les Dones Torres De L'Ebre",loc:"Miravet",dist:"5k",date:"18/10",month:"Octubre",doy:291,confirmed:false,web:"https://www.instagram.com/cursadelesdonesebre/",lat:41.0167,lng:0.5167},
+{name:"Corre Per Les Mames",loc:"Diverses localitats Girona",dist:"3k-10k",date:"18/10",month:"Octubre",doy:291,confirmed:false,web:"https://oncolligagirona.cat/activitats-solidaries/corre-per-les-mames.html",lat:41.9833,lng:2.8167},
 {name:"Cursa Antiracista Solsona",loc:"Solsona",dist:"5k",date:"24/10",month:"Octubre",doy:297,confirmed:true,web:"https://cursaantiracista.com/",lat:41.9833,lng:1.5167},
 {name:"Cursa Udl",loc:"Lleida",dist:"5k",date:"24/10",month:"Octubre",doy:297,confirmed:false,web:"https://estudiantat.udl.cat/ca/ce/CEUdL/230/",lat:41.6167,lng:0.6167},
 {name:"Mitja Vendrell",loc:"El Vendrell",dist:"21k, 10k y 5k",date:"25/10",month:"Octubre",doy:298,confirmed:true,web:"https://mitjavendrell.runnerselvendrell.cat/",lat:41.2167,lng:1.5333},
@@ -435,7 +456,8 @@ const RACES = [
 {name:"Carrera Km contra el cáncer Igualada",loc:"Igualada",dist:"5k",date:"15/11",month:"Noviembre",doy:319,confirmed:true,web:"https://barcelonaenmarxa.org/es/#calendari",lat:41.5833,lng:1.6167},
 {name:"5K/10K Vic",loc:"Vic",dist:"10k y 5k",date:"15/11",month:"Noviembre",doy:319,confirmed:false,web:"https://5k10kvic.cat/",lat:41.9333,lng:2.25},
 {name:"Mitja Lleida",loc:"Lleida",dist:"21k y 5k",date:"15/11",month:"Noviembre",doy:319,confirmed:false,web:"https://mitjalleida.com/",lat:41.6167,lng:0.6167},
-{name:"Km Contra el Càncer Igualada",loc:"Igualada",dist:"5k",date:"25/10",month:"Octubre",doy:298,confirmed:true,web:"https://barcelonaenmarxa.org/es/",lat:41.5833,lng:1.6167},
+{name:"Km Contra el Càncer Igualada",loc:"Igualada",dist:"5k",date:"15/11",month:"Noviembre",doy:319,confirmed:true,web:"https://barcelonaenmarxa.org/es/",lat:41.5833,lng:1.6167},
+{name:"Milla Sagrada Família",loc:"Barcelona",dist:"Milla",date:"15/11",month:"Noviembre",doy:319,confirmed:true,web:"https://claror.cat/es/la-milla/",lat:41.3851,lng:2.1734},
 {name:"Cros 3 Turons",loc:"Barcelona",dist:"12k",date:"15/11",month:"Noviembre",doy:319,confirmed:false,web:"https://www.cros3turons-ladiablada.cat/",lat:41.3851,lng:2.1734},
 {name:"Cursa Trinitat Vella",loc:"Barcelona",dist:"5k",date:"15/11",month:"Noviembre",doy:319,confirmed:false,web:"https://www.asme.cat/cursa-trinitat-vella-2025/",lat:41.3851,lng:2.1734},
 {name:"Mitja Ripoll",loc:"Ripoll",dist:"21k, 10k y 5k",date:"15/11",month:"Noviembre",doy:319,confirmed:false,web:"https://www.mitjamarato.cat/",lat:42.2,lng:2.1833},
@@ -453,16 +475,16 @@ const RACES = [
 {name:"Pujada i Baixada a Guanta",loc:"Sentmenat",dist:"12k y 6k",date:"22/11",month:"Noviembre",doy:326,confirmed:true,web:"https://www.runningseries.net/calendari/",lat:41.6,lng:2.1333},
 {name:"Tarraco Health Race",loc:"Tarragona",dist:"10k y 5k",date:"22/11",month:"Noviembre",doy:326,confirmed:false,web:"https://tarracohealthrace.com/",lat:41.1167,lng:1.25},
 {name:"5K Sant Vicenç Montalt",loc:"Sant Vicenç Montalt",dist:"5k",date:"29/11",month:"Noviembre",doy:333,confirmed:false,web:"https://gesport.cat/",lat:41.5667,lng:2.4833},
-{name:"Jean Bouin",loc:"Barcelona",dist:"10k y 5k",date:"29/11",month:"Noviembre",doy:333,confirmed:false,web:"https://jeanbouin.mundodeportivo.com/",lat:41.3851,lng:2.1734},
+{name:"Jean Bouin",loc:"Barcelona",dist:"10k y 5k",date:"29/11",month:"Noviembre",doy:333,confirmed:true,web:"https://jeanbouin.mundodeportivo.com/",lat:41.3851,lng:2.1734},
 {name:"Cursa Dona Castellar",loc:"Castellar del Vallès",dist:"5k",date:"29/11",month:"Noviembre",doy:333,confirmed:false,web:"https://www.castellarvalles.cat/14352/acte/16515/",lat:41.6167,lng:2.0833},
 {name:"Cursa Dona Sant Joan de Vilatorrada",loc:"Sant Joan de Vilatorrada",dist:"5k",date:"29/11",month:"Noviembre",doy:333,confirmed:false,web:"https://www.santjoanvilatorrada.cat/ca/actualitat/noticies/fem-cursa-cursa-de-la-dona-2025-ja-et-pots-inscriure-als-entrenaments",lat:41.75,lng:1.85},
 {name:"Cursa Sant Andreu",loc:"Barcelona",dist:"5k",date:"06/12",month:"Diciembre",doy:340,confirmed:true,web:"https://www.cnsantandreu.com/cursa-de-sant-andreu-2025/",lat:41.3851,lng:2.1734},
 {name:"Mitja Figueres",loc:"Figueres",dist:"21k y 10k",date:"06/12",month:"Diciembre",doy:340,confirmed:true,web:"https://mitjafigueres.com/",lat:42.2667,lng:2.9667},
 {name:"Cursa Urbana Jeroni Juan",loc:"Sant Jaume d'Enveja",dist:"10k y 5k",date:"13/12",month:"Diciembre",doy:347,confirmed:true,web:"https://www.runningseries.net/calendari/",lat:40.7333,lng:0.75},
-{name:"Cursa UAB",loc:"Campus UAB Bellaterra",dist:"11,6k y 6k",date:"13/12",month:"Diciembre",doy:347,confirmed:false,web:"https://micromecenatge.uab.cat/lacursadelauab",lat:41.5,lng:2.0167},
 {name:"Cursa Sagrera",loc:"Barcelona",dist:"10k y 5k",date:"13/12",month:"Diciembre",doy:347,confirmed:true,web:"https://www.cursadelasagrera.cat/",lat:41.3851,lng:2.1734},
 {name:"Cursa de les Ciutats contra el Càncer de Pàncrees",loc:"Barcelona",dist:"10k y 5k",date:"13/12",month:"Diciembre",doy:347,confirmed:true,web:"https://carreracancerpancreas.es/cursa-barcelona/",lat:41.3851,lng:2.1734},
 {name:"Mitja Vilanova",loc:"Vilanova i la Geltrú",dist:"21k y 10k",date:"13/12",month:"Diciembre",doy:347,confirmed:false,web:"https://mitjavilanova.com/",lat:41.2167,lng:1.725},
+{name:"Cursa UAB",loc:"Campus UAB Bellaterra",dist:"11,6k y 6k",date:"13/12",month:"Diciembre",doy:347,confirmed:false,web:"https://micromecenatge.uab.cat/lacursadelauab",lat:41.5,lng:2.0167},
 {name:"Cursa De Les Empreses",loc:"Barcelona",dist:"10k",date:"13/12",month:"Diciembre",doy:347,confirmed:false,web:"https://www.cursaempreses.com/",lat:41.3851,lng:2.1734},
 {name:"La De Nadal (Cursa Dels Elfs I Elfes)",loc:"Santa Coloma de Gramenet",dist:"5k",date:"19/12",month:"Diciembre",doy:353,confirmed:false,web:"https://esportsgramenet.cat/ladenadal&lang=cat",lat:41.45,lng:2.2083},
 {name:"Cursa Pare Noel",loc:"Barcelona",dist:"5k",date:"20/12",month:"Diciembre",doy:354,confirmed:false,web:"https://www.cursaparenoel.cat/",lat:41.3851,lng:2.1734},
@@ -509,14 +531,98 @@ const RACES = [
 {name:"Sant Silvestre Terra Endins",loc:"Torelló",dist:"5k",date:"31/12",month:"Diciembre",doy:365,confirmed:false,web:"https://www.matxos.cat/",lat:42.05,lng:2.2667}
 ];
 
-// Load saved coords from localStorage
-const savedCoords = JSON.parse(localStorage.getItem('map_coords') || '{}');
+const BASE_COORDS = {
+  "Abrera":[41.5175,1.9014],"Agramunt":[41.7895,1.1009],"Aitona":[41.4833,0.5333],
+  "Albatàrrec":[41.55,0.5833],"Alcanó":[41.4333,0.6167],"Alcarràs":[41.5667,0.5167],
+  "Alguaire":[41.7667,0.5667],"Almenar":[41.7833,0.5667],"Altafulla":[41.15,1.3667],
+  "Amposta":[40.7167,0.5833],"Arenys de Mar":[41.5833,2.55],"Artès":[41.7833,1.95],
+  "Avinyonet de Puigventós":[42.25,2.9833],"Avià":[41.9833,1.8667],"Badalona":[41.45,2.2333],
+  "Badia del Vallès":[41.5,2.0833],"Bagà":[42.25,1.8667],"Balaguer":[41.7833,0.8167],
+  "Banyoles":[42.1167,2.7667],"Barberà del Vallès":[41.5167,2.1333],"Barcelona":[41.3851,2.1734],
+  "Bell-lloc d'Urgell":[41.6333,0.7833],"Bellaterra":[41.5,2.0167],"Bellver de Cerdanya":[42.3667,1.7667],
+  "Bellvís":[41.65,0.9167],"Berga":[42.1,1.85],"Bigues":[41.6833,2.2167],
+  "Bigues i Riells":[41.6833,2.2167],"Botarell":[41.1167,1.0167],"Cabrils":[41.5333,2.3833],
+  "Cadaquès":[42.2833,3.2833],"Calafell":[41.2,1.5667],"Caldes d'Estrach":[41.5667,2.5167],
+  "Caldes de Malavella":[41.8333,2.75],"Caldes de Montbui":[41.6333,2.1667],"Calella":[41.6167,2.65],
+  "Camarles":[40.75,0.6333],"Cambrils":[41.0667,1.0583],"Campus UAB Bellaterra":[41.5,2.0167],
+  "Canet de Mar":[41.5833,2.5833],"Cantonigròs":[42.0167,2.3667],"Canyelles":[41.2833,1.6833],
+  "Cardedeu":[41.6333,2.3667],"Carme":[41.4833,1.6333],"Castellar del Vallès":[41.6167,2.0833],
+  "Castellbisbal":[41.4667,1.9833],"Castelldefels":[41.2833,1.9667],"Castellnou de Seana":[41.6667,0.95],
+  "Castelló d'Empúries":[42.25,3.0833],"Centelles":[41.7833,2.2167],"Cerdanyola del Vallès":[41.4833,2.1333],
+  "Cervera":[41.6667,1.2667],"Corbera de Llobregat":[41.4167,1.9333],"Cornellà":[41.3583,2.075],
+  "Cornellà de Llob.":[41.3583,2.075],"Cornellà de Llobregat":[41.3583,2.075],"Cornellà de Terri":[42.0833,2.8167],
+  "Cunit":[41.2,1.6333],"Deltebre":[40.7333,0.7167],"Diverses localitats Girona":[41.9833,2.8167],
+  "El Bedorc":[41.9167,1.8167],"El Bruc":[41.5833,1.7833],"El Masnou":[41.4833,2.3167],
+  "El Palau d'Anglesola":[41.6833,0.9333],"El Papiolet":[41.45,2.05],"El Perelló":[40.8667,0.7167],
+  "El Port de la Selva":[42.3333,3.2],"El Prat de Llob.":[41.3167,2.0833],"El Prat de Llobregat":[41.3167,2.0833],
+  "El Prat de Lluçanès":[42.0167,2.15],"El Vendrell":[41.2167,1.5333],"Empúries":[42.1333,3.1167],
+  "Esplugues de Llob.":[41.375,2.0833],"Figueres":[42.2667,2.9667],"Folgueroles":[41.9333,2.2667],
+  "Fortià":[42.2167,3.0333],"Gandesa":[41.05,0.45],"Gavà":[41.3,2.0],
+  "Gimenells":[41.6833,0.55],"Girona":[41.9833,2.8167],"Gironella":[42.0333,1.8833],
+  "Granollers":[41.6083,2.2917],"Gurb":[41.9167,2.2667],"Igualada":[41.5833,1.6167],
+  "Ivars d'Urgell":[41.6833,0.9167],"Jesús (Tortosa)":[40.8333,0.5167],"L'Aldea":[40.75,0.65],
+  "L'Ametlla de Merola":[41.9833,1.9],"L'Ametlla de Vilagrassa":[41.6667,1.0667],"L'Ampolla":[40.8,0.7],
+  "L'Arboç":[41.2833,1.55],"L'Escala":[42.1167,3.1333],"L'Espluga de Francolí":[41.3833,1.1],
+  "L'Hospitalet de Llob.":[41.3667,2.1],"L'Hospitalet de Llobregat":[41.3667,2.1],
+  "L'Hospitalet de l'Infant":[40.9833,0.9167],"La Bisbal d'Empordà":[41.9667,3.0333],
+  "La Canonja":[41.1333,1.15],"La Garriga":[41.6833,2.2833],"La Garriga - Les Franqueses":[41.6833,2.2833],
+  "La Granada":[41.3333,1.6667],"La Jonquera":[42.4167,2.8667],"La Llagosta":[41.5333,2.2],
+  "La Pineda":[41.1167,1.1667],"La Pobla de Claramunt":[41.5333,1.6833],"La Portella":[41.7167,0.8167],
+  "La Seu d'Urgell":[42.3583,1.4583],"La Sénia":[40.65,0.2833],"Les Borges Blanques":[41.5167,0.8667],
+  "Les Cabanyes":[41.35,1.65],"Les Franqueses del Vallès":[41.6667,2.3],"Llagostera":[41.8333,2.8833],
+  "Lleida":[41.6167,0.6167],"Lliçà d'Amunt":[41.6333,2.25],"Manlleu":[42.0,2.2833],
+  "Manresa":[41.7333,1.8333],"Marganell":[41.6167,1.85],"Martorell":[41.4833,1.9333],
+  "Massoteres":[41.7,1.2],"Mataró":[41.5333,2.45],"Maçanet de Cabrenys":[42.3333,2.7833],
+  "Menàrguens":[41.75,0.75],"Miami Platja":[41.0,0.9833],"Miralcamp":[41.6667,0.9],
+  "Miravet":[41.0167,0.5167],"Molins de Rei":[41.4167,2.0167],"Mollerussa":[41.6333,0.8833],
+  "Mollet del Vallès":[41.5333,2.2167],"Montblanc":[41.3833,1.1667],"Montbrió del Camp":[41.1167,1.05],
+  "Montcada i Reixac":[41.4833,2.1833],"Montgat":[41.4667,2.2833],"Montornès":[41.55,2.2667],
+  "Montroig":[41.0167,0.9667],"Mora d'Ebre":[41.1,0.6333],"Móra la Nova":[41.1,0.65],
+  "Navata":[42.2167,2.9333],"Olesa de Montserrat":[41.55,1.8833],"Olot":[42.1833,2.4833],
+  "Palafrugell":[41.9167,3.1667],"Palau de Plegamans":[41.5833,2.1667],"Palau-solità i Plegamans":[41.5833,2.1667],
+  "Pallejà":[41.4333,2.0],"Parets del Vallès":[41.5667,2.2333],"Per decidir":[41.5,2.0],
+  "Piera":[41.5167,1.7333],"Pineda de Mar":[41.6333,2.6833],"Polinyà":[41.5667,2.15],
+  "Portbou":[42.4167,3.1667],"Premià de Mar":[41.4833,2.3667],"Puigcerdà":[42.4333,1.9333],
+  "Puigverd de Lleida":[41.5667,0.7],"Raimat":[41.65,0.55],"Reus":[41.15,1.1],
+  "Ripoll":[42.2,2.1833],"Ripollet":[41.4833,2.1667],"Riudecanyes":[41.1333,1.0],
+  "Riudoms":[41.1167,1.05],"Roda de Berà":[41.1667,1.45],"Roses":[42.2667,3.1833],
+  "Rubí":[41.4833,2.0333],"Sabadell":[41.55,2.1083],"Sallent":[41.8167,1.8833],
+  "Salou":[41.0833,1.15],"Salt":[41.9833,2.7833],"Sant Adrià de Besòs":[41.4167,2.2333],
+  "Sant Andreu de la Barca":[41.45,1.9667],"Sant Boi de Llobregat":[41.35,2.0333],
+  "Sant Cebrià de Vallalta":[41.6333,2.6167],"Sant Cugat":[41.4667,2.0833],
+  "Sant Cugat del Vallès":[41.4667,2.0833],"Sant Esteve Sesrovires":[41.4667,1.9167],
+  "Sant Feliu de Codines":[41.6833,2.15],"Sant Feliu de Llobregat":[41.3833,2.05],
+  "Sant Jaume d'Enveja":[40.7333,0.75],"Sant Joan Despí":[41.3667,2.05],
+  "Sant Joan de Vilatorrada":[41.75,1.85],"Sant Just Desvern":[41.3833,2.0667],
+  "Sant Llorenç d'Hortons":[41.45,1.8],"Sant Martí de Centelles":[41.7833,2.2167],
+  "Sant Miquel de Balenyà":[41.7833,2.25],"Sant Quirze del Vallès":[41.5167,2.0833],
+  "Sant Sadurní d'Anoia":[41.4167,1.7833],"Sant Vicenç Montalt":[41.5667,2.4833],
+  "Sant Vicenç dels Horts":[41.3833,2.0167],"Santa Bárbara":[40.7,0.4833],
+  "Santa Coloma de Gramenet":[41.45,2.2083],"Santa Cristina d'Aro":[41.8167,2.9833],
+  "Santa Margarida de Montbui":[41.55,1.6167],"Santa Maria de Martorelles":[41.5833,2.2833],
+  "Santa Maria de Palautordera":[41.6833,2.4333],"Santa Perpètua de Mogoda":[41.55,2.1833],
+  "Santa Perpètua de la Mogoda":[41.55,2.1833],"Sentmenat":[41.6,2.1333],
+  "Sidamon":[41.6833,0.9],"Sitges":[41.2333,1.8167],"Solsona":[41.9833,1.5167],
+  "Tarragona":[41.1167,1.25],"Terrassa":[41.5583,2.0083],"Torelló":[42.05,2.2667],
+  "Torredembarra":[41.15,1.3833],"Torrelameu":[41.7667,0.7333],"Torres de Segre":[41.5333,0.6],
+  "Tortosa":[40.8167,0.5167],"Tossa de Mar":[41.7167,2.9333],"Tàrrega":[41.65,1.15],
+  "Ullastrell":[41.5333,1.9],"Ulldemolins":[41.3167,0.8833],"Vallfogona":[41.75,1.1833],
+  "Valls":[41.2833,1.25],"Verdú":[41.65,1.15],"Vic":[41.9333,2.25],
+  "Vielha":[42.7,0.7833],"Vila-seca":[41.1167,1.15],"Viladecans":[41.3167,2.0333],
+  "Vilafant":[42.25,2.9833],"Vilafranca del Penedès":[41.35,1.7],
+  "Vilanova de Bellpuig":[41.6667,1.0167],"Vilanova de la Barca":[41.6833,0.8333],
+  "Vilanova del Camí":[41.5667,1.6333],"Vilanova i la Geltrú":[41.2167,1.725],
+  "Vilassar de Mar":[41.5,2.3833]
+};
 
-function getCoord(r) {
-  const key = r.loc;
-  if(savedCoords[key]) return savedCoords[key];
-  return [r.lat, r.lng];
+// Saved coords from localStorage (only used by editor)
+const savedCoords = JSON.parse(localStorage.getItem('map_coords_v1') || '{}');
+function getCoord(loc) {
+  return savedCoords[loc] || BASE_COORDS[loc] || null;
 }
+
+// Unique localities for search
+const allLocs = [...new Set(RACES.map(r=>r.loc))].sort();
 
 // Date helpers
 const MONTH_LABELS = ['','Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
@@ -536,25 +642,36 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   maxZoom: 19
 }).addTo(map);
-
-// Apply grayscale to map tiles via CSS
 setTimeout(()=>{
   document.querySelectorAll('.leaflet-tile-pane').forEach(el=>{
     el.style.filter='grayscale(100%) brightness(1.05)';
   });
-},100);
+},300);
 
 let mode = 'locality';
 let editMode = false;
-let selectedMarker = null;
-let markersLayer = L.layerGroup().addTo(map);
 let sliderMin = 1, sliderMax = 366;
+let searchFilter = null;
+let markersLayer = L.layerGroup().addTo(map);
 
-// Slider logic
+// SECRET EDITOR: triple-click on title to toggle
+let titleClicks = 0, titleTimer = null;
+function titleClickEdit() {
+  titleClicks++;
+  if(titleTimer) clearTimeout(titleTimer);
+  titleTimer = setTimeout(() => { titleClicks = 0; }, 600);
+  if(titleClicks >= 3) {
+    titleClicks = 0;
+    editMode = !editMode;
+    document.getElementById('edit-panel').classList.toggle('visible', editMode);
+    renderMarkers();
+  }
+}
+
+// Slider
 const sMin = document.getElementById('slider-min');
 const sMax = document.getElementById('slider-max');
 const sFill = document.getElementById('slider-fill');
-const sWrap = document.getElementById('slider-wrap');
 
 function updateSliderFill() {
   const pct1 = (sliderMin-1)/365*100;
@@ -562,36 +679,73 @@ function updateSliderFill() {
   sFill.style.left = pct1+'%';
   sFill.style.width = (pct2-pct1)+'%';
   const label = document.getElementById('slider-label');
-  if(sliderMin===1 && sliderMax===366) {
-    label.textContent = 'Busca por fecha';
-  } else {
-    label.textContent = doyToLabel(sliderMin) + ' → ' + doyToLabel(sliderMax);
-  }
+  label.textContent = (sliderMin===1 && sliderMax===366)
+    ? 'Busca por fecha'
+    : doyToLabel(sliderMin) + ' → ' + doyToLabel(sliderMax);
+  renderMarkers();
+}
+sMin.addEventListener('input', () => { sliderMin=Math.min(parseInt(sMin.value),sliderMax-1); sMin.value=sliderMin; updateSliderFill(); });
+sMax.addEventListener('input', () => { sliderMax=Math.max(parseInt(sMax.value),sliderMin+1); sMax.value=sliderMax; updateSliderFill(); });
+updateSliderFill();
+
+// Search
+function onSearchInput() {
+  const q = document.getElementById('search-input').value.toLowerCase().trim();
+  document.getElementById('search-clear').style.display = q ? 'block' : 'none';
+  if(!q) { searchFilter=null; hideDropdown(); renderMarkers(); return; }
+  const matches = allLocs.filter(l => l.toLowerCase().includes(q));
+  showDropdown(matches, q);
+}
+function onSearchFocus() {
+  const q = document.getElementById('search-input').value.toLowerCase().trim();
+  if(!q) showDropdown(allLocs.slice(0,12), '');
+}
+function onSearchBlur() { setTimeout(hideDropdown, 200); }
+function showDropdown(locs, q) {
+  const dd = document.getElementById('search-dropdown');
+  if(!locs.length){dd.innerHTML='<div class="search-item" style="color:#aaa">Sin resultados</div>';dd.classList.add('visible');return;}
+  dd.innerHTML = locs.slice(0,15).map(l => {
+    const count = RACES.filter(r=>r.loc===l).length;
+    return `<div class="search-item" onmousedown="selectLoc('${l.replace(/'/,"\\'")}')">
+      <span>${l}</span><span>${count} carrera${count>1?'s':''}</span>
+    </div>`;
+  }).join('');
+  dd.classList.add('visible');
+}
+function hideDropdown() { document.getElementById('search-dropdown').classList.remove('visible'); }
+function selectLoc(loc) {
+  searchFilter = loc;
+  document.getElementById('search-input').value = loc;
+  document.getElementById('search-clear').style.display = 'block';
+  hideDropdown();
+  renderMarkers();
+  // Pan to location
+  const c = getCoord(loc);
+  if(c) map.setView(c, 13);
+}
+function clearSearch() {
+  searchFilter = null;
+  document.getElementById('search-input').value = '';
+  document.getElementById('search-clear').style.display = 'none';
   renderMarkers();
 }
 
-sMin.addEventListener('input', () => {
-  sliderMin = Math.min(parseInt(sMin.value), sliderMax-1);
-  sMin.value = sliderMin;
-  updateSliderFill();
-});
-sMax.addEventListener('input', () => {
-  sliderMax = Math.max(parseInt(sMax.value), sliderMin+1);
-  sMax.value = sliderMax;
-  updateSliderFill();
-});
-updateSliderFill();
-
-// Filter races
+// Filter
 function filteredRaces() {
-  return RACES.filter(r => r.doy >= sliderMin && r.doy <= sliderMax);
+  return RACES.filter(r => {
+    const dateOk = r.doy >= sliderMin && r.doy <= sliderMax;
+    const locOk = !searchFilter || r.loc === searchFilter;
+    return dateOk && locOk;
+  });
 }
 
 // Icons
 function makeIcon(confirmed, count) {
   const bg = confirmed ? '#4a7c59' : '#c47c3e';
   const s = count > 9 ? 34 : count > 4 ? 30 : count > 1 ? 26 : 22;
-  const badge = count > 1 ? `<div style="position:absolute;top:-7px;right:-7px;background:#e65100;color:#fff;font-size:9px;font-weight:700;border-radius:50%;width:15px;height:15px;display:flex;align-items:center;justify-content:center;line-height:1">${count}</div>` : '';
+  const badge = count > 1
+    ? `<div style="position:absolute;top:-7px;right:-7px;background:#111;color:#fff;font-size:9px;font-weight:700;border-radius:50%;width:15px;height:15px;display:flex;align-items:center;justify-content:center">${count}</div>`
+    : '';
   return L.divIcon({
     html: `<div style="position:relative;width:${s}px;height:${s}px;background:${bg};border-radius:50%;border:2.5px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.25)">${badge}</div>`,
     iconSize:[s,s], iconAnchor:[s/2,s/2], className:''
@@ -605,11 +759,9 @@ function makePopupLoc(loc, rs) {
       <span class="popup-rname">${r.name}</span>
       <span class="popup-date">${r.date}</span>
       <span class="popup-dist">${r.dist}</span>
-    </div>`
-  ).join('');
+    </div>`).join('');
   const links = rs.filter(r=>r.web).map(r=>
-    `<a class="popup-link" href="${r.web}" target="_blank">↗ ${r.name}</a>`
-  ).join('');
+    `<a class="popup-link" href="${r.web}" target="_blank">↗ ${r.name}</a>`).join('');
   return `<div style="min-width:210px;max-width:270px">
     <div class="popup-title">${loc}</div>
     <div class="popup-sub">${rs.length} carrera${rs.length>1?'s':''}</div>
@@ -620,114 +772,81 @@ function makePopupLoc(loc, rs) {
 function renderMarkers() {
   markersLayer.clearLayers();
   const fr = filteredRaces();
-
   if(mode === 'locality') {
     const byLoc = {};
     fr.forEach(r => { if(!byLoc[r.loc])byLoc[r.loc]=[]; byLoc[r.loc].push(r); });
     let shown = 0;
     Object.entries(byLoc).forEach(([loc, rs]) => {
+      const c = getCoord(loc);
+      if(!c) return;
       const allConf = rs.every(r=>r.confirmed);
-      const c = getCoord(rs[0]);
-      const marker = L.marker(c, {
-        icon: makeIcon(allConf, rs.length),
-        draggable: editMode
-      });
-      marker.bindPopup(makePopupLoc(loc, rs), {maxWidth:290});
+      const marker = L.marker(c, {icon:makeIcon(allConf,rs.length), draggable:editMode});
+      marker.bindPopup(makePopupLoc(loc,rs),{maxWidth:290});
       if(editMode) {
-        marker.on('click', () => selectMarker(marker, loc));
-        marker.on('dragend', () => {
-          const p = marker.getLatLng();
-          savedCoords[loc] = [+p.lat.toFixed(5), +p.lng.toFixed(5)];
-          localStorage.setItem('map_coords', JSON.stringify(savedCoords));
-          updateEditPanel(loc, savedCoords[loc]);
+        marker.on('click', ()=>showEditCoords(loc, marker.getLatLng()));
+        marker.on('dragend', ()=>{
+          const p=marker.getLatLng();
+          savedCoords[loc]=[+p.lat.toFixed(5),+p.lng.toFixed(5)];
+          localStorage.setItem('map_coords_v1',JSON.stringify(savedCoords));
+          showEditCoords(loc,[p.lat,p.lng]);
         });
       }
       markersLayer.addLayer(marker);
       shown++;
     });
-    document.getElementById('stats').innerHTML = `<strong>${shown}</strong> localidades · <strong>${fr.length}</strong> carreras`;
+    document.getElementById('stats').innerHTML=`<strong>${shown}</strong> localidades · <strong>${fr.length}</strong> carreras`;
   } else {
-    const jitter = () => (Math.random()-0.5)*0.006;
-    fr.forEach(r => {
-      const c = getCoord(r);
-      const marker = L.marker([c[0]+jitter(), c[1]+jitter()], {
-        icon: makeIcon(r.confirmed, 1),
-        draggable: editMode
-      });
+    const jitter=()=>(Math.random()-0.5)*0.006;
+    fr.forEach(r=>{
+      const c=getCoord(r.loc);
+      if(!c)return;
+      const marker=L.marker([c[0]+jitter(),c[1]+jitter()],{icon:makeIcon(r.confirmed,1),draggable:editMode});
       marker.bindPopup(`<div style="min-width:190px">
         <div class="popup-title">${r.name}</div>
         <div class="popup-sub">${r.loc} · ${r.date} · ${r.month}</div>
         <div style="margin-top:5px;font-size:11px;color:#777">${r.dist}</div>
         ${r.web?`<a class="popup-link" href="${r.web}" target="_blank">↗ Web oficial</a>`:''}
-      </div>`, {maxWidth:280});
-      if(editMode) {
-        marker.on('click', () => selectMarker(marker, r.loc));
-        marker.on('dragend', () => {
-          const p = marker.getLatLng();
-          savedCoords[r.loc] = [+p.lat.toFixed(5), +p.lng.toFixed(5)];
-          localStorage.setItem('map_coords', JSON.stringify(savedCoords));
-          updateEditPanel(r.loc, savedCoords[r.loc]);
-        });
-      }
+      </div>`,{maxWidth:280});
       markersLayer.addLayer(marker);
     });
-    document.getElementById('stats').innerHTML = `<strong>${fr.length}</strong> carreras`;
+    document.getElementById('stats').innerHTML=`<strong>${fr.length}</strong> carreras`;
   }
 }
 
-function setMode(m) {
-  mode = m;
-  document.getElementById('btn-loc').classList.toggle('active', m==='locality');
-  document.getElementById('btn-race').classList.toggle('active', m==='race');
-  renderMarkers();
-}
-
-function toggleEdit() {
-  editMode = !editMode;
-  const btn = document.getElementById('edit-btn');
-  const panel = document.getElementById('edit-panel');
-  btn.classList.toggle('active', editMode);
-  btn.textContent = editMode ? '✓ Salir de edición' : '✎ Mover pines';
-  panel.classList.toggle('visible', editMode);
-  renderMarkers();
-}
-
-function selectMarker(marker, loc) {
-  selectedMarker = {marker, loc};
-  const c = marker.getLatLng();
-  updateEditPanel(loc, [c.lat, c.lng]);
-}
-
-function updateEditPanel(loc, coords) {
-  document.getElementById('edit-coords').textContent =
-    `"${loc}": [${coords[0]}, ${coords[1]}]`;
+function showEditCoords(loc, latlng) {
+  document.getElementById('edit-coords').textContent=`"${loc}": [${+latlng.lat.toFixed(5)}, ${+latlng.lng.toFixed(5)}]`;
 }
 
 function copyCoords() {
-  const text = document.getElementById('edit-coords').textContent;
-  navigator.clipboard.writeText(text).then(() => {
-    const btns = document.querySelectorAll('.btn-copy');
-    btns[0].textContent = '✓ Copiado';
-    setTimeout(() => btns[0].textContent = 'Copiar coordenadas del pin', 2000);
+  const text=document.getElementById('edit-coords').textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=document.querySelectorAll('.btn-edit')[0];
+    btn.textContent='✓ Copiado'; setTimeout(()=>btn.textContent='Copiar pin seleccionado',2000);
   });
 }
 
 function exportCoords() {
-  const saved = JSON.parse(localStorage.getItem('map_coords') || '{}');
-  if(Object.keys(saved).length === 0) {
-    alert('No hay coordenadas modificadas todavía. Mueve algún pin primero.');
-    return;
-  }
-  let text = 'COORDENADAS MODIFICADAS:\n';
-  text += '(Pega esto en el chat con Claude)\n\n';
-  Object.entries(saved).forEach(([loc, coords]) => {
-    text += `"${loc}": [${coords[0]}, ${coords[1]}]\n`;
+  const saved=JSON.parse(localStorage.getItem('map_coords_v1')||'{}');
+  if(!Object.keys(saved).length){alert('No hay cambios todavía.');return;}
+  let text='COORDENADAS MODIFICADAS:\n(Pega esto en el chat con Claude)\n\n';
+  Object.entries(saved).forEach(([loc,c])=>{ text+=`"${loc}": [${c[0]}, ${c[1]}]\n`; });
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=document.querySelectorAll('.btn-edit')[1];
+    btn.textContent='✓ Copiado — pégalo en el chat'; setTimeout(()=>btn.textContent='Exportar todos los cambios',3000);
   });
-  navigator.clipboard.writeText(text).then(() => {
-    const btns = document.querySelectorAll('.btn-copy');
-    btns[1].textContent = '✓ Copiado — pégalo en el chat';
-    setTimeout(() => btns[1].textContent = 'Exportar todos los cambios', 3000);
-  });
+}
+
+function closeEdit() {
+  editMode=false;
+  document.getElementById('edit-panel').classList.remove('visible');
+  renderMarkers();
+}
+
+function setMode(m) {
+  mode=m;
+  document.getElementById('btn-loc').classList.toggle('active',m==='locality');
+  document.getElementById('btn-race').classList.toggle('active',m==='race');
+  renderMarkers();
 }
 
 renderMarkers();
