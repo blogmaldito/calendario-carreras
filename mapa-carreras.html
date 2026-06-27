@@ -97,7 +97,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
   <!-- Edit panel: only accessible via secret key combo -->
   <div class="edit-panel" id="edit-panel">
     <h4>✎ Editor de coordenadas</h4>
-    <p>Arrastra los pines para reposicionarlos. Los cambios se guardan en este navegador.</p>
+    <p>Arrastra los pines para moverlos. El último pin movido aparece abajo. Cuando acabes pulsa "Ver cambios".</p>
     <div class="edit-coords" id="edit-coords">Selecciona un pin para ver sus coordenadas</div>
     <button class="btn-edit btn-dark" onclick="copyCoords()">Copiar pin seleccionado</button>
     <button class="btn-edit btn-green" onclick="exportCoords()">Ver todos los cambios</button>
@@ -784,12 +784,15 @@ function renderMarkers() {
       const marker = L.marker(c, {icon:makeIcon(allConf,rs.length), draggable:editMode});
       marker.bindPopup(makePopupLoc(loc,rs),{maxWidth:290});
       if(editMode) {
-        marker.on('click', ()=>showEditCoords(loc, marker.getLatLng()));
+        marker.unbindPopup();
+        marker.on('dragstart', ()=>{
+          document.getElementById('edit-coords').textContent = 'Arrastrando: ' + loc + '...';
+        });
         marker.on('dragend', ()=>{
           const p=marker.getLatLng();
           savedCoords[loc]=[+p.lat.toFixed(5),+p.lng.toFixed(5)];
-          // coords stored in memory
           showEditCoords(loc,[p.lat,p.lng]);
+          updateChangeCount();
         });
       }
       markersLayer.addLayer(marker);
@@ -815,7 +818,14 @@ function renderMarkers() {
 }
 
 function showEditCoords(loc, latlng) {
-  document.getElementById('edit-coords').textContent=`"${loc}": [${+latlng.lat.toFixed(5)}, ${+latlng.lng.toFixed(5)}]`;
+  const lat = typeof latlng.lat === 'function' ? latlng.lat() : latlng[0] || latlng.lat;
+  const lng = typeof latlng.lng === 'function' ? latlng.lng() : latlng[1] || latlng.lng;
+  document.getElementById('edit-coords').textContent=`"${loc}": [${(+lat).toFixed(5)}, ${(+lng).toFixed(5)}]`;
+}
+function updateChangeCount() {
+  const n = Object.keys(savedCoords).length;
+  const btn = document.querySelectorAll('.btn-edit')[1];
+  btn.textContent = n > 0 ? `Ver cambios (${n} pin${n>1?'es':''} movido${n>1?'s':''})` : 'Ver todos los cambios';
 }
 
 function copyCoords() {
