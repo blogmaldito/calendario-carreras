@@ -97,7 +97,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
   <!-- Edit panel: only accessible via secret key combo -->
   <div class="edit-panel" id="edit-panel">
     <h4>✎ Editor de coordenadas</h4>
-    <p><b>1.</b> Haz clic en un pin para seleccionarlo<br><b>2.</b> Haz clic en el mapa donde quieres moverlo<br><b>3.</b> Repite y pulsa "Ver cambios" al acabar</p>
+    <p><b>1.</b> Cambia a "Por carrera"<br><b>2.</b> Clic en el pin a mover (se marca)<br><b>3.</b> Clic en el punto exacto del mapa<br><b>4.</b> Repite y pulsa "Ver cambios"</p>
     <div class="edit-coords" id="edit-coords">Selecciona un pin para ver sus coordenadas</div>
     <button class="btn-edit btn-dark" onclick="copyCoords()">Copiar pin seleccionado</button>
     <button class="btn-edit btn-green" onclick="exportCoords()">Ver todos los cambios</button>
@@ -618,8 +618,11 @@ const BASE_COORDS = {
 
 // Saved coords from localStorage (only used by editor)
 const savedCoords = {}; // in-memory, no localStorage needed
+function getCoordByRace(name, loc) {
+  return savedCoords[name] || BASE_COORDS[loc] || null;
+}
 function getCoord(loc) {
-  return savedCoords[loc] || BASE_COORDS[loc] || null;
+  return BASE_COORDS[loc] || null;
 }
 
 // Unique localities for search
@@ -653,16 +656,17 @@ let selectedPin = null; // {loc, marker}
 
 map.on('click', function(e) {
   if(!editMode || !selectedPin) return;
-  const loc = selectedPin.loc;
+  const key = selectedPin.key;
   const marker = selectedPin.marker;
   const latlng = e.latlng;
   marker.setLatLng(latlng);
-  savedCoords[loc] = [+latlng.lat.toFixed(5), +latlng.lng.toFixed(5)];
-  showEditCoords(loc, latlng);
+  savedCoords[key] = [+latlng.lat.toFixed(5), +latlng.lng.toFixed(5)];
+  document.getElementById('edit-coords').textContent =
+    '✓ ' + key + '\n[' + +latlng.lat.toFixed(5) + ', ' + +latlng.lng.toFixed(5) + ']';
   updateChangeCount();
-  // Flash marker to confirm
   const el = marker.getElement();
-  if(el){ el.style.opacity='0.5'; setTimeout(()=>el.style.opacity='1', 300); }
+  if(el){ el.style.opacity='0.4'; setTimeout(()=>{el.style.opacity='1';el.style.outline='none';},400); }
+  selectedPin = null;
 });
 
 let mode = 'locality';
@@ -827,21 +831,17 @@ function renderMarkers() {
   }
 }
 
-function selectPin(loc, marker) {
-  // Deselect previous
+function selectPin(key, marker, isRace) {
   if(selectedPin && selectedPin.marker !== marker) {
     const el = selectedPin.marker.getElement();
     if(el) el.style.outline = 'none';
   }
-  selectedPin = {loc, marker};
-  // Highlight selected
+  selectedPin = {key, marker, isRace};
   const el = marker.getElement();
   if(el) el.style.outline = '3px solid #111';
   const latlng = marker.getLatLng();
-  showEditCoords(loc, latlng);
-  document.getElementById('edit-coords').textContent = 
-    '📍 Seleccionado: ' + loc + '\nHaz clic en el mapa para moverlo\n[' + 
-    +latlng.lat.toFixed(5) + ', ' + +latlng.lng.toFixed(5) + ']';
+  document.getElementById('edit-coords').textContent =
+    '📍 ' + key + '\nHaz clic en el mapa para moverlo';
 }
 
 function showEditCoords(loc, latlng) {
