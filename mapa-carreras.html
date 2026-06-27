@@ -97,7 +97,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
   <!-- Edit panel: only accessible via secret key combo -->
   <div class="edit-panel" id="edit-panel">
     <h4>✎ Editor de coordenadas</h4>
-    <p>Arrastra los pines para moverlos. El último pin movido aparece abajo. Cuando acabes pulsa "Ver cambios".</p>
+    <p><b>1.</b> Haz clic en un pin para seleccionarlo<br><b>2.</b> Haz clic en el mapa donde quieres moverlo<br><b>3.</b> Repite y pulsa "Ver cambios" al acabar</p>
     <div class="edit-coords" id="edit-coords">Selecciona un pin para ver sus coordenadas</div>
     <button class="btn-edit btn-dark" onclick="copyCoords()">Copiar pin seleccionado</button>
     <button class="btn-edit btn-green" onclick="exportCoords()">Ver todos los cambios</button>
@@ -649,6 +649,22 @@ setTimeout(()=>{
   });
 },300);
 
+let selectedPin = null; // {loc, marker}
+
+map.on('click', function(e) {
+  if(!editMode || !selectedPin) return;
+  const loc = selectedPin.loc;
+  const marker = selectedPin.marker;
+  const latlng = e.latlng;
+  marker.setLatLng(latlng);
+  savedCoords[loc] = [+latlng.lat.toFixed(5), +latlng.lng.toFixed(5)];
+  showEditCoords(loc, latlng);
+  updateChangeCount();
+  // Flash marker to confirm
+  const el = marker.getElement();
+  if(el){ el.style.opacity='0.5'; setTimeout(()=>el.style.opacity='1', 300); }
+});
+
 let mode = 'locality';
 let editMode = false;
 let sliderMin = 1, sliderMax = 366;
@@ -781,18 +797,12 @@ function renderMarkers() {
       const c = getCoord(loc);
       if(!c) return;
       const allConf = rs.every(r=>r.confirmed);
-      const marker = L.marker(c, {icon:makeIcon(allConf,rs.length), draggable:editMode});
+      const marker = L.marker(c, {icon:makeIcon(allConf,rs.length), draggable:false});
       marker.bindPopup(makePopupLoc(loc,rs),{maxWidth:290});
       if(editMode) {
         marker.unbindPopup();
-        marker.on('dragstart', ()=>{
-          document.getElementById('edit-coords').textContent = 'Arrastrando: ' + loc + '...';
-        });
-        marker.on('dragend', ()=>{
-          const p=marker.getLatLng();
-          savedCoords[loc]=[+p.lat.toFixed(5),+p.lng.toFixed(5)];
-          showEditCoords(loc,[p.lat,p.lng]);
-          updateChangeCount();
+        marker.on('click', ()=>{
+          selectPin(loc, marker);
         });
       }
       markersLayer.addLayer(marker);
@@ -815,6 +825,23 @@ function renderMarkers() {
     });
     document.getElementById('stats').innerHTML=`<strong>${fr.length}</strong> carreras`;
   }
+}
+
+function selectPin(loc, marker) {
+  // Deselect previous
+  if(selectedPin && selectedPin.marker !== marker) {
+    const el = selectedPin.marker.getElement();
+    if(el) el.style.outline = 'none';
+  }
+  selectedPin = {loc, marker};
+  // Highlight selected
+  const el = marker.getElement();
+  if(el) el.style.outline = '3px solid #111';
+  const latlng = marker.getLatLng();
+  showEditCoords(loc, latlng);
+  document.getElementById('edit-coords').textContent = 
+    '📍 Seleccionado: ' + loc + '\nHaz clic en el mapa para moverlo\n[' + 
+    +latlng.lat.toFixed(5) + ', ' + +latlng.lng.toFixed(5) + ']';
 }
 
 function showEditCoords(loc, latlng) {
