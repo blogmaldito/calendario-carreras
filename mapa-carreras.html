@@ -11,21 +11,7 @@
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f8f8f8;height:100vh;display:flex;flex-direction:column}
 .topbar{background:#fff;border-bottom:1px solid #e0e0e0;padding:10px 14px;flex-shrink:0}
 .topbar-row1{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
-.map-title{font-size:15px;font-weight:600;color:#111;margin-right:2px}
-.toggle-group{display:flex;border:1px solid #ddd;border-radius:20px;overflow:hidden}
-.toggle-btn{font-size:11px;font-weight:600;padding:4px 12px;background:#fff;color:#777;border:none;cursor:pointer;transition:all .15s;white-space:nowrap}
-.toggle-btn.active{background:#222;color:#fff}
-.map-stats{font-size:11px;color:#aaa;margin-left:auto}
-.map-stats strong{color:#555}
-.slider-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.slider-label{font-size:11px;color:#888;white-space:nowrap;min-width:100px}
-.slider-wrap{flex:1;min-width:150px;position:relative;height:20px}
-.slider-track{position:absolute;top:8px;left:0;right:0;height:4px;background:#e0e0e0;border-radius:2px}
-.slider-fill{position:absolute;top:8px;height:4px;background:#444;border-radius:2px}
-input[type=range]{position:absolute;width:100%;height:4px;top:8px;left:0;appearance:none;background:transparent;pointer-events:none}
-input[type=range]::-webkit-slider-thumb{appearance:none;width:16px;height:16px;border-radius:50%;background:#222;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.3);pointer-events:all;cursor:pointer}
-input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:#222;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.3);pointer-events:all;cursor:pointer}
-/* Search */
+.map-title{font-size:15px;font-weight:600;color:#111;margin-right:2px;cursor:default}
 .search-wrap{position:relative;flex:1;max-width:220px}
 .search-input{width:100%;font-size:12px;padding:5px 10px 5px 28px;border:1px solid #ddd;border-radius:20px;outline:none;color:#333;background:#fff}
 .search-input:focus{border-color:#888}
@@ -34,32 +20,34 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
 .search-dropdown.visible{display:block}
 .search-item{padding:7px 12px;font-size:12px;cursor:pointer;color:#333;display:flex;justify-content:space-between;align-items:center}
 .search-item:hover{background:#f5f5f5}
-.search-item span{font-size:10px;color:#aaa}
 .search-clear{position:absolute;right:9px;top:50%;transform:translateY(-50%);color:#aaa;cursor:pointer;font-size:14px;display:none}
+.map-stats{font-size:11px;color:#aaa;margin-left:auto}
+.map-stats strong{color:#555}
+.slider-row{display:flex;align-items:center;gap:10px}
+.slider-label{font-size:11px;color:#888;white-space:nowrap;min-width:100px}
+.slider-wrap{flex:1;min-width:150px;position:relative;height:20px}
+.slider-track{position:absolute;top:8px;left:0;right:0;height:4px;background:#e0e0e0;border-radius:2px}
+.slider-fill{position:absolute;top:8px;height:4px;background:#444;border-radius:2px}
+input[type=range]{position:absolute;width:100%;height:4px;top:8px;left:0;appearance:none;background:transparent;pointer-events:none}
+input[type=range]::-webkit-slider-thumb{appearance:none;width:16px;height:16px;border-radius:50%;background:#222;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.3);pointer-events:all;cursor:pointer}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:#222;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.3);pointer-events:all;cursor:pointer}
 #map{flex:1;position:relative}
-/* Edit panel - hidden by default, only shown with secret key */
 .edit-panel{position:absolute;top:10px;right:10px;z-index:1000;background:#fff;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,.15);padding:14px;width:260px;display:none;font-size:12px}
 .edit-panel.visible{display:block}
 .edit-panel h4{font-size:13px;font-weight:600;color:#111;margin-bottom:8px}
-.edit-panel p{color:#777;margin-bottom:10px;line-height:1.5;font-size:11px}
-.edit-coords{background:#f5f5f5;border-radius:6px;padding:8px;font-family:monospace;font-size:10px;color:#333;margin-bottom:8px;word-break:break-all;min-height:36px}
-.btn-edit{width:100%;padding:7px;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;margin-top:4px}
+.edit-panel p{color:#777;margin-bottom:10px;line-height:1.6;font-size:11px}
+.edit-coords{background:#f5f5f5;border-radius:6px;padding:8px;font-family:monospace;font-size:10px;color:#333;margin-bottom:8px;word-break:break-all;min-height:40px;white-space:pre-wrap}
+.btn-e{width:100%;padding:7px;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;margin-top:5px}
 .btn-dark{background:#222;color:#fff}
 .btn-green{background:#2e5e3e;color:#fff}
-.btn-dark:hover{background:#444}
-.btn-green:hover{background:#3d7a51}
+.btn-grey{background:#eee;color:#666}
+textarea.export-area{display:none;width:100%;margin-top:8px;font-size:10px;font-family:monospace;padding:6px;border:1px solid #ddd;border-radius:6px;height:110px;resize:vertical;color:#333}
 .legend{position:absolute;bottom:24px;left:10px;z-index:1000;background:rgba(255,255,255,.95);padding:8px 12px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.12);font-size:11px}
 .legend-item{display:flex;align-items:center;gap:6px;margin-bottom:3px;color:#555}
 .legend-item:last-child{margin-bottom:0}
 .legend-dot{width:9px;height:9px;border-radius:50%}
 .popup-title{font-size:13px;font-weight:600;color:#111;margin-bottom:3px}
-.popup-sub{font-size:11px;color:#888;margin-bottom:7px}
-.popup-race{font-size:11px;padding:3px 0;border-bottom:1px solid #f0f0f0;display:flex;gap:5px;align-items:baseline}
-.popup-race:last-child{border-bottom:none}
-.popup-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:2px}
-.popup-rname{flex:1;color:#333;font-weight:500}
-.popup-date{color:#aaa;font-size:10px;white-space:nowrap}
-.popup-dist{font-size:10px;padding:1px 5px;border-radius:6px;background:#f0f0f0;color:#666;white-space:nowrap}
+.popup-sub{font-size:11px;color:#888;margin-bottom:5px}
 .popup-link{display:block;font-size:11px;color:#1565c0;margin-top:5px;text-decoration:none}
 .popup-link:hover{text-decoration:underline}
 </style>
@@ -68,8 +56,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
 
 <div class="topbar">
   <div class="topbar-row1">
-    <span class="map-title" id="map-title" onclick="titleClickEdit()" style="cursor:default" title="">Carreras Cataluña 2026</span>
-
+    <span class="map-title" id="map-title" onclick="titleClick()">Carreras Cataluña 2026</span>
     <div class="search-wrap">
       <span class="search-icon">🔍</span>
       <input class="search-input" id="search-input" type="text" placeholder="Buscar localidad..."
@@ -91,15 +78,13 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
 </div>
 
 <div id="map">
-  <!-- Edit panel: only accessible via secret key combo -->
   <div class="edit-panel" id="edit-panel">
     <h4>✎ Editor de coordenadas</h4>
-    <p><b>1.</b> Cambia a "Por carrera"<br><b>2.</b> Clic en el pin a mover (se marca)<br><b>3.</b> Clic en el punto exacto del mapa<br><b>4.</b> Repite y pulsa "Ver cambios"</p>
-    <div class="edit-coords" id="edit-coords">Selecciona un pin para ver sus coordenadas</div>
-    <button class="btn-edit btn-dark" onclick="copyCoords()">Copiar pin seleccionado</button>
-    <button class="btn-edit btn-green" onclick="exportCoords()">Ver todos los cambios</button>
-    <textarea id="export-area" style="display:none;width:100%;margin-top:8px;font-size:10px;font-family:monospace;padding:6px;border:1px solid #ddd;border-radius:6px;height:120px;resize:vertical;color:#333" readonly></textarea>
-    <button class="btn-edit" style="background:#eee;color:#666;margin-top:6px" onclick="closeEdit()">Cerrar editor</button>
+    <p><b>1.</b> Haz clic en un pin para seleccionarlo<br><b>2.</b> Haz clic en el mapa donde empieza la carrera<br><b>3.</b> Repite y pulsa "Ver cambios"</p>
+    <div class="edit-coords" id="edit-coords">Selecciona un pin para empezar</div>
+    <button class="btn-e btn-green" id="btn-export" onclick="exportCoords()">Ver cambios</button>
+    <textarea class="export-area" id="export-area" readonly></textarea>
+    <button class="btn-e btn-grey" onclick="closeEdit()">Cerrar editor</button>
   </div>
   <div class="legend">
     <div class="legend-item"><div class="legend-dot" style="background:#4a7c59"></div>Confirmada</div>
@@ -108,425 +93,426 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
 </div>
 
 <script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
 const RACES = [
-{name:"Crematorrons Lliçà d'Amunt",loc:"Lliçà d'Amunt",dist:"5,5k",date:"03/01",month:"Enero",doy:3,confirmed:true,web:"https://www.llicamunt.cat/actualitat/agenda/cursa-popular-crematorrons.html",lat:41.6333,lng:2.25},
-{name:"Cursa Reis Cornellà",loc:"Cornellà de Llobregat",dist:"5k",date:"04/01",month:"Enero",doy:4,confirmed:true,web:"http://www.corresolidaris.org/cursadereis/",lat:41.3583,lng:2.075},
-{name:"Mitja Sitges",loc:"Sitges",dist:"21k y 10k",date:"11/01",month:"Enero",doy:11,confirmed:true,web:"https://www.zonavipevents.com/carreras/mitja-sitges/",lat:41.2333,lng:1.8167},
-{name:"Marxa Nadalenca Olot",loc:"Olot",dist:"8k",date:"11/01",month:"Enero",doy:11,confirmed:true,web:"https://www.marxanadalencaolot.cat/p/la-marxa.html",lat:42.1833,lng:2.4833},
-{name:"Crematorrons Miami Platja",loc:"Miami Platja",dist:"10k y 5k",date:"11/01",month:"Enero",doy:11,confirmed:true,web:"https://webtretzesports.wixsite.com/crematorrons",lat:41.0,lng:0.9833},
-{name:"Towerruning Torre Glòries",loc:"Barcelona",dist:"34 plantas",date:"17/01",month:"Enero",doy:17,confirmed:true,web:"https://www.miradortorreglories.com/tower-running/",lat:41.3851,lng:2.1734},
-{name:"Cursa Polinyà",loc:"Polinyà",dist:"10k",date:"17/01",month:"Enero",doy:17,confirmed:true,web:"https://cursapolinya.cat/",lat:41.5667,lng:2.15},
-{name:"Cursa De L'Oli Borges Blanques",loc:"Les Borges Blanques",dist:"10k y 5k",date:"18/01",month:"Enero",doy:18,confirmed:true,web:"https://clubatleticborges.cat/",lat:41.5167,lng:0.8667},
-{name:"Mitja Granollers",loc:"Granollers",dist:"21k, 10k y 5k",date:"18/01",month:"Enero",doy:18,confirmed:true,web:"https://www.lamitja.cat/open-de-la-mitja/",lat:41.6083,lng:2.2917},
-{name:"Cursa Sant Antoni",loc:"Barcelona",dist:"10k y 5k",date:"25/01",month:"Enero",doy:25,confirmed:true,web:"https://cursasantantoni.cat/",lat:41.3851,lng:2.1734},
-{name:"Cursa De La Dona L'Escala",loc:"L'Escala",dist:"5k",date:"25/01",month:"Enero",doy:25,confirmed:true,web:"https://esportslescala.cat/cursa-de-la-dona/",lat:42.1167,lng:3.1333},
-{name:"10K De Vilafranca",loc:"Vilafranca del Penedès",dist:"10k",date:"25/01",month:"Enero",doy:25,confirmed:true,web:"https://10kvilafranca.org/",lat:41.35,lng:1.7},
-{name:"Cursa Agrollobera De Sant Blai",loc:"El Palau d'Anglesola",dist:"10k y 5k",date:"25/01",month:"Enero",doy:25,confirmed:true,web:"https://www.cursadesantblai.cat/",lat:41.6833,lng:0.9333},
-{name:"The Bosco Run",loc:"Barcelona",dist:"5k",date:"01/02",month:"Febrero",doy:32,confirmed:true,web:"https://www.salesianssarria.com/the-bosco-run",lat:41.3851,lng:2.1734},
-{name:"Cursa De Sant Vicenç De Mollet",loc:"Mollet del Vallès",dist:"10k y 5k",date:"01/02",month:"Febrero",doy:32,confirmed:true,web:"https://camollet.cat/",lat:41.5333,lng:2.2167},
-{name:"Mitja Terrassa",loc:"Terrassa",dist:"21k y 5k",date:"01/02",month:"Febrero",doy:32,confirmed:true,web:"https://www.mitjaterrassa.org/curses/mitja-marato/",lat:41.5583,lng:2.0083},
-{name:"Mitja Sant Cugat",loc:"Sant Cugat",dist:"21k, 10k y 5k",date:"01/02",month:"Febrero",doy:32,confirmed:true,web:"https://mitjasantcugat.cat/",lat:41.4667,lng:2.0833},
-{name:"Cursa De La Serra",loc:"Puigverd de Lleida",dist:"10k, 6,5k y Trail 13k",date:"01/02",month:"Febrero",doy:32,confirmed:true,web:"https://aecpuigverd.org/",lat:41.5667,lng:0.7},
-{name:"En Marxa Contra El Càncer Girona",loc:"Girona",dist:"10k y 5k",date:"01/02",month:"Febrero",doy:32,confirmed:true,web:"https://www.instagram.com/contraelcancer.girona/",lat:41.9833,lng:2.8167},
-{name:"Cursa La Pineda Platja",loc:"La Pineda",dist:"10k y 5k",date:"08/02",month:"Febrero",doy:39,confirmed:true,web:"https://www.athleticevents.net/cursa/14a-cursa-solidaria-aquum-spa-la-pineda-platja-517",lat:41.1167,lng:1.1667},
-{name:"Cursa Carnestoltes",loc:"Reus",dist:"5k",date:"08/02",month:"Febrero",doy:39,confirmed:true,web:"https://webtretzesports.wixsite.com/cursadecarnestoltes",lat:41.15,lng:1.1},
-{name:"Run For Càncer",loc:"Diverses localitats Girona",dist:"5k-10k",date:"08/02",month:"Febrero",doy:39,confirmed:true,web:"https://oncolligagirona.cat/reptes-solidaris/run4cancer.html",lat:41.9833,lng:2.8167},
-{name:"En Marxa Contra El Càncer Vilafant",loc:"Vilafant",dist:"10k y 5k",date:"08/02",month:"Febrero",doy:39,confirmed:true,web:"https://curses.cat/vilafantenmarxa2026/",lat:42.25,lng:2.9833},
-{name:"Cursa Popular Camiral",loc:"Caldes de Malavella",dist:"10k y 5k",date:"08/02",month:"Febrero",doy:39,confirmed:true,web:"https://web.rockthesport.com/ca/event/4a-cursa-popular-camiral",lat:41.8333,lng:2.75},
-{name:"Mitja Barcelona",loc:"Barcelona",dist:"21k",date:"15/02",month:"Febrero",doy:46,confirmed:true,web:"https://www.mitjamarato.barcelona/es/",lat:41.3851,lng:2.1734},
-{name:"Pujada A Peu Als Àngels",loc:"Girona",dist:"9,1k",date:"15/02",month:"Febrero",doy:46,confirmed:true,web:"https://geieg.cat/pujada-a-peu-als-angels/",lat:41.9833,lng:2.8167},
-{name:"Mitja Colomenca",loc:"Santa Coloma de Gramenet",dist:"21k y 10k",date:"22/02",month:"Febrero",doy:53,confirmed:true,web:"https://uca.cat/categoria/curses/mitja-marato-colomenca/",lat:41.45,lng:2.2083},
-{name:"Cursa Malalties Minoritàries",loc:"Badalona",dist:"10k y 5k",date:"22/02",month:"Febrero",doy:53,confirmed:true,web:"https://cursa-benefica-malalties-minoritaries.webnode.es/",lat:41.45,lng:2.2333},
-{name:"Volta Al Pantà D'Utxesa",loc:"Torres de Segre",dist:"10k, 6,5k y Trail 13k",date:"22/02",month:"Febrero",doy:53,confirmed:true,web:"https://xtsportevents.com/reglament-volta-al-panta-dutxesa/",lat:41.5333,lng:0.6},
-{name:"Unirun",loc:"Barcelona",dist:"5k",date:"01/03",month:"Marzo",doy:60,confirmed:true,web:"https://unirun.cat/es/home-es/",lat:41.3851,lng:2.1734},
-{name:"Cursa Dona Cornellà",loc:"Cornellà de Llob.",dist:"5k",date:"01/03",month:"Marzo",doy:60,confirmed:true,web:"https://web.rockthesport.com/es/event/cursa-de-la-dona-de-cornella-2026",lat:41.3583,lng:2.075},
-{name:"Mitja Cambrils",loc:"Cambrils",dist:"21k y 10k",date:"01/03",month:"Marzo",doy:60,confirmed:true,web:"https://mitjadecambrils.com/",lat:41.0667,lng:1.0583},
-{name:"Mitja Garrotxa",loc:"Olot",dist:"21k y 10k",date:"01/03",month:"Marzo",doy:60,confirmed:true,web:"https://www.cnolot.cat/",lat:42.1833,lng:2.4833},
-{name:"Cursa De L'Orelleta",loc:"Castellnou de Seana",dist:"10k y 5k",date:"01/03",month:"Marzo",doy:60,confirmed:true,web:"https://cursaorelleta.wixsite.com/cursaorelleta",lat:41.6667,lng:0.95},
-{name:"Cursa Igualtat Bigues I Riells",loc:"Bigues i Riells",dist:"8k",date:"07/03",month:"Marzo",doy:66,confirmed:true,web:"https://www.instagram.com/p/DU-XKuYiGla/",lat:41.6833,lng:2.2167},
-{name:"Cursa Les Vetes",loc:"Llagostera",dist:"9,5k",date:"07/03",month:"Marzo",doy:66,confirmed:true,web:"http://www.lesvetes.cat/ca/fundacio-les-vetes/projeccio-social/xii-cursa-popular-les-vetes",lat:41.8333,lng:2.8833},
-{name:"10.000 I 5.000 L'Ampolla",loc:"L'Ampolla",dist:"10k y 5k",date:"08/03",month:"Marzo",doy:67,confirmed:true,web:"https://www.runningseries.net/calendari/",lat:40.8,lng:0.7},
-{name:"Mitja Balaguer",loc:"Balaguer",dist:"21k, 10k y 5k",date:"08/03",month:"Marzo",doy:67,confirmed:true,web:"https://www.runners.cat/mitja-marato-2026/",lat:41.7833,lng:0.8167},
-{name:"Corsa Dera Hemna",loc:"Vielha",dist:"5k",date:"08/03",month:"Marzo",doy:67,confirmed:true,web:"https://web.rockthesport.com/es/event/12au-corsa-dera-hemna",lat:42.7,lng:0.7833},
-{name:"Cursa De Les Dones Santa Coloma",loc:"Santa Coloma de Gramenet",dist:"5k",date:"14/03",month:"Marzo",doy:73,confirmed:true,web:"https://www.conselharan.org/es/inscripciones-abiertas-para-la-12-a-edicion-de-la-corsa-dera-hemna/",lat:41.45,lng:2.2083},
-{name:"Marató Barcelona",loc:"Barcelona",dist:"42k",date:"15/03",month:"Marzo",doy:74,confirmed:true,web:"https://www.zurichmaratobarcelona.es/",lat:41.3851,lng:2.1734},
-{name:"Cursa De L'Arbre",loc:"El Prat de Llobregat",dist:"10k",date:"15/03",month:"Marzo",doy:74,confirmed:true,web:"https://www.instagram.com/cursadelarbre/",lat:41.3167,lng:2.0833},
-{name:"Cursa De La Dona Canonja",loc:"La Canonja",dist:"5k",date:"15/03",month:"Marzo",doy:74,confirmed:true,web:"https://webtretzesports.wixsite.com/cursadonacanonja",lat:41.1333,lng:1.15},
-{name:"Cursa De La Dona Lleida",loc:"Lleida",dist:"5,6k",date:"15/03",month:"Marzo",doy:74,confirmed:true,web:"https://www.cursadeladonalleida.com/",lat:41.6167,lng:0.6167},
-{name:"Cursa De Sant Valentí",loc:"Les Cabanyes",dist:"3k",date:"15/03",month:"Marzo",doy:74,confirmed:true,web:"https://cursalescabanyes.wordpress.com/",lat:41.35,lng:1.65},
-{name:"Cursa Vilanova Del Camí",loc:"Vilanova del Camí",dist:"10k",date:"15/03",month:"Marzo",doy:74,confirmed:true,web:"https://www.vilanovadelcami.cat/actualitat/agenda/5143-cursa-i-caminada-popular-de-vilanova-del-cami.html",lat:41.5667,lng:1.6333},
-{name:"Cursa Dones Viladecans",loc:"Viladecans",dist:"5k",date:"15/03",month:"Marzo",doy:74,confirmed:true,web:"https://www.viladecans.cat/ca/cursadona26",lat:41.3167,lng:2.0333},
-{name:"Cursa Dones Barberà Del Vallès",loc:"Barberà del Vallès",dist:"5k",date:"15/03",month:"Marzo",doy:74,confirmed:true,web:"https://www.bdv.cat/cursa-del-dia-internacional-de-les-dones#:~:text=La%20cursa%2C%20que%20es%20dur%C3%A0,quil%C3%B2metres%20pels%20carrers%20de%20Barber%C3%A0.",lat:41.5167,lng:2.1333},
-{name:"Cursa Científica Sant Pau",loc:"Barcelona",dist:"10 i 5 voltes",date:"22/03",month:"Marzo",doy:81,confirmed:true,web:"https://www.santpau.cat/",lat:41.3851,lng:2.1734},
-{name:"Mou-Te Per Epilèpsia",loc:"Tarragona",dist:"5k",date:"22/03",month:"Marzo",doy:81,confirmed:true,web:"https://www.rockthesport.com/ca/esdeveniment/v-mou-te-per-lepilepsia-2026",lat:41.1167,lng:1.25},
-{name:"Cursa Entrepobles Gironès",loc:"Llagostera",dist:"10k",date:"22/03",month:"Marzo",doy:81,confirmed:true,web:"https://www.entrepobles.run/cursa-girones-llagostera/",lat:41.8333,lng:2.8833},
-{name:"Mitja De Rams",loc:"Vic",dist:"21k y 5k",date:"22/03",month:"Marzo",doy:81,confirmed:true,web:"https://www.lamitjaderams.cat/",lat:41.9333,lng:2.25},
-{name:"Cursa Caldes D'Estrach 3 Viles",loc:"Caldes d'Estrach",dist:"10k",date:"22/03",month:"Marzo",doy:81,confirmed:true,web:"https://gesport.cat/cursa-caldes-3-viles-10k/",lat:41.5667,lng:2.5167},
-{name:"Cursa / Marxa Hospital Trueta",loc:"Girona",dist:"10k y 5k",date:"22/03",month:"Marzo",doy:81,confirmed:true,web:"https://colabora.hospitaltrueta.cat/cursamarxa70anys",lat:41.9833,lng:2.8167},
-{name:"Cursa Sed Lleida",loc:"Lleida",dist:"5k",date:"22/03",month:"Marzo",doy:81,confirmed:true,web:"https://sedcatalunya.cat/cursased/",lat:41.6167,lng:0.6167},
-{name:"Cursa Del Sucre",loc:"Menàrguens",dist:"10k y 5k",date:"22/03",month:"Marzo",doy:81,confirmed:true,web:"https://lacursadelsucre.web.app/",lat:41.75,lng:0.75},
-{name:"La Pera Run",loc:"Albatàrrec",dist:"10k",date:"22/03",month:"Marzo",doy:81,confirmed:true,web:"https://albatarrec.cat/la-pera-run-dalbatarrec/",lat:41.55,lng:0.5833},
-{name:"Cursa Dona Manresa",loc:"Manresa",dist:"5k",date:"22/03",month:"Marzo",doy:81,confirmed:true,web:"https://www.cursadonamanresa.com/",lat:41.7333,lng:1.8333},
-{name:"La Cursa Del Pont",loc:"Deltebre",dist:"10k y 5k",date:"22/03",month:"Marzo",doy:81,confirmed:true,web:"https://www.runningseries.net/calendari/",lat:40.7333,lng:0.7167},
-{name:"Cursa Dona Pineda De Mar",loc:"Pineda de Mar",dist:"5k",date:"22/03",month:"Marzo",doy:81,confirmed:true,web:"https://gesport.cat/4a-cursa-de-la-dona-pineda-de-mar-5k/",lat:41.6333,lng:2.6833},
-{name:"Correpoble",loc:"Santa Cristina d'Aro",dist:"10k",date:"28/03",month:"Marzo",doy:87,confirmed:true,web:"https://www.correpoble.cat/",lat:41.8167,lng:2.9833},
-{name:"Cursa Martorell",loc:"Martorell",dist:"10k y 5k",date:"29/03",month:"Marzo",doy:88,confirmed:true,web:"https://martorellatletic.cat/25a-cursa-martorell/",lat:41.4833,lng:1.9333},
-{name:"Cursa Del Llangardaix",loc:"La Portella",dist:"10k y 5k",date:"29/03",month:"Marzo",doy:88,confirmed:true,web:"https://xtsportevents.com/reglament-ca-cursa-del-llangardaix/",lat:41.7167,lng:0.8167},
-{name:"CA CO per el T.E.A.",loc:"Piera",dist:"5k",date:"06/04",month:"Abril",doy:96,confirmed:true,web:"https://web.rockthesport.com/es/event/caco-per-el-tea",lat:41.5167,lng:1.7333},
-{name:"Cursa Sant Josep Figueres",loc:"Figueres",dist:"10k y 5k",date:"06/04",month:"Abril",doy:96,confirmed:true,web:"https://curses.cat/",lat:42.2667,lng:2.9667},
-{name:"Salomon Run",loc:"Barcelona",dist:"10k y 5k",date:"11/04",month:"Abril",doy:101,confirmed:true,web:"https://salomonrunbarcelona.com/es/home-esp/",lat:41.3851,lng:2.1734},
-{name:"10K Salou",loc:"Salou",dist:"10k y 5k",date:"11/04",month:"Abril",doy:101,confirmed:true,web:"https://10ksalou.com/es",lat:41.0833,lng:1.15},
-{name:"Cursa del Sahara",loc:"Centelles",dist:"10k y 5k",date:"11/04",month:"Abril",doy:101,confirmed:true,web:"https://www.instagram.com/cursadelsahara/",lat:41.7833,lng:2.2167},
-{name:"Cursa Mossos D'Esquadra Badalona",loc:"Badalona",dist:"10k y 5k",date:"12/04",month:"Abril",doy:102,confirmed:true,web:"https://www.cursamossos.cat/",lat:41.45,lng:2.2333},
-{name:"Cursa Bombers Lleida",loc:"Lleida",dist:"10k",date:"12/04",month:"Abril",doy:102,confirmed:true,web:"https://cursesinfantilsbomberslleida.com/",lat:41.6167,lng:0.6167},
-{name:"Cursa Fem Salut",loc:"Reus",dist:"5k",date:"12/04",month:"Abril",doy:102,confirmed:true,web:"https://femsalutsantjoan.cat/",lat:41.15,lng:1.1},
-{name:"Mitja Montornès",loc:"Montornès",dist:"21k y 6k",date:"12/04",month:"Abril",doy:102,confirmed:true,web:"https://mitjamontornes.com/",lat:41.55,lng:2.2667},
-{name:"Mitja Pla De L'Estany",loc:"Banyoles",dist:"21k y 6k",date:"12/04",month:"Abril",doy:102,confirmed:true,web:"https://cnbanyoles.cat/competicions/mitja-marato-del-pla-de-lestany/",lat:42.1167,lng:2.7667},
-{name:"Cursa Dona Canyelles",loc:"Canyelles",dist:"8k y 4k",date:"12/04",month:"Abril",doy:102,confirmed:true,web:"https://www.weevens.com/esdeveniments/3a-cursa-de-la-dona-de-canyelles/",lat:41.2833,lng:1.6833},
-{name:"Cursa De La Sanitat",loc:"Badalona",dist:"10k y 5,5k",date:"17/04",month:"Abril",doy:107,confirmed:true,web:"https://www.hospitalgermanstrias.cat/ca/web/guest/31-cursa-atletica-de-la-sanitat-catalana",lat:41.45,lng:2.2333},
-{name:"Cursa De L'Horta",loc:"Lleida",dist:"10k y 5k",date:"18/04",month:"Abril",doy:108,confirmed:true,web:"https://labandadelhorta.com/esdeveniments/la-cursa-de-lhorta/",lat:41.6167,lng:0.6167},
-{name:"Mitja Miami Platja",loc:"Montroig",dist:"21k, 10k y 5k",date:"19/04",month:"Abril",doy:109,confirmed:true,web:"https://webtretzesports.wixsite.com/mitjamiamiplatja",lat:41.0167,lng:0.9667},
-{name:"Cursa Lo Caspolino",loc:"Móra la Nova",dist:"10k y 5k",date:"19/04",month:"Abril",doy:109,confirmed:true,web:"https://www.runningseries.net/calendari/",lat:41.1,lng:0.65},
-{name:"Cursa De La Nòria",loc:"Torrelameu",dist:"10k y 5k",date:"19/04",month:"Abril",doy:109,confirmed:true,web:"https://cursadelanoria.weebly.com/",lat:41.7667,lng:0.7333},
-{name:"10 Km De Girona",loc:"Girona",dist:"10k y 5k",date:"19/04",month:"Abril",doy:109,confirmed:true,web:"https://esportsparra.com/",lat:41.9833,lng:2.8167},
-{name:"Marató Empúries",loc:"Empúries",dist:"42k, 21k, 10k y 5k",date:"19/04",month:"Abril",doy:109,confirmed:true,web:"https://esportslescala.cat/marato-dempuries/",lat:42.1333,lng:3.1167},
-{name:"Castarun",loc:"Sant Joan Despí",dist:"10k y 5k",date:"25/04",month:"Abril",doy:115,confirmed:true,web:"https://www.castarun.com/",lat:41.3667,lng:2.05},
-{name:"Cursa Medijocs",loc:"Sant Cugat",dist:"7k",date:"25/04",month:"Abril",doy:115,confirmed:true,web:"https://medijocs.comb.cat/cursaatletica.htm",lat:41.4667,lng:2.0833},
-{name:"Cursa Interempreses Can Gavarra",loc:"Polinyà",dist:"5,6k",date:"25/04",month:"Abril",doy:115,confirmed:true,web:"https://cangavarra.cat/",lat:41.5667,lng:2.15},
-{name:"Marató Del Mediterrani",loc:"Castelldefels",dist:"21k, 10k y 5k",date:"26/04",month:"Abril",doy:116,confirmed:true,web:"https://www.zonavipevents.com/marato-del-mediterrani/",lat:41.2833,lng:1.9667},
-{name:"Marató Per Equips",loc:"Cornellà",dist:"42k y 7k",date:"26/04",month:"Abril",doy:116,confirmed:true,web:"http://www.corresolidaris.org/marato-per-equips/",lat:41.3583,lng:2.075},
-{name:"Carrera Ponle Freno",loc:"Badalona",dist:"10k y 5k",date:"26/04",month:"Abril",doy:116,confirmed:true,web:"https://www.atresmedia.com/ponle-freno/carreras/2026/badalona/",lat:41.45,lng:2.2333},
-{name:"Cursa De Balafià",loc:"Lleida",dist:"10k y 5k",date:"26/04",month:"Abril",doy:116,confirmed:true,web:"https://balafia.org/cursa-balafia-2025/",lat:41.6167,lng:0.6167},
-{name:"Cursa Montilivi",loc:"Girona",dist:"10k y 5k",date:"26/04",month:"Abril",doy:116,confirmed:true,web:"https://www.cursamontilivi.cat/",lat:41.9833,lng:2.8167},
-{name:"Cursa Dona Castelló D'Empúries",loc:"Castelló d'Empúries",dist:"5k",date:"26/04",month:"Abril",doy:116,confirmed:true,web:"https://www.curses.cat/donacastello2026/",lat:42.25,lng:3.0833},
-{name:"Cursa Badia Del Vallès",loc:"Badia del Vallès",dist:"10k y 3,5k",date:"26/04",month:"Abril",doy:116,confirmed:true,web:"https://www.instagram.com/lacursadebadia/",lat:41.5,lng:2.0833},
-{name:"Cursa Sant Jordi",loc:"Sant Esteve Sesrovires",dist:"5,2k y 2,8k",date:"26/04",month:"Abril",doy:116,confirmed:true,web:"https://www.sesrovires.cat/actualitat/agenda-completa/sant-jordi-2026-38a-cursa-de-sant-jordi.html",lat:41.4667,lng:1.9167},
-{name:"Cursa Montgat",loc:"Montgat",dist:"10k y 5k",date:"01/05",month:"Mayo",doy:121,confirmed:true,web:"https://www.lasansieventos.com/es/cursa-montgat",lat:41.4667,lng:2.2833},
-{name:"Cursa De Les Tortugues",loc:"La Garriga",dist:"14k y 7k",date:"01/05",month:"Mayo",doy:121,confirmed:true,web:"https://www.lestortugues.cat/cursa-1-de-maig/",lat:41.6833,lng:2.2833},
-{name:"Cros 1 De Maig",loc:"Artès",dist:"10k y 5k",date:"01/05",month:"Mayo",doy:121,confirmed:true,web:"https://amicsdelacursa.cat/",lat:41.7833,lng:1.95},
-{name:"Run Castell",loc:"Figueres",dist:"10k y 4,5k",date:"01/05",month:"Mayo",doy:121,confirmed:true,web:"https://www.instagram.com/runcastell/",lat:42.2667,lng:2.9667},
-{name:"Cursa Sant Josep",loc:"Montblanc",dist:"10k",date:"01/05",month:"Mayo",doy:121,confirmed:true,web:"https://atleticmontblanc.cat/",lat:41.3833,lng:1.1667},
-{name:"Cursa Altafulla",loc:"Altafulla",dist:"5k",date:"01/05",month:"Mayo",doy:121,confirmed:true,web:"https://www.athleticevents.net/cursa/17a-cursa-cursa-1r-maig-altafulla-2026-518",lat:41.15,lng:1.3667},
-{name:"Milla Urbana Santa Eulàlia",loc:"L'Hospitalet de Llobregat",dist:"1,6k",date:"01/05",month:"Mayo",doy:121,confirmed:true,web:"https://millaurbanasantaeulalia.cat/",lat:41.3667,lng:2.1},
-{name:"Cursa De La Moixina",loc:"Olot",dist:"10k",date:"01/05",month:"Mayo",doy:121,confirmed:true,web:"https://cursadelamoixina.farandularacingteam.cat/",lat:42.1833,lng:2.4833},
-{name:"Milla Del Berguedà",loc:"Berga",dist:"1,6k",date:"01/05",month:"Marzo",doy:121,confirmed:true,web:"https://lamilladelbergueda.org/lacursa",lat:42.1,lng:1.85},
-{name:"Cursa Solidària Cardedeu",loc:"Cardedeu",dist:"10k y 17k trail",date:"03/05",month:"Mayo",doy:123,confirmed:true,web:"https://corrigaires.cat/cursa-solidaria-de-cardedeu/",lat:41.6333,lng:2.3667},
-{name:"Cursa Dones Reus",loc:"Reus",dist:"5k",date:"03/05",month:"Mayo",doy:123,confirmed:true,web:"https://www.cursadonesreus.cat/",lat:41.15,lng:1.1},
-{name:"Milla Modernista",loc:"Terrassa",dist:"1,6k",date:"09/05",month:"Marzo",doy:129,confirmed:true,web:"https://www.ce-terrassa.cat/millamodernista",lat:41.5583,lng:2.0083},
-{name:"5.000 I 10.000 L'Aldea",loc:"L'Aldea",dist:"10k y 5k",date:"09/05",month:"Mayo",doy:129,confirmed:true,web:"https://www.runningseries.net/calendari/",lat:40.75,lng:0.65},
-{name:"Cursa Delta Prat",loc:"El Prat de Llob.",dist:"10k y 5k",date:"10/05",month:"Mayo",doy:130,confirmed:true,web:"https://www.cursadeltaprat.org/",lat:41.3167,lng:2.0833},
-{name:"Corre Por Una Causa",loc:"Cornellà de Llob.",dist:"10k y 5k",date:"10/05",month:"Mayo",doy:130,confirmed:true,web:"https://correporunacausa.org/ca/home-ca/",lat:41.3583,lng:2.075},
-{name:"Mitja Tàrrega",loc:"Tàrrega",dist:"21k y 10k",date:"10/05",month:"Mayo",doy:130,confirmed:true,web:"https://fondistestarrega.com/ca/pc/2-mitja-marato-i-10-km-ciutat-de-tarrega",lat:41.65,lng:1.15},
-{name:"Entrepobles Alt Empordà",loc:"Per decidir",dist:"10k",date:"10/05",month:"Mayo",doy:130,confirmed:true,web:"https://www.entrepobles.run/cursa-alt-emporda/",lat:41.5,lng:2.0},
-{name:"Cursa El Corte Inglés",loc:"Barcelona",dist:"10k y 5k",date:"10/05",month:"Mayo",doy:130,confirmed:true,web:"https://cursaelcorteingles.cat/",lat:41.3851,lng:2.1734},
-{name:"Cursa Dones Rubí",loc:"Rubí",dist:"3,6k",date:"10/05",month:"Mayo",doy:130,confirmed:true,web:"https://www.instagram.com/oncolligarubi/",lat:41.4833,lng:2.0333},
-{name:"Carrera Km contra el cáncer Gavà",loc:"Gavà",dist:"5k",date:"10/05",month:"Mayo",doy:130,confirmed:true,web:"https://barcelonaenmarxa.org/es/#calendari",lat:41.3,lng:2.0},
-{name:"Cursa Green Urban",loc:"Badalona",dist:"5k",date:"10/05",month:"Mayo",doy:130,confirmed:true,web:"https://www.instagram.com/green_urban_games_/",lat:41.45,lng:2.2333},
-{name:"Cursa De Font En Font",loc:"Gurb",dist:"10k",date:"10/05",month:"Mayo",doy:130,confirmed:true,web:"https://www.instagram.com/cursadefontenfont/",lat:41.9167,lng:2.2667},
-{name:"Cursa Del Corriol",loc:"Solsona",dist:"10k y 5k",date:"10/05",month:"Mayo",doy:130,confirmed:true,web:"https://www.instagram.com/cursadelcorriol/",lat:41.9833,lng:1.5167},
-{name:"Batalla Dels Herois",loc:"El Bruc",dist:"21k y 10k",date:"10/05",month:"Mayo",doy:130,confirmed:true,web:"https://www.instagram.com/p/DUjEfHTDQUD/",lat:41.5833,lng:1.7833},
-{name:"Cursa de la Fira dels somnis",loc:"Balaguer",dist:"5k y 3k",date:"10/05",month:"Mayo",doy:130,confirmed:true,web:"https://www.instagram.com/p/DXrtZn6DErq/?igsh=YWVvaDBmZXY2bGxt",lat:41.7833,lng:0.8167},
-{name:"Cursa Nocturna L'Hospitalet",loc:"L'Hospitalet de Llob.",dist:"10k y 5k",date:"16/05",month:"Mayo",doy:136,confirmed:true,web:"https://cursanocturnalh.cat/",lat:41.3667,lng:2.1},
-{name:"Cursa De La Cervesa",loc:"Sant Miquel de Balenyà",dist:"10k",date:"16/05",month:"Mayo",doy:136,confirmed:true,web:"https://cervesamontseny.cat/cursa-de-la-cervesa/",lat:41.7833,lng:2.25},
-{name:"Cursa Nou Barris",loc:"Barcelona",dist:"10k y 5k",date:"17/05",month:"Mayo",doy:137,confirmed:true,web:"http://www.cursanoubarris.cat/",lat:41.3851,lng:2.1734},
-{name:"Checkpoint Race",loc:"Barcelona",dist:"10-30k orientació",date:"17/05",month:"Mayo",doy:137,confirmed:true,web:"https://www.checkpointbcn.com/",lat:41.3851,lng:2.1734},
-{name:"Cursa Ipsi Solidària",loc:"Barcelona",dist:"2k",date:"17/05",month:"Mayo",doy:137,confirmed:true,web:"https://ampaipsi.cat/cursa/",lat:41.3851,lng:2.1734},
-{name:"5K I 10K Vilanova",loc:"Vilanova i la Geltrú",dist:"10k y 5k",date:"17/05",month:"Mayo",doy:137,confirmed:true,web:"https://cursa10kmvng.com/",lat:41.2167,lng:1.725},
-{name:"Cursa Sant Quirze",loc:"Sant Quirze del Vallès",dist:"10k y 5k",date:"17/05",month:"Mayo",doy:137,confirmed:true,web:"https://activitats.corredors.cat/cursasantquirze/cursa/",lat:41.5167,lng:2.0833},
-{name:"Cursa de Primavera",loc:"Sant Andreu de la Barca",dist:"5k",date:"17/05",month:"Mayo",doy:137,confirmed:true,web:"https://esports.sabarca.cat/noticies/182",lat:41.45,lng:1.9667},
-{name:"Run Festival Tossa",loc:"Tossa de Mar",dist:"21k, 10k y 5k",date:"17/05",month:"Mayo",doy:137,confirmed:true,web:"https://runfestivaltossa.com/",lat:41.7167,lng:2.9333},
-{name:"Cursa Claver",loc:"Raimat",dist:"10k y 5k",date:"17/05",month:"Mayo",doy:137,confirmed:true,web:"https://sites.google.com/fje.edu/events/cursa-claver-natura-2026",lat:41.65,lng:0.55},
-{name:"Cursa Embarrocat",loc:"Aitona",dist:"10k y 5,5k",date:"17/05",month:"Mayo",doy:137,confirmed:true,web:"https://embarrocat.wixsite.com/aitona",lat:41.4833,lng:0.5333},
-{name:"Cursa Des-Connecta Per L'Autisme",loc:"Castelldefels",dist:"5k y 1k",date:"17/05",month:"Mayo",doy:137,confirmed:true,web:"https://asociacionistea.com/",lat:41.2833,lng:1.9667},
-{name:"Cursa Vallparadís",loc:"Terrassa",dist:"4,7k",date:"17/05",month:"Mayo",doy:137,confirmed:true,web:"https://ceterrassa.cat/barris/",lat:41.5583,lng:2.0083},
-{name:"Cursa Antiracista Terrassa",loc:"Terrassa",dist:"6k",date:"23/05",month:"Mayo",doy:143,confirmed:true,web:"https://cursaantiracista.com/",lat:41.5583,lng:2.0083},
-{name:"Igualada Urban Running",loc:"Igualada",dist:"5k",date:"23/05",month:"Mayo",doy:143,confirmed:true,web:"https://igualadaurbanrunning.cat/",lat:41.5833,lng:1.6167},
-{name:"10.000 I 5.000 El Perelló",loc:"El Perelló",dist:"10k y 5k",date:"23/05",month:"Mayo",doy:143,confirmed:true,web:"https://www.runningseries.net/calendari/",lat:40.8667,lng:0.7167},
-{name:"Milla Urbana Cambrils",loc:"Cambrils",dist:"Milla",date:"23/05",month:"Mayo",doy:143,confirmed:true,web:"https://www.rockthesport.com/ca/esdeveniment/vi-milla-urbana-solidaria-cambrils-2026",lat:41.0667,lng:1.0583},
-{name:"Cursa De La Bassella",loc:"Miralcamp",dist:"10k y 5k",date:"24/05",month:"Mayo",doy:144,confirmed:true,web:"https://www.instagram.com/cursadelabassella/",lat:41.6667,lng:0.9},
-{name:"Cursa Dir Guàrdia Urbana",loc:"Barcelona",dist:"10k y 5k",date:"24/05",month:"Mayo",doy:144,confirmed:true,web:"https://www.dir.cat/ca/cursa-diagonal",lat:41.3851,lng:2.1734},
-{name:"Milla Urbana Montcada I Reixac",loc:"Montcada i Reixac",dist:"Milla",date:"24/05",month:"Mayo",doy:144,confirmed:true,web:"https://www.jam.cat/lamilla.html",lat:41.4833,lng:2.1833},
-{name:"Fun Run Port Aventura",loc:"Vila-seca",dist:"10k y 5k",date:"24/05",month:"Mayo",doy:144,confirmed:true,web:"https://fundacionportaventura.org/eventos/funrun/",lat:41.1167,lng:1.15},
-{name:"Cursa Solidària Esplugues",loc:"Esplugues de Llob.",dist:"10k y 5k",date:"24/05",month:"Mayo",doy:144,confirmed:true,web:"https://cursasolidaria.esplugues.cat/",lat:41.375,lng:2.0833},
-{name:"Cursa Del Dimoni",loc:"Caldes de Montbui",dist:"10k y 5k",date:"24/05",month:"Mayo",doy:144,confirmed:true,web:"https://clubatleticcalderi.com/curses1/index",lat:41.6333,lng:2.1667},
-{name:"Cursa Ens Movem Per L'Ela",loc:"Sant Jaume d'Enveja",dist:"6k",date:"24/05",month:"Mayo",doy:144,confirmed:true,web:"https://webtretzesports.wixsite.com/ensmovemperlela",lat:40.7333,lng:0.75},
-{name:"Cursa de la Dona Premià de Mar",loc:"Premià de Mar",dist:"5k",date:"24/05",month:"Mayo",doy:144,confirmed:true,web:"https://www.9hsports.cat/ca/informacio_cursa/1209",lat:41.4833,lng:2.3667},
-{name:"Cursa de la Dona Priorat",loc:"Ulldemolins",dist:"10k y 5k",date:"24/05",month:"Mayo",doy:144,confirmed:true,web:"https://sites.google.com/view/aemontsant-cursadonapriorat/3a-cursa-de-la-dona-del-priorat?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnOkqE4PKta5Fk4ChJCXpttX5DvYaIYUZu9LjRUpO34FlOkj9v5nJfkk4HOR4_aem_eiJVcAT6DvoRvZBXUyziIA",lat:41.3167,lng:0.8833},
-{name:"Cursa Sant Pere",loc:"Terrassa",dist:"6,1k",date:"24/05",month:"Mayo",doy:144,confirmed:true,web:"https://ceterrassa.cat/barris/",lat:41.5583,lng:2.0083},
-{name:"Cursa Antiracista Sallent",loc:"Sallent",dist:"5k",date:"24/05",month:"Mayo",doy:144,confirmed:true,web:"https://cursaantiracista.com/",lat:41.8167,lng:1.8833},
-{name:"Cursa Maristes Girona",loc:"Girona",dist:"10k y 5k",date:"24/05",month:"Mayo",doy:144,confirmed:true,web:"https://app.girona.cat/agenda/i/1779108875age52365/cursa-popular-maristes-girona",lat:41.9833,lng:2.8167},
-{name:"Ens movemn per l'ELA",loc:"Sant Jaume d'Enveja",dist:"5k",date:"31/05",month:"Mayo",doy:151,confirmed:true,web:"https://web.rockthesport.com/es/event/ens-movem-per-lela-2026",lat:40.7333,lng:0.75},
-{name:"Cursa del Dimoni",loc:"Badalona",dist:"10k y 5k",date:"31/05",month:"Mayo",doy:151,confirmed:true,web:"https://www.badalona.cat/ca/actualitat/noticies/la-46a-cursa-popular-ciutat-de-badalona-cursa-del-dimoni-se-celebra-el-dissabte-30-de-maig-en-horari-de-tarda",lat:41.45,lng:2.2333},
-{name:"Cursa Vall D'Hebron",loc:"Barcelona",dist:"5k",date:"31/05",month:"Mayo",doy:151,confirmed:true,web:"https://www.vallhebron.com/cursa",lat:41.3851,lng:2.1734},
-{name:"Corro Contra El Càncer",loc:"Sabadell",dist:"5k",date:"31/05",month:"Mayo",doy:151,confirmed:true,web:"https://corrocontraelcancer.cat/",lat:41.55,lng:2.1083},
-{name:"Pujada Al Coll De Pal",loc:"Bagà",dist:"19k",date:"31/05",month:"Mayo",doy:151,confirmed:true,web:"https://www.atletismebaga.cat/category/curses/pujada-coll-de-pal/",lat:42.25,lng:1.8667},
-{name:"Carrera Km contra el cáncer Barcelona",loc:"Barcelona",dist:"5k y 2k",date:"31/05",month:"Mayo",doy:151,confirmed:true,web:"https://barcelonaenmarxa.org/es/#calendari",lat:41.3851,lng:2.1734},
-{name:"Cursa Pla de Bonaire",loc:"Terrassa",dist:"5,7k",date:"31/05",month:"Mayo",doy:151,confirmed:true,web:"https://ceterrassa.cat/barris/",lat:41.5583,lng:2.0083},
-{name:"Cursa Antiracista Girona/Salt",loc:"Salt",dist:"5k",date:"31/05",month:"Mayo",doy:151,confirmed:true,web:"https://cursaantiracista.com/",lat:41.9833,lng:2.7833},
-{name:"Cursa de la Dona al Port de la Selva",loc:"El Port de la Selva",dist:"4k",date:"31/05",month:"Mayo",doy:151,confirmed:true,web:"https://www.instagram.com/p/DXtZvJuDJAd/?igsh=MWRiaXg4N2JheXU0Mg%3D%3D",lat:42.3333,lng:3.2},
-{name:"Mitja Rural de Reus",loc:"Reus",dist:"21k y 10k",date:"31/05",month:"Mayo",doy:151,confirmed:true,web:"https://inscripcions.reus.cat/4aediciodelamitjamaratoruraldereus",lat:41.15,lng:1.1},
-{name:"Cursa solidària: cada pas, un nom de dona",loc:"Botarell",dist:"10k y 5k",date:"31/05",month:"Mayo",doy:151,confirmed:true,web:"https://rgproject.org/ca/carrera-solidaria/",lat:41.1167,lng:1.0167},
-{name:"Abrera Corre D9",loc:"Abrera",dist:"10k y 5k",date:"07/06",month:"Junio",doy:158,confirmed:true,web:"https://cursaabrera.wordpress.com/",lat:41.5175,lng:1.9014},
-{name:"Cursa Antiracista Vic",loc:"Vic",dist:"Por confirmar",date:"07/06",month:"Junio",doy:158,confirmed:true,web:"https://cursaantiracista.com/",lat:41.9333,lng:2.25},
-{name:"Cursa Ela Sant Adrià",loc:"Sant Adrià de Besòs",dist:"5k",date:"07/06",month:"Junio",doy:158,confirmed:true,web:"https://www.lasansi.com/ca/sant-adria-de-besos",lat:41.4167,lng:2.2333},
-{name:"Els 10 Blaus",loc:"Barcelona",dist:"10k y 5k",date:"07/06",month:"Junio",doy:158,confirmed:true,web:"https://cvg.cat/cursa",lat:41.3851,lng:2.1734},
-{name:"Cursa Pineda De Mar",loc:"Pineda de Mar",dist:"10k",date:"07/06",month:"Junio",doy:158,confirmed:true,web:"https://gesport.cat/curses/",lat:41.6333,lng:2.6833},
-{name:"Cursa Memorial Ramon Oliu",loc:"Cantonigròs",dist:"10k",date:"07/06",month:"Junio",doy:158,confirmed:true,web:"http://cursaramonoliu.cat/",lat:42.0167,lng:2.3667},
-{name:"Els 10 De Santa",loc:"Santa Perpètua de Mogoda",dist:"10k",date:"07/06",month:"Junio",doy:158,confirmed:true,web:"https://www.staperpetua.cat/ajuntament/plans-campanyes-i-programes/els-10-de-santa.html",lat:41.55,lng:2.1833},
-{name:"Carrera Km contra el cáncer Sant Cugat",loc:"Sant Cugat del Vallès",dist:"5k",date:"07/06",month:"Junio",doy:158,confirmed:true,web:"https://barcelonaenmarxa.org/es/#calendari",lat:41.4667,lng:2.0833},
-{name:"Cursa Antiracista Barcelona",loc:"Barcelona",dist:"5k",date:"13/06",month:"Junio",doy:164,confirmed:true,web:"https://cursaantiracista.com/",lat:41.3851,lng:2.1734},
-{name:"La Cursa dels 150 anys",loc:"El Prat de Llobregat",dist:"5k",date:"14/06",month:"Junio",doy:165,confirmed:true,web:"https://cursa150.estrelladamm.com/",lat:41.3167,lng:2.0833},
-{name:"10.000 I 5.000 La Sénia",loc:"La Sénia",dist:"10k y 5k",date:"13/06",month:"Junio",doy:164,confirmed:true,web:"https://www.runningseries.net/calendari/",lat:40.65,lng:0.2833},
-{name:"Cursa De La Guineu",loc:"Vilanova de Bellpuig",dist:"10k y 5k",date:"13/06",month:"Junio",doy:164,confirmed:false,web:"https://cursaguineu.cat/",lat:41.6667,lng:1.0167},
-{name:"La Cursa dels 150 anys",loc:"El Prat de Llobregat",dist:"5k",date:"14/06",month:"Junio",doy:165,confirmed:true,web:"https://cursa150.estrelladamm.com/",lat:41.3167,lng:2.0833},
-{name:"Cursa Del Foc",loc:"Olesa de Montserrat",dist:"10k y 5k",date:"14/06",month:"Junio",doy:165,confirmed:true,web:"https://www.cursadelfoc.cat/",lat:41.55,lng:1.8833},
-{name:"Just Urban Trail",loc:"Sant Just Desvern",dist:"3,2k",date:"14/06",month:"Junio",doy:165,confirmed:true,web:"https://trailbarcelona.com/ca/justurbantrail",lat:41.3833,lng:2.0667},
-{name:"Cursa Rotary Banyoles",loc:"Banyoles",dist:"6,4k",date:"14/06",month:"Junio",doy:165,confirmed:true,web:"https://www.instagram.com/p/DVu6ECkCOSP/",lat:42.1167,lng:2.7667},
-{name:"Cursa Roc Blanc",loc:"Terrassa",dist:"5,2k",date:"14/06",month:"Junio",doy:165,confirmed:true,web:"https://ceterrassa.cat/barris/",lat:41.5583,lng:2.0083},
-{name:"Cursa del Secà d'Alcano",loc:"Alcanó",dist:"10k y 5k",date:"14/06",month:"Junio",doy:165,confirmed:true,web:"https://cursadelsecadalcano.com/",lat:41.4333,lng:0.6167},
-{name:"Pujada a Miramar",loc:"Valls",dist:"15k",date:"14/06",month:"Junio",doy:165,confirmed:true,web:"https://www.aaeet.com/wp/?page_id=1299",lat:41.2833,lng:1.25},
-{name:"Cursa Nocturna Cornellà Running 1900",loc:"Cornellà de Llobregat",dist:"5k",date:"20/06",month:"Junio",doy:171,confirmed:true,web:"https://www.corresolidaris.org/cursa-nocturna-cornella/",lat:41.3583,lng:2.075},
-{name:"Cursa Estiu Premià",loc:"Premià de Mar",dist:"10k y 5k",date:"20/06",month:"Junio",doy:171,confirmed:true,web:"https://premiademar.cat/cursadestiu",lat:41.4833,lng:2.3667},
-{name:"Milla Urbana Badalona",loc:"Badalona",dist:"Milla",date:"20/06",month:"Junio",doy:171,confirmed:true,web:"https://gesport.cat/2026-milla-urbana-badalona/",lat:41.45,lng:2.2333},
-{name:"Milla Urbana Canet de Mar",loc:"Canet de Mar",dist:"Milla",date:"20/06",month:"Junio",doy:171,confirmed:true,web:"https://fcatletisme.cat/event/10a-milla-urbana-de-canet-de-mar/",lat:41.5833,lng:2.5833},
-{name:"Cursa Vinyes Del Mig",loc:"Bell-lloc d'Urgell",dist:"10k y 5k",date:"20/06",month:"Junio",doy:171,confirmed:true,web:"https://sites.google.com/view/cursavinyesdelmig",lat:41.6333,lng:0.7833},
-{name:"La Cursiva",loc:"Badalona",dist:"5k",date:"21/06",month:"Junio",doy:172,confirmed:true,web:"https://www.instagram.com/lacima_club/",lat:41.45,lng:2.2333},
-{name:"Cursa Ciutat Cooperativa",loc:"Sant Boi de Llobregat",dist:"10k y 5k",date:"21/06",month:"Junio",doy:172,confirmed:true,web:"https://www.instagram.com/runners_cooperativa/",lat:41.35,lng:2.0333},
-{name:"Cursa Solidària PN i GU L'Hospitalet",loc:"L'Hospitalet de Llob.",dist:"5,5k",date:"21/06",month:"Junio",doy:172,confirmed:true,web:"https://www.ipacatalunya.org/cursa-per-la-paralisi-cerebal-ruta-091-hospitalet/",lat:41.3667,lng:2.1},
-{name:"Cursa Aquopolis Costa Daurada",loc:"Vila-seca",dist:"5k",date:"21/06",month:"Junio",doy:172,confirmed:true,web:"https://www.athleticevents.net/cursa/11a-cursa-solidaria-aquopolis-costa-daurada-la-pineda-platja-529?fbclid=IwY2xjawR4-eVleHRuA2FlbQIxMABicmlkETFmRmhvdk5lUGI1bFRnckM3c3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHqUNfSw0o5woBzklRrKweNWI7JCXYLwPNYI3iV4pCcXA0Pss57wCE86xAkgC_aem_ac1RlNTxsLaVtOFhkI5I8A",lat:41.1167,lng:1.15},
-{name:"Cros de Sant Joan",loc:"El Prat de Lluçanès",dist:"6k",date:"24/06",month:"Junio",doy:175,confirmed:false,web:"https://www.instagram.com/crossantjoan/",lat:42.0167,lng:2.15},
-{name:"Pujada a les Dues Pedres",loc:"Santa Coloma de Gramenet",dist:"10k y 5k",date:"28/06",month:"Junio",doy:179,confirmed:true,web:"https://uca.cat/33-pujada-a-les-dues-pedres-informacio-inscripcions/",lat:41.45,lng:2.2083},
-{name:"Milla Urbana de Sant Pere",loc:"Palau-solità i Plegamans",dist:"1,6k",date:"28/06",month:"Junio",doy:179,confirmed:true,web:"https://www.instagram.com/millaurbanasantpere/",lat:41.5833,lng:2.1667},
-{name:"Cursa Popular del Gornal",loc:"L'Hospitalet de Llob.",dist:"Por confirmar",date:"28/06",month:"Junio",doy:179,confirmed:true,web:"https://www.instagram.com/millaurbanasantpere/",lat:41.3667,lng:2.1},
-{name:"La Cogullada",loc:"Terrassa",dist:"5,3k",date:"28/06",month:"Junio",doy:179,confirmed:true,web:"https://ceterrassa.cat/barris/",lat:41.5583,lng:2.0083},
-{name:"Els 7 Portals",loc:"Vic",dist:"5k",date:"01/07",month:"Julio",doy:182,confirmed:true,web:"https://www.vic.cat/serveis/esports/esdeveniments/cursa-nocturna-els-7-portals-1",lat:41.9333,lng:2.25},
-{name:"Cursa Dani Vilassar",loc:"Vilassar de Mar",dist:"10k y 5k",date:"04/07",month:"Julio",doy:185,confirmed:true,web:"https://danievents.cat/",lat:41.5,lng:2.3833},
-{name:"Cursa Lo Balcó Del Delta",loc:"Camarles",dist:"10k y 5k",date:"04/07",month:"Julio",doy:185,confirmed:true,web:"https://www.runningseries.net/calendari/",lat:40.75,lng:0.6333},
-{name:"Cursa Nectarina Atlètica",loc:"Alcarràs",dist:"10k y 5,5k",date:"04/07",month:"Julio",doy:185,confirmed:true,web:"https://www.instagram.com/nectarinaatletica/",lat:41.5667,lng:0.5167},
-{name:"Cros De Carme",loc:"Carme",dist:"5,5k",date:"04/07",month:"Julio",doy:185,confirmed:true,web:"https://www.instagram.com/cross_de_carme/",lat:41.4833,lng:1.6333},
-{name:"Cursa Festa Major Terrassa",loc:"Terrassa",dist:"6k",date:"04/07",month:"Julio",doy:185,confirmed:true,web:"https://ceterrassa.cat/cursa-festa-major/",lat:41.5583,lng:2.0083},
-{name:"Cursa Pallejà",loc:"Pallejà",dist:"10k y 5k",date:"05/07",month:"Julio",doy:186,confirmed:true,web:"https://cursadepalleja.es/",lat:41.4333,lng:2.0},
-{name:"Miilla Urbana Arenys de Mar",loc:"Arenys de Mar",dist:"Milla",date:"05/07",month:"Julio",doy:186,confirmed:true,web:"https://gesport.cat/formulari/milla-urbana-arenys-de-mar-2026/",lat:41.5833,lng:2.55},
-{name:"Cursa Festa Major Barberà",loc:"Barberà del Vallès",dist:"5k",date:"05/07",month:"Julio",doy:186,confirmed:false,web:"https://uabarbera.com/eventos/xxiii-carrera-de-la-fiesta-mayor-de-barbera-del-valles-2025/",lat:41.5167,lng:2.1333},
-{name:"Cursa de la Dona Riudoms",loc:"Riudoms",dist:"5k",date:"10/07",month:"Julio",doy:191,confirmed:true,web:"https://webtretzesports.wixsite.com/cursadonariudoms",lat:41.1167,lng:1.05},
-{name:"La Gurrinada",loc:"Santa Maria de Martorelles",dist:"12k",date:"10/07",month:"Julio",doy:191,confirmed:true,web:"https://lagurrinada.com/",lat:41.5833,lng:2.2833},
-{name:"Sansi Viladecans",loc:"Viladecans",dist:"5k",date:"11/07",month:"Julio",doy:192,confirmed:true,web:"https://www.lasansi.com/es/sansi-viladecans",lat:41.3167,lng:2.0333},
-{name:"Cursa Dels Firals",loc:"Bellvís",dist:"10k y 5,5k",date:"11/07",month:"Julio",doy:192,confirmed:true,web:"https://cursadelsfirals.cat/#about",lat:41.65,lng:0.9167},
-{name:"Cursa Ca n'Anglada",loc:"Terrassa",dist:"5k",date:"11/07",month:"Julio",doy:192,confirmed:true,web:"https://ceterrassa.cat/barris/",lat:41.5583,lng:2.0083},
-{name:"Cursa La Plana",loc:"Vila-seca",dist:"5k",date:"11/07",month:"Julio",doy:192,confirmed:true,web:"https://www.runnersvilaseca.com/cursalaplana",lat:41.1167,lng:1.15},
-{name:"Cursa Llafranc · Pujada al Far de Sant Sebastià",loc:"Palafrugell",dist:"10k",date:"12/07",month:"Julio",doy:193,confirmed:true,web:"https://www.capalafrugell.cat/llafranc/",lat:41.9167,lng:3.1667},
-{name:"Milla Urbana barri de Covadonga",loc:"Sabadell",dist:"Milla",date:"18/07",month:"Julio",doy:199,confirmed:true,web:"https://www.instagram.com/avcovadonga/",lat:41.55,lng:2.1083},
-{name:"La Ultraplana de la Barquera",loc:"Roda de Berà",dist:"5k",date:"18/07",month:"Julio",doy:199,confirmed:true,web:"https://www.athleticevents.net/reglament/cursa-popular-la-ultraplana-de-la-barquera-2026-530",lat:41.1667,lng:1.45},
-{name:"Cursa Solidària La Granada",loc:"La Granada",dist:"15k y 7k",date:"18/07",month:"Julio",doy:199,confirmed:true,web:"https://www.instagram.com/cursasolidarialagranada/",lat:41.3333,lng:1.6667},
-{name:"Cursa Nocturna de Vilafant",loc:"Vilafant",dist:"10k y 5k",date:"18/07",month:"Julio",doy:199,confirmed:true,web:"https://www.instagram.com/la.nocturna.de.vilafant/",lat:42.25,lng:2.9833},
-{name:"Cursa Poble Sec",loc:"Barcelona",dist:"10k y 5k",date:"19/07",month:"Julio",doy:200,confirmed:true,web:"http://www.carunning.net/",lat:41.3851,lng:2.1734},
-{name:"Nocturna de Sant Jaume",loc:"Reus",dist:"10k",date:"24/07",month:"Julio",doy:205,confirmed:true,web:"https://webtretzesports.wixsite.com/nocturnasantjaume",lat:41.15,lng:1.1},
-{name:"Cursa del Cor",loc:"Gironella",dist:"5k",date:"24/07",month:"Julio",doy:205,confirmed:true,web:"https://web.rockthesport.com/es/event/cursa-del-cor-47a-cursa-sant-jaume-gironella-memorial-quim-raich",lat:42.0333,lng:1.8833},
-{name:"Cursa de l'Àngel d'Almenar",loc:"Almenar",dist:"10k y 5k",date:"25/07",month:"Julio",doy:206,confirmed:true,web:"https://www.instagram.com/paeriaalmenaresports/?igshid=OGQ5ZDc2ODk2ZA%3D%3D",lat:41.7833,lng:0.5667},
-{name:"Cursa L'Hospitalet de l'Infant",loc:"L'Hospitalet de l'Infant",dist:"5k",date:"26/07",month:"Julio",doy:207,confirmed:true,web:"https://webtretzesports.wixsite.com/cursahospitalet",lat:40.9833,lng:0.9167},
-{name:"Cursa Les Santes Mataró",loc:"Mataró",dist:"5,5k",date:"28/07",month:"Julio",doy:209,confirmed:true,web:"https://www.lessantes.cat/agenda-cultura/2026-46a-cursa-popular-les-santes",lat:41.5333,lng:2.45},
-{name:"Cursa L'Espluga De Francolí",loc:"L'Espluga de Francolí",dist:"10k y 5k",date:"01/08",month:"Agosto",doy:213,confirmed:true,web:"https://caesplugui.cat/cursa-atletica/",lat:41.3833,lng:1.1},
-{name:"Cros Vila de Torredembarra",loc:"Torredembarra",dist:"6,5k y 3,2k",date:"01/08",month:"Agosto",doy:213,confirmed:true,web:"https://web.rockthesport.com/es/event/48e-cros-popular-vila-de-torredembarra-2026",lat:41.15,lng:1.3833},
-{name:"Era Nocturna Vielha",loc:"Vielha",dist:"10k y 5k",date:"01/08",month:"Agosto",doy:213,confirmed:false,web:"https://www.nocturnadevielha.com/",lat:42.7,lng:0.7833},
-{name:"Cursa Festa Major La Garriga",loc:"La Garriga",dist:"4,2k",date:"01/08",month:"Agosto",doy:213,confirmed:false,web:"http://lagarriga.cat/ajuntament-seu-electronica/informacio-oficial/2830-actuacions/cursa-popular-de-la-garriga",lat:41.6833,lng:2.2833},
-{name:"Cursa del Seguici",loc:"Tarragona",dist:"5k",date:"01/08",month:"Agosto",doy:213,confirmed:true,web:"https://alliberadrenalina.com/cursa_seguici_tgn/",lat:41.1167,lng:1.25},
-{name:"Cursa Popular Bagà",loc:"Bagà",dist:"8k",date:"02/08",month:"Agosto",doy:214,confirmed:true,web:"https://www.atletismebaga.cat/category/curses/cursa-popular/",lat:42.25,lng:1.8667},
-{name:"Cursa Campi qui Pugui",loc:"El Papiolet",dist:"10k",date:"02/08",month:"Agosto",doy:214,confirmed:true,web:"https://www.athleticevents.net/cursa/20a-cursa-campi-qui-pugui-del-papiolet-528",lat:41.45,lng:2.05},
-{name:"Cursa del gos de Massoteres",loc:"Massoteres",dist:"10k",date:"21/08",month:"Agosto",doy:233,confirmed:true,web:"https://www.instagram.com/joventut_massoteres/",lat:41.7,lng:1.2},
-{name:"Cursa Festa Major Manlleu",loc:"Manlleu",dist:"5k",date:"23/08",month:"Agosto",doy:235,confirmed:true,web:"https://www.olimpicmanlleu.cat/cursa-de-la-festa-major/",lat:42.0,lng:2.2833},
-{name:"Cursa Festa Major Castellbisbal",loc:"Castellbisbal",dist:"6,3k",date:"23/08",month:"Agosto",doy:235,confirmed:false,web:"https://www.mindundisteam.com/esdeveniments/",lat:41.4667,lng:1.9833},
-{name:"Cursa Pedestre Móra d´Ebre",loc:"Mora d'Ebre",dist:"1k",date:"29/08",month:"Agosto",doy:241,confirmed:true,web:"https://picossatrail.cat/cursa-pedestre/",lat:41.1,lng:0.6333},
-{name:"Cursa Tossal de les Tenalles",loc:"Sidamon",dist:"10k y 5k",date:"29/08",month:"Agosto",doy:241,confirmed:true,web:"https://www.cursatossaldelestenalles.cat/",lat:41.6833,lng:0.9},
-{name:"Cursa La Farga",loc:"Barcelona",dist:"2k",date:"29/08",month:"Agosto",doy:241,confirmed:true,web:"https://www.corresolidaris.org/cursa-placa-la-farga/",lat:41.3851,lng:2.1734},
-{name:"Cursa Festa Major Ripollet",loc:"Ripollet",dist:"10k y 5k",date:"30/08",month:"Agosto",doy:242,confirmed:false,web:"https://www.ripolletua.com/cursa-de-festa-major-2025/",lat:41.4833,lng:2.1667},
-{name:"Cursa Festa Major Sants",loc:"Barcelona",dist:"2k",date:"30/08",month:"Agosto",doy:242,confirmed:false,web:"https://aacatalunya.net/cursa-xvii-festa-major-sants/",lat:41.3851,lng:2.1734},
-{name:"Mini-marató Calella de Palafrugell",loc:"Palafrugell",dist:"8,8k",date:"30/08",month:"Agosto",doy:242,confirmed:true,web:"https://www.capalafrugell.cat/mini-marato-calella-de-palafrugell/",lat:41.9167,lng:3.1667},
-{name:"Social Run Gimenells",loc:"Gimenells",dist:"10k y 5k",date:"30/08",month:"Agosto",doy:242,confirmed:true,web:"https://www.instagram.com/socialrungimenells/",lat:41.6833,lng:0.55},
-{name:"Cursa Festa Major Santa Coloma",loc:"Santa Coloma de Gramenet",dist:"5k",date:"05/09",month:"Septiembre",doy:248,confirmed:false,web:"https://esportsgramenet.cat/cursafestamajor&lang=cat",lat:41.45,lng:2.2083},
-{name:"Cursa Festa Major Santa Perpètua",loc:"Santa Perpètua de la Mogoda",dist:"5k",date:"05/09",month:"Septiembre",doy:248,confirmed:false,web:"https://www.staperpetua.cat/actualitat/noticies/sobren-les-inscripcions-a-la-cursa-de-festa-major.html",lat:41.55,lng:2.1833},
-{name:"Cursa 'Parlem del suïcidi'",loc:"Avinyonet de Puigventós",dist:"9k",date:"05/09",month:"Septiembre",doy:248,confirmed:true,web:"https://tdssuicidio.com/",lat:42.25,lng:2.9833},
-{name:"Cursa del Mosquit",loc:"Manresa",dist:"10k y 5k",date:"06/09",month:"Septiembre",doy:249,confirmed:true,web:"https://www.theclubpadel.com/theclub-portfolio/cursa-mosquit/",lat:41.7333,lng:1.8333},
-{name:"Cursa De La Vinya",loc:"Sant Llorenç d'Hortons",dist:"21k y 10k",date:"06/09",month:"Septiembre",doy:249,confirmed:false,web:"https://www.ajhortons.cat/temes/esport/la-28-ena-cursa-de-la-vinya-i-la-7ena-pampol-trail-",lat:41.45,lng:1.8},
-{name:"Cursa Festa Major Sabadell",loc:"Sabadell",dist:"5k",date:"06/09",month:"Septiembre",doy:249,confirmed:false,web:"https://www.cursafestamajorsabadell.cat/",lat:41.55,lng:2.1083},
-{name:"Milla del Drac",loc:"Barcelona",dist:"Milla",date:"10/09",month:"Septiembre",doy:253,confirmed:false,web:"https://dracpoblenou.cat/la-milla-del-drac/",lat:41.3851,lng:2.1734},
-{name:"Cursa Popular Viladecans",loc:"Viladecans",dist:"5k",date:"11/09",month:"Septiembre",doy:254,confirmed:true,web:"https://www.catvila.org/",lat:41.3167,lng:2.0333},
-{name:"Cursa Popular Vall De Tenes",loc:"Bigues",dist:"10k",date:"11/09",month:"Septiembre",doy:254,confirmed:false,web:"https://www.mancomunitatvalltenes.cat/actualitat/noticies/xxxvi-cursa-de-la-vall-del-tenes.html",lat:41.6833,lng:2.2167},
-{name:"La 6.6 Bellaterra",loc:"Bellaterra",dist:"6,6k",date:"11/09",month:"Septiembre",doy:254,confirmed:false,web:"https://la6punt6debellaterra.cat/",lat:41.5,lng:2.0167},
-{name:"Cursa Bellvitge",loc:"L'Hospitalet de Llobregat",dist:"5k",date:"12/09",month:"Septiembre",doy:255,confirmed:false,web:"https://www.instagram.com/cursasolidariabellvitge/",lat:41.3667,lng:2.1},
-{name:"Pujada a la Torre Collserola",loc:"Barcelona",dist:"2,2k",date:"12/09",month:"Septiembre",doy:255,confirmed:false,web:"https://veinsdevallvidrera.blogspot.com/",lat:41.3851,lng:2.1734},
-{name:"Cursa Apaguem El Càncer (Bombers Girona)",loc:"Girona",dist:"10k y 5k",date:"13/09",month:"Septiembre",doy:256,confirmed:true,web:"https://www.cursabombersgirona.cat/",lat:41.9833,lng:2.8167},
-{name:"Cros Ametlla Merola",loc:"L'Ametlla de Merola",dist:"10k y 5k",date:"13/09",month:"Septiembre",doy:256,confirmed:false,web:"http://cross.ametllademerola.cat/",lat:41.9833,lng:1.9},
-{name:"La Cursa de la Coia",loc:"Reus",dist:"5k",date:"13/09",month:"Septiembre",doy:256,confirmed:true,web:"https://www.xiquetsdereus.cat/la-cursa-de-la-coia/",lat:41.15,lng:1.1},
-{name:"10K I 5K De Jesús",loc:"Jesús (Tortosa)",dist:"10k y 5k",date:"19/09",month:"Septiembre",doy:262,confirmed:true,web:"https://www.runningseries.net/calendari/",lat:40.8333,lng:0.5167},
-{name:"Cursa Festa Major Sant Feliu Codines",loc:"Sant Feliu de Codines",dist:"8k",date:"19/09",month:"Septiembre",doy:262,confirmed:false,web:"https://www.santfeliudecodines.cat/actualitat/noticies/obertes-les-inscripcions-a-les-curses-de-festa-major-2025.html",lat:41.6833,lng:2.15},
-{name:"Km Contra el Càncer Badia",loc:"Badia del Vallès",dist:"3,5k",date:"19/09",month:"Septiembre",doy:262,confirmed:true,web:"https://barcelonaenmarxa.org/es/",lat:41.5,lng:2.0833},
-{name:"Km Contra el Càncer El Bedorc",loc:"El Bedorc",dist:"7k",date:"19/09",month:"Septiembre",doy:262,confirmed:true,web:"https://barcelonaenmarxa.org/es/",lat:41.9167,lng:1.8167},
-{name:"Km Contra el Càncer Granollers",loc:"Granollers",dist:"5k",date:"20/09",month:"Septiembre",doy:263,confirmed:true,web:"https://barcelonaenmarxa.org/es/",lat:41.6083,lng:2.2917},
-{name:"Km Contra el Càncer Sant Cebrià",loc:"Sant Cebrià de Vallalta",dist:"Por confirmar",date:"20/09",month:"Septiembre",doy:263,confirmed:true,web:"https://barcelonaenmarxa.org/es/",lat:41.6333,lng:2.6167},
-{name:"Cursa - Caminada Entremuralles",loc:"Cervera",dist:"5k",date:"20/09",month:"Septiembre",doy:263,confirmed:false,web:"https://cesegarra.cat/cursa-popular-entre-muralles/",lat:41.6667,lng:1.2667},
-{name:"Seu Vella Night Race",loc:"Lleida",dist:"5,4k",date:"20/09",month:"Septiembre",doy:263,confirmed:false,web:"https://www.instagram.com/westrunnersproject/",lat:41.6167,lng:0.6167},
-{name:"Cursa Mercè",loc:"Barcelona",dist:"10k",date:"20/09",month:"Septiembre",doy:263,confirmed:true,web:"https://www.barcelona.cat/cursamerce/ca",lat:41.3851,lng:2.1734},
-{name:"Cursa Sant Miquel Molins",loc:"Molins de Rei",dist:"10k y 3,5k",date:"20/09",month:"Septiembre",doy:263,confirmed:false,web:"https://www.molinsderei.site/cursasantmiquel/",lat:41.4167,lng:2.0167},
-{name:"Cursa De La Vaca",loc:"Vallfogona",dist:"10k y 5k",date:"20/09",month:"Septiembre",doy:263,confirmed:true,web:"https://www.cansallebres.cat/",lat:41.75,lng:1.1833},
-{name:"Cursa L'Ametlla De Vilagrassa",loc:"L'Ametlla de Vilagrassa",dist:"10k y 5k",date:"20/09",month:"Septiembre",doy:263,confirmed:true,web:"https://www.vilagrassa.cat/firametlla/cursa",lat:41.6667,lng:1.0667},
-{name:"Cursa De La Dona Ripoll",loc:"Ripoll",dist:"5k",date:"20/09",month:"Septiembre",doy:263,confirmed:false,web:"https://ripoll.cat/cursadeladona/",lat:42.2,lng:2.1833},
-{name:"Cursa De La Dona De Roses",loc:"Roses",dist:"5k",date:"20/09",month:"Septiembre",doy:263,confirmed:true,web:"https://www.atletismeroses.cat/cursa-de-la-dona",lat:42.2667,lng:3.1833},
-{name:"Cursa Popular Prat",loc:"El Prat de Llobregat",dist:"10k y 5k",date:"27/09",month:"Septiembre",doy:270,confirmed:false,web:"https://www.elprat.cat/esports/actes-esportius/cursa-popular",lat:41.3167,lng:2.0833},
-{name:"Cursa La Llagosta",loc:"La Llagosta",dist:"10k y 5k",date:"27/09",month:"Septiembre",doy:270,confirmed:true,web:"https://www.lasansieventos.com/ca/cursa-de-la-llagosta",lat:41.5333,lng:2.2},
-{name:"Km Contra el Càncer La Pobla de Claramunt",loc:"La Pobla de Claramunt",dist:"7k",date:"27/09",month:"Septiembre",doy:270,confirmed:true,web:"https://barcelonaenmarxa.org/es/",lat:41.5333,lng:1.6833},
-{name:"Cursa Bacus De Verdú",loc:"Verdú",dist:"10k y 5k",date:"27/09",month:"Septiembre",doy:270,confirmed:false,web:"https://www.verdu.cat/actualitat/agenda/iia-cursa-bacus",lat:41.65,lng:1.15},
-{name:"Cursa Dona Girona",loc:"Girona",dist:"5,5k",date:"27/09",month:"Septiembre",doy:270,confirmed:true,web:"https://www.cursadeladonagirona.com/",lat:41.9833,lng:2.8167},
-{name:"Cursa Solidària I Inclusiva Del Trampolí",loc:"La Bisbal d'Empordà",dist:"10k y 5k",date:"27/09",month:"Septiembre",doy:270,confirmed:false,web:"https://www.instagram.com/p/DOYF4D4jLCc/",lat:41.9667,lng:3.0333},
-{name:"Cursa Sant Miquel (Iter 5)",loc:"Lleida",dist:"10k y 5k",date:"27/09",month:"Septiembre",doy:270,confirmed:true,web:"http://www.cursasantmiquel.net/",lat:41.6167,lng:0.6167},
-{name:"Sosciathlon",loc:"Salou",dist:"5k",date:"27/09",month:"Septiembre",doy:270,confirmed:true,web:"https://www.sosciathlon.org/ca/",lat:41.0833,lng:1.15},
-{name:"Cursa Can Jofresa",loc:"Terrassa",dist:"Por confirmar",date:"27/09",month:"Septiembre",doy:270,confirmed:true,web:"https://ceterrassa.cat/barris/",lat:41.5583,lng:2.0083},
-{name:"Cursa Matonera",loc:"Marganell",dist:"12k",date:"27/09",month:"Septiembre",doy:270,confirmed:true,web:"https://www.instagram.com/cursamatonera/",lat:41.6167,lng:1.85},
-{name:"Metropolitan Sky Run",loc:"L'Hospitalet de Llobregat",dist:"-",date:"03/10",month:"Octubre",doy:276,confirmed:true,web:"https://metropolitanskyrun.com/",lat:41.3667,lng:2.1},
-{name:"Cursa De La Tardor Sant Andreu Barca",loc:"Sant Andreu de la Barca",dist:"10k y 5k",date:"03/10",month:"Octubre",doy:276,confirmed:false,web:"https://cursadelatardor.com/",lat:41.45,lng:1.9667},
-{name:"Cursa Nick Horta",loc:"Barcelona",dist:"5k",date:"04/10",month:"Octubre",doy:277,confirmed:false,web:"https://www.instagram.com/cursa_nick_horta_/",lat:41.3851,lng:2.1734},
-{name:"Cursa Lo Carrilet",loc:"Tortosa",dist:"10k y 5k",date:"04/10",month:"Octubre",doy:277,confirmed:false,web:"https://www.runningseries.net/calendari/",lat:40.8167,lng:0.5167},
-{name:"Cursa Antiracista Sabadell",loc:"Sabadell",dist:"5k",date:"04/10",month:"Octubre",doy:277,confirmed:true,web:"https://cursaantiracista.com/",lat:41.55,lng:2.1083},
-{name:"Cursa Fanny Sallès",loc:"Terrassa",dist:"5k",date:"04/10",month:"Octubre",doy:277,confirmed:true,web:"https://www.mitjaterrassa.org/curses/cursa-de-les-dones-terrassa/",lat:41.5583,lng:2.0083},
-{name:"Cursa De La Tardor Sant Andreu Barca",loc:"Sant Andreu de la Barca",dist:"10k y 5k",date:"04/10",month:"Octubre",doy:277,confirmed:false,web:"https://cursadelatardor.com/",lat:41.45,lng:1.9667},
-{name:"Cursa Nosaltres També Podem",loc:"Lleida",dist:"10k y 5k",date:"04/10",month:"Octubre",doy:277,confirmed:true,web:"https://aspros.cat/cursa-aspros/",lat:41.6167,lng:0.6167},
-{name:"Cursa I Caminada 5K L'Arboç",loc:"L'Arboç",dist:"5k",date:"04/10",month:"Octubre",doy:277,confirmed:false,web:"https://www.facebook.com/cursa5Klarboc/?locale=ca_ES",lat:41.2833,lng:1.55},
-{name:"Cursa Parets De Vallès",loc:"Parets del Vallès",dist:"10k y 5k",date:"04/10",month:"Octubre",doy:277,confirmed:false,web:"https://www.caparets.com/la-cursa",lat:41.5667,lng:2.2333},
-{name:"Cursa Dona Vilanova I La Geltrú",loc:"Vilanova i la Geltrú",dist:"5k",date:"04/10",month:"Octubre",doy:277,confirmed:false,web:"https://cursadeladonavilanovailageltru.com/",lat:41.2167,lng:1.725},
-{name:"Cursa Antiracista Garrotxa",loc:"Olot",dist:"7k",date:"10/10",month:"Octubre",doy:283,confirmed:true,web:"https://cursaantiracista.com/",lat:42.1833,lng:2.4833},
-{name:"Cursa Del Torró D'Agramunt",loc:"Agramunt",dist:"10k y 5k",date:"11/10",month:"Octubre",doy:284,confirmed:false,web:"https://agramuntesports.cat/cursa-del-torro-2025/#:~:text=com%20sempre%20l'Ajuntament%20d,cursa%20%C3%A9s%20a%20les%2010h.",lat:41.7895,lng:1.1009},
-{name:"Cursa Del Remei",loc:"Santa Maria de Palautordera",dist:"10k",date:"11/10",month:"Octubre",doy:284,confirmed:false,web:"https://www.facebook.com/p/Cursa-10-Km-del-Remei-100064279255530/",lat:41.6833,lng:2.4333},
-{name:"10K Lleida Internacional Race",loc:"Lleida",dist:"10k",date:"11/10",month:"Octubre",doy:284,confirmed:true,web:"https://10klleida.com/",lat:41.6167,lng:0.6167},
-{name:"Volta Aeroport Alguaire",loc:"Alguaire",dist:"10k y 5,4k",date:"12/10",month:"Octubre",doy:285,confirmed:true,web:"https://lomakot.cat/cartell-2/",lat:41.7667,lng:0.5667},
-{name:"Lleida Mou-Te Contra El Càncer",loc:"Lleida",dist:"10k y 5k",date:"17/10",month:"Octubre",doy:290,confirmed:false,web:"https://enmarcha.contraelcancer.es/es/evento/lleida-en-marcha-contra-el-cancer-2025",lat:41.6167,lng:0.6167},
-{name:"Cursa Vertical Walden",loc:"Sant Just Desvern",dist:"-",date:"17/10",month:"Octubre",doy:290,confirmed:false,web:"https://trailbarcelona.com/ca/vertical-walden",lat:41.3833,lng:2.0667},
-{name:"Cursa Lluís Companys",loc:"Barcelona",dist:"10k y 5k",date:"17/10",month:"Octubre",doy:290,confirmed:false,web:"https://cursacompanys.cat/",lat:41.3851,lng:2.1734},
-{name:"Cros De Sants",loc:"Barcelona",dist:"10k",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://crospopulardesants.cat/",lat:41.3851,lng:2.1734},
-{name:"Cursa Mercabarna",loc:"Barcelona",dist:"10k y 5k",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://www.cursamercabarna.cat/",lat:41.3851,lng:2.1734},
-{name:"Km Contra el Càncer Santa Coloma",loc:"Santa Coloma de Gramenet",dist:"5k",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://barcelonaenmarxa.org/es/",lat:41.45,lng:2.2083},
-{name:"Km Contra el Càncer Sant Feliu",loc:"Sant Feliu de Llobregat",dist:"Por confirmar",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://barcelonaenmarxa.org/es/",lat:41.3833,lng:2.05},
-{name:"Cursa De La Dona Corbera",loc:"Corbera de Llobregat",dist:"7k",date:"18/10",month:"Octubre",doy:291,confirmed:false,web:"https://www.cinccims.cat/cursa-de-la-dona-19-10-25/",lat:41.4167,lng:1.9333},
-{name:"Pink Run Montcada I Reixac",loc:"Montcada i Reixac",dist:"5k",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://www.nonstoprun.com/pinkrun/",lat:41.4833,lng:2.1833},
-{name:"La De Deu De Cornellà",loc:"Cornellà de Llobregat",dist:"10k y 5k",date:"18/10",month:"Octubre",doy:291,confirmed:false,web:"https://cornellaatletic.com/la-de-deu/",lat:41.3583,lng:2.075},
-{name:"Mitja Mollerussa",loc:"Mollerussa",dist:"21k y 5k",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://sites.google.com/mollerussa.cat/mitjamollerussa/",lat:41.6333,lng:0.8833},
-{name:"Mitja Puigcerdà",loc:"Puigcerdà",dist:"21k, 10k y 5k",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://www.puigcerda.cat/ca/serveis/esports/28a-mitja-marato-de-puigcerda-by-bwt-2026/",lat:42.4333,lng:1.9333},
-{name:"Mitja Vila-Seca",loc:"Vila-seca",dist:"21k, 10k, 5k",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://www.runnersvilaseca.com/",lat:41.1167,lng:1.15},
-{name:"Cursa Carrer 9 Girona",loc:"Girona",dist:"10k y 5k",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://cursacarrernou.cat/",lat:41.9833,lng:2.8167},
-{name:"Women Race Cursa Corte Inglés",loc:"Tarragona",dist:"5k",date:"18/10",month:"Octubre",doy:291,confirmed:false,web:"https://womenrace.cat/",lat:41.1167,lng:1.25},
-{name:"Carrera Km contra el cáncer Santa Coloma",loc:"Santa Coloma de Gramenet",dist:"5k",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://barcelonaenmarxa.org/es/#calendari",lat:41.45,lng:2.2083},
-{name:"Corre Cava",loc:"Sant Sadurní d'Anoia",dist:"10k",date:"18/10",month:"Octubre",doy:291,confirmed:false,web:"https://www.tretzesports.org/",lat:41.4167,lng:1.7833},
-{name:"Cursa Torresana",loc:"Terrassa",dist:"Por confirmar",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://ceterrassa.cat/barris/",lat:41.5583,lng:2.0083},
-{name:"La Vicentina",loc:"Sant Vicenç dels Horts",dist:"10k y 5k",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://gesport.cat/curses/",lat:41.3833,lng:2.0167},
-{name:"Race For Life",loc:"Sabadell",dist:"5k",date:"18/10",month:"Octubre",doy:291,confirmed:false,web:"https://www.oncolliga.cat/oncolliga-sabadell-presenta-la-4a-race-for-life-pel-cancer-de-mama/",lat:41.55,lng:2.1083},
-{name:"Cursa De La Dona Figueres",loc:"Figueres",dist:"5k",date:"18/10",month:"Octubre",doy:291,confirmed:false,web:"https://www.figueres.cat/actualitat/cursa-de-la-dona",lat:42.2667,lng:2.9667},
-{name:"Cursa De Les Dones Torres De L'Ebre",loc:"Miravet",dist:"5k",date:"18/10",month:"Octubre",doy:291,confirmed:false,web:"https://www.instagram.com/cursadelesdonesebre/",lat:41.0167,lng:0.5167},
-{name:"Corre Per Les Mames",loc:"Diverses localitats Girona",dist:"3k-10k",date:"18/10",month:"Octubre",doy:291,confirmed:false,web:"https://oncolligagirona.cat/activitats-solidaries/corre-per-les-mames.html",lat:41.9833,lng:2.8167},
-{name:"Cursa Antiracista Solsona",loc:"Solsona",dist:"5k",date:"24/10",month:"Octubre",doy:297,confirmed:true,web:"https://cursaantiracista.com/",lat:41.9833,lng:1.5167},
-{name:"Cursa Udl",loc:"Lleida",dist:"5k",date:"24/10",month:"Octubre",doy:297,confirmed:false,web:"https://estudiantat.udl.cat/ca/ce/CEUdL/230/",lat:41.6167,lng:0.6167},
-{name:"Mitja Vendrell",loc:"El Vendrell",dist:"21k, 10k y 5k",date:"25/10",month:"Octubre",doy:298,confirmed:true,web:"https://mitjavendrell.runnerselvendrell.cat/",lat:41.2167,lng:1.5333},
-{name:"Mitja Costa Barcelona Maresme",loc:"Calella",dist:"21k",date:"25/10",month:"Octubre",doy:298,confirmed:true,web:"https://gesport.cat/mitja-marato-costa-barcelona-maresme-2026/",lat:41.6167,lng:2.65},
-{name:"10.000 I 5.000 Santa Bàrbara",loc:"Santa Bárbara",dist:"10k y 5k",date:"25/10",month:"Octubre",doy:298,confirmed:true,web:"https://www.runningseries.net/calendari/",lat:40.7,lng:0.4833},
-{name:"5K/10K Manresa",loc:"Manresa",dist:"10k y 5k",date:"25/10",month:"Octubre",doy:298,confirmed:true,web:"https://clubatleticmanresa.cat/cursa-urbana-de-manresa/",lat:41.7333,lng:1.8333},
-{name:"Cursa De La Barca De Vilanova De La Barca",loc:"Vilanova de la Barca",dist:"10k y 5k",date:"25/10",month:"Octubre",doy:298,confirmed:true,web:"https://xtsportevents.com/reglament-ca-cursa-la-barca/",lat:41.6833,lng:0.8333},
-{name:"Cursa Pau Dinarès",loc:"Terrassa",dist:"10k",date:"25/10",month:"Octubre",doy:298,confirmed:true,web:"https://xeu.cat/associacio-dina35/",lat:41.5583,lng:2.0083},
-{name:"Cursa Antiracista Osona",loc:"Vic",dist:"5k",date:"25/10",month:"Octubre",doy:298,confirmed:true,web:"https://cursaantiracista.com/",lat:41.9333,lng:2.25},
-{name:"Km Contra el Càncer Santa Margarida",loc:"Santa Margarida de Montbui",dist:"Por confirmar",date:"25/10",month:"Octubre",doy:298,confirmed:true,web:"https://barcelonaenmarxa.org/es/",lat:41.55,lng:1.6167},
-{name:"Km Contra el Càncer Premià",loc:"Premià de Mar",dist:"Por confirmar",date:"25/10",month:"Octubre",doy:298,confirmed:true,web:"https://barcelonaenmarxa.org/es/",lat:41.4833,lng:2.3667},
-{name:"10K Montbrió Del Camp",loc:"Montbrió del Camp",dist:"10k y 5k",date:"25/10",month:"Octubre",doy:298,confirmed:false,web:"https://webtretzesports.wixsite.com/10kmontbriodelcamp",lat:41.1167,lng:1.05},
-{name:"Cursa De La Dona - Calafell",loc:"Calafell",dist:"4k",date:"25/10",month:"Octubre",doy:298,confirmed:false,web:"https://www.athleticevents.net/cursa/vii-cursa-de-la-dona-calafell-506",lat:41.2,lng:1.5667},
-{name:"Pink Run Palau",loc:"Palau de Plegamans",dist:"3,6k",date:"25/10",month:"Octubre",doy:298,confirmed:true,web:"https://www.nonstoprun.com/pinkrunpalau/index.php?lang=es",lat:41.5833,lng:2.1667},
-{name:"Tast Mitja",loc:"La Garriga - Les Franqueses",dist:"10k",date:"31/10",month:"Octubre",doy:304,confirmed:false,web:"https://eltast.lamitja.cat/",lat:41.6833,lng:2.2833},
-{name:"Cursa Nocturna De La Cerveza Montseny",loc:"Sant Miquel de Balenyà",dist:"10k",date:"01/11",month:"Noviembre",doy:305,confirmed:false,web:"https://cervesamontseny.cat/es/carrera-de-la-cerveza-nocturna/",lat:41.7833,lng:2.25},
-{name:"Montjuïc A Tibidabo",loc:"Barcelona",dist:"21k y 10k",date:"01/11",month:"Noviembre",doy:305,confirmed:false,web:"https://montjuictibidabo.cat/es/",lat:41.3851,lng:2.1734},
-{name:"Cursa De Sant Crist De Balaguer",loc:"Balaguer",dist:"10k y 5k",date:"07/11",month:"Noviembre",doy:311,confirmed:false,web:"https://www.runners.cat/5k-cursa-del-sant-crist-balaguer-2025/",lat:41.7833,lng:0.8167},
-{name:"Mitja Tarragona",loc:"Tarragona",dist:"21k y 10k",date:"08/11",month:"Noviembre",doy:312,confirmed:false,web:"https://www.mitjatarragona.cat/es/",lat:41.1167,lng:1.25},
-{name:"10.000 I 5.000 Amposta",loc:"Amposta",dist:"10k y 5k",date:"08/11",month:"Noviembre",doy:312,confirmed:true,web:"https://www.runningseries.net/calendari/",lat:40.7167,lng:0.5833},
-{name:"Cursa Bombers",loc:"Barcelona",dist:"10k",date:"08/11",month:"Noviembre",doy:312,confirmed:false,web:"https://cursadebombers.barcelona/es/",lat:41.3851,lng:2.1734},
-{name:"Córrer Per Córrer",loc:"Manlleu",dist:"10k",date:"08/11",month:"Noviembre",doy:312,confirmed:false,web:"https://www.olimpicmanlleu.cat/correr-per-correr/",lat:42.0,lng:2.2833},
-{name:"Volta A L'Estany D'Ivars",loc:"Ivars d'Urgell",dist:"10k y 7k",date:"08/11",month:"Noviembre",doy:312,confirmed:true,web:"https://atletismeivars.wixsite.com/caivars/copia-de-grup-excursionista-2",lat:41.6833,lng:0.9167},
-{name:"Cursa Valldeneu",loc:"Sant Martí de Centelles",dist:"5k",date:"14/11",month:"Noviembre",doy:318,confirmed:false,web:"https://www.instagram.com/p/DPmOYreCCrD/",lat:41.7833,lng:2.2167},
-{name:"Vilanova Night Run",loc:"Vilanova i la Geltrú",dist:"5k",date:"14/11",month:"Noviembre",doy:318,confirmed:false,web:"https://vilanovanightrun.com/",lat:41.2167,lng:1.725},
-{name:"Nocturna D'Avià",loc:"Avià",dist:"5k",date:"14/11",month:"Noviembre",doy:318,confirmed:false,web:"https://voltaalamaria.wixsite.com/misitio",lat:41.9833,lng:1.8667},
-{name:"Milles Cerdanyola",loc:"Cerdanyola del Vallès",dist:"10k y 5k",date:"14/11",month:"Noviembre",doy:318,confirmed:false,web:"https://www.atcerdanyola.com/curses/milles-cerdanyola/",lat:41.4833,lng:2.1333},
-{name:"Cursa Vertical Torre Diagonal One",loc:"Barcelona",dist:"24 plantas",date:"14/11",month:"Noviembre",doy:318,confirmed:false,web:"https://www.carreraverticaltorrediagonalone.es/",lat:41.3851,lng:2.1734},
-{name:"Cursa Sant Martí",loc:"Barcelona",dist:"10k y 5k",date:"15/11",month:"Noviembre",doy:319,confirmed:false,web:"https://www.cursasantmarti.cat/",lat:41.3851,lng:2.1734},
-{name:"Cursa CN Sabadell",loc:"Sabadell",dist:"5k",date:"15/11",month:"Noviembre",doy:319,confirmed:false,web:"https://www.cursacns.cat/",lat:41.55,lng:2.1083},
-{name:"Els 10 De Les Franqueses",loc:"Les Franqueses del Vallès",dist:"10k",date:"15/11",month:"Noviembre",doy:319,confirmed:false,web:"http://www.els10delesfranqueses.cat/",lat:41.6667,lng:2.3},
-{name:"Carrera Km contra el cáncer Igualada",loc:"Igualada",dist:"5k",date:"15/11",month:"Noviembre",doy:319,confirmed:true,web:"https://barcelonaenmarxa.org/es/#calendari",lat:41.5833,lng:1.6167},
-{name:"5K/10K Vic",loc:"Vic",dist:"10k y 5k",date:"15/11",month:"Noviembre",doy:319,confirmed:false,web:"https://5k10kvic.cat/",lat:41.9333,lng:2.25},
-{name:"Mitja Lleida",loc:"Lleida",dist:"21k y 5k",date:"15/11",month:"Noviembre",doy:319,confirmed:false,web:"https://mitjalleida.com/",lat:41.6167,lng:0.6167},
-{name:"Km Contra el Càncer Igualada",loc:"Igualada",dist:"5k",date:"15/11",month:"Noviembre",doy:319,confirmed:true,web:"https://barcelonaenmarxa.org/es/",lat:41.5833,lng:1.6167},
-{name:"Milla Sagrada Família",loc:"Barcelona",dist:"Milla",date:"15/11",month:"Noviembre",doy:319,confirmed:true,web:"https://claror.cat/es/la-milla/",lat:41.3851,lng:2.1734},
-{name:"Cros 3 Turons",loc:"Barcelona",dist:"12k",date:"15/11",month:"Noviembre",doy:319,confirmed:false,web:"https://www.cros3turons-ladiablada.cat/",lat:41.3851,lng:2.1734},
-{name:"Cursa Trinitat Vella",loc:"Barcelona",dist:"5k",date:"15/11",month:"Noviembre",doy:319,confirmed:false,web:"https://www.asme.cat/cursa-trinitat-vella-2025/",lat:41.3851,lng:2.1734},
-{name:"Mitja Ripoll",loc:"Ripoll",dist:"21k, 10k y 5k",date:"15/11",month:"Noviembre",doy:319,confirmed:false,web:"https://www.mitjamarato.cat/",lat:42.2,lng:2.1833},
-{name:"Vinya Cross",loc:"Manresa",dist:"21k, 10k y 5k",date:"15/11",month:"Noviembre",doy:319,confirmed:false,web:"https://www.vinya-cross.es/",lat:41.7333,lng:1.8333},
-{name:"Cursa De La Dona Barcelona",loc:"Barcelona",dist:"6,5k",date:"22/11",month:"Noviembre",doy:326,confirmed:false,web:"https://www.carreradelamujer.com/muj-barcelona",lat:41.3851,lng:2.1734},
-{name:"Mitja Gavà",loc:"Gavà",dist:"21k",date:"22/11",month:"Noviembre",doy:326,confirmed:false,web:"https://www.instagram.com/mitjagava/",lat:41.3,lng:2.0},
-{name:"Mitja Espirall",loc:"Vilafranca del Penedès",dist:"21k y 10k",date:"22/11",month:"Noviembre",doy:326,confirmed:true,web:"https://mitja.vilafranca.cat/",lat:41.35,lng:1.7},
-{name:"Mitja Dani Maresme",loc:"Vilassar de Mar",dist:"21k, 10k y 6k",date:"22/11",month:"Noviembre",doy:326,confirmed:true,web:"https://danievents.cat/service/cursa-dani-maresme/",lat:41.5,lng:2.3833},
-{name:"Cursa DiR Mossos d'Esquadra",loc:"Sant Cugat del Vallès",dist:"10k y 5k",date:"22/11",month:"Noviembre",doy:326,confirmed:true,web:"https://danievents.cat/service/cursa-dani-maresme/",lat:41.4667,lng:2.0833},
-{name:"Entrepobles Garrotxa",loc:"Olot",dist:"10k",date:"22/11",month:"Noviembre",doy:326,confirmed:true,web:"https://www.entrepobles.run/",lat:42.1833,lng:2.4833},
-{name:"Correblau",loc:"Barcelona",dist:"10k y 5k",date:"22/11",month:"Noviembre",doy:326,confirmed:false,web:"https://www.aprenemautisme.org/correblau/",lat:41.3851,lng:2.1734},
-{name:"Cursa Popular Vila De Sant Boi",loc:"Sant Boi de Llobregat",dist:"10k y 5k",date:"22/11",month:"Noviembre",doy:326,confirmed:false,web:"https://www.cursasantboi.com/",lat:41.35,lng:2.0333},
-{name:"CNG 4 Camins",loc:"Granollers",dist:"14k y 6k",date:"22/11",month:"Noviembre",doy:326,confirmed:false,web:"https://cngranollers.org/4camins/",lat:41.6083,lng:2.2917},
-{name:"Cursa Del Vi De Gandesa",loc:"Gandesa",dist:"10k y 5k",date:"22/11",month:"Noviembre",doy:326,confirmed:true,web:"https://www.runningseries.net/calendari/",lat:41.05,lng:0.45},
-{name:"Pujada i Baixada a Guanta",loc:"Sentmenat",dist:"12k y 6k",date:"22/11",month:"Noviembre",doy:326,confirmed:true,web:"https://www.runningseries.net/calendari/",lat:41.6,lng:2.1333},
-{name:"Tarraco Health Race",loc:"Tarragona",dist:"10k y 5k",date:"22/11",month:"Noviembre",doy:326,confirmed:false,web:"https://tarracohealthrace.com/",lat:41.1167,lng:1.25},
-{name:"5K Sant Vicenç Montalt",loc:"Sant Vicenç Montalt",dist:"5k",date:"29/11",month:"Noviembre",doy:333,confirmed:false,web:"https://gesport.cat/",lat:41.5667,lng:2.4833},
-{name:"Jean Bouin",loc:"Barcelona",dist:"10k y 5k",date:"29/11",month:"Noviembre",doy:333,confirmed:true,web:"https://jeanbouin.mundodeportivo.com/",lat:41.3851,lng:2.1734},
-{name:"Cursa Dona Castellar",loc:"Castellar del Vallès",dist:"5k",date:"29/11",month:"Noviembre",doy:333,confirmed:false,web:"https://www.castellarvalles.cat/14352/acte/16515/",lat:41.6167,lng:2.0833},
-{name:"Cursa Dona Sant Joan de Vilatorrada",loc:"Sant Joan de Vilatorrada",dist:"5k",date:"29/11",month:"Noviembre",doy:333,confirmed:false,web:"https://www.santjoanvilatorrada.cat/ca/actualitat/noticies/fem-cursa-cursa-de-la-dona-2025-ja-et-pots-inscriure-als-entrenaments",lat:41.75,lng:1.85},
-{name:"Cursa Sant Andreu",loc:"Barcelona",dist:"5k",date:"06/12",month:"Diciembre",doy:340,confirmed:true,web:"https://www.cnsantandreu.com/cursa-de-sant-andreu-2025/",lat:41.3851,lng:2.1734},
-{name:"Mitja Figueres",loc:"Figueres",dist:"21k y 10k",date:"06/12",month:"Diciembre",doy:340,confirmed:true,web:"https://mitjafigueres.com/",lat:42.2667,lng:2.9667},
-{name:"Cursa Urbana Jeroni Juan",loc:"Sant Jaume d'Enveja",dist:"10k y 5k",date:"13/12",month:"Diciembre",doy:347,confirmed:true,web:"https://www.runningseries.net/calendari/",lat:40.7333,lng:0.75},
-{name:"Cursa Sagrera",loc:"Barcelona",dist:"10k y 5k",date:"13/12",month:"Diciembre",doy:347,confirmed:true,web:"https://www.cursadelasagrera.cat/",lat:41.3851,lng:2.1734},
-{name:"Cursa de les Ciutats contra el Càncer de Pàncrees",loc:"Barcelona",dist:"10k y 5k",date:"13/12",month:"Diciembre",doy:347,confirmed:true,web:"https://carreracancerpancreas.es/cursa-barcelona/",lat:41.3851,lng:2.1734},
-{name:"Mitja Vilanova",loc:"Vilanova i la Geltrú",dist:"21k y 10k",date:"13/12",month:"Diciembre",doy:347,confirmed:false,web:"https://mitjavilanova.com/",lat:41.2167,lng:1.725},
-{name:"Cursa UAB",loc:"Campus UAB Bellaterra",dist:"11,6k y 6k",date:"13/12",month:"Diciembre",doy:347,confirmed:false,web:"https://micromecenatge.uab.cat/lacursadelauab",lat:41.5,lng:2.0167},
-{name:"Cursa De Les Empreses",loc:"Barcelona",dist:"10k",date:"13/12",month:"Diciembre",doy:347,confirmed:false,web:"https://www.cursaempreses.com/",lat:41.3851,lng:2.1734},
-{name:"La De Nadal (Cursa Dels Elfs I Elfes)",loc:"Santa Coloma de Gramenet",dist:"5k",date:"19/12",month:"Diciembre",doy:353,confirmed:false,web:"https://esportsgramenet.cat/ladenadal&lang=cat",lat:41.45,lng:2.2083},
-{name:"Cursa Pare Noel",loc:"Barcelona",dist:"5k",date:"20/12",month:"Diciembre",doy:354,confirmed:false,web:"https://www.cursaparenoel.cat/",lat:41.3851,lng:2.1734},
-{name:"Cursa Nadal Sant Sadurní",loc:"Sant Sadurní d'Anoia",dist:"10k y 5k",date:"20/12",month:"Diciembre",doy:354,confirmed:false,web:"https://sansasua.cat/cursa-de-nadal/",lat:41.4167,lng:1.7833},
-{name:"Sant Silvestre L'Hospitalet De L'Infant",loc:"L'Hospitalet de l'Infant",dist:"4k",date:"20/12",month:"Diciembre",doy:354,confirmed:false,web:"https://webtretzesports.wixsite.com/santsansihospitalet",lat:40.9833,lng:0.9167},
-{name:"Cursa Del Gall Riudecanyes",loc:"Riudecanyes",dist:"7,5k",date:"20/12",month:"Diciembre",doy:354,confirmed:false,web:"https://webtretzesports.wixsite.com/cursadelgall",lat:41.1333,lng:1.0},
-{name:"Cursa del Tió",loc:"Cabrils",dist:"5k",date:"20/12",month:"Diciembre",doy:354,confirmed:false,web:"https://xeventsports.com/la-cursa-del-tio/",lat:41.5333,lng:2.3833},
-{name:"Cursa Vicente Ferrer",loc:"Terrassa",dist:"8k y 5k",date:"20/12",month:"Diciembre",doy:354,confirmed:true,web:"https://ceterrassa.cat/barris/",lat:41.5583,lng:2.0083},
-{name:"Cursa Nadal Portbou",loc:"Portbou",dist:"5k y 2,5k",date:"24/12",month:"Diciembre",doy:358,confirmed:false,web:"https://www.instagram.com/cursadenadalportbou/",lat:42.4167,lng:3.1667},
-{name:"Cursa Dona La Jonquera",loc:"La Jonquera",dist:"5k",date:"26/12",month:"Diciembre",doy:360,confirmed:false,web:"https://www.curses.cat/",lat:42.4167,lng:2.8667},
-{name:"Sant Silvestre Manresana",loc:"Manresa",dist:"9,5k",date:"26/12",month:"Diciembre",doy:360,confirmed:false,web:"https://cube.cat/sant-silvestre-2025/",lat:41.7333,lng:1.8333},
-{name:"Sant Esteve Run",loc:"L'Escala",dist:"5k",date:"26/12",month:"Diciembre",doy:360,confirmed:false,web:"https://esportslescala.cat/sant-esteve-run/",lat:42.1167,lng:3.1333},
-{name:"Sant Silvestre El Vendrell",loc:"El Vendrell",dist:"5k",date:"26/12",month:"Diciembre",doy:360,confirmed:false,web:"https://www.runnerselvendrell.cat/?page_id=6420",lat:41.2167,lng:1.5333},
-{name:"La Folguerenca",loc:"Folgueroles",dist:"5k",date:"26/12",month:"Diciembre",doy:360,confirmed:false,web:"https://lafolguerolenca.cat/",lat:41.9333,lng:2.2667},
-{name:"Cursa Del Bolet",loc:"Ullastrell",dist:"6k",date:"26/12",month:"Diciembre",doy:360,confirmed:true,web:"https://www.cursadelbolet.cat/",lat:41.5333,lng:1.9},
-{name:"Sant Silvestre Masnou",loc:"El Masnou",dist:"5k",date:"26/12",month:"Diciembre",doy:360,confirmed:true,web:"https://www.lasansi.com/es/sant-silvestre-masnou",lat:41.4833,lng:2.3167},
-{name:"Cursa De L'Indiot",loc:"Mollerussa",dist:"10k",date:"26/12",month:"Diciembre",doy:360,confirmed:true,web:"https://www.xafatolls.cat/indiot",lat:41.6333,lng:0.8833},
-{name:"Sant Silvestre Palafrugell",loc:"Palafrugell",dist:"5k",date:"26/12",month:"Diciembre",doy:360,confirmed:false,web:"https://www.instagram.com/p/DRhz394DUBt/",lat:41.9167,lng:3.1667},
-{name:"Cursa Del Capó",loc:"Castelldefels",dist:"6,7k",date:"27/12",month:"Diciembre",doy:361,confirmed:false,web:"https://www.sedentaris.cat/el-capo-puja-al-castell/",lat:41.2833,lng:1.9667},
-{name:"Sant Silvestre Badalona",loc:"Badalona",dist:"10k y 5k",date:"27/12",month:"Diciembre",doy:361,confirmed:false,web:"https://www.zonavipevents.com/sant-silvestre-badalona/",lat:41.45,lng:2.2333},
-{name:"Mitja Badia De Roses",loc:"Roses",dist:"21k y 7,5k",date:"27/12",month:"Diciembre",doy:361,confirmed:false,web:"https://www.atletismeroses.cat/mitjabadiaderoses",lat:42.2667,lng:3.1833},
-{name:"Cursa Nassos",loc:"Barcelona",dist:"10k",date:"31/12",month:"Diciembre",doy:365,confirmed:true,web:"https://www.cursadenassos.barcelona/ca",lat:41.3851,lng:2.1734},
-{name:"Cap D'Any Race",loc:"Sabadell",dist:"10k y 5k",date:"31/12",month:"Diciembre",doy:365,confirmed:true,web:"https://www.capdanyrace.cat/",lat:41.55,lng:2.1083},
-{name:"Cursa Del Gall",loc:"Sant Cugat del Vallès",dist:"5k",date:"31/12",month:"Diciembre",doy:365,confirmed:true,web:"https://cursadelgall.cat/",lat:41.4667,lng:2.0833},
-{name:"Sant Silvestre Girona",loc:"Girona",dist:"5k",date:"31/12",month:"Diciembre",doy:365,confirmed:true,web:"https://web.girona.cat/ssilvestre",lat:41.9833,lng:2.8167},
-{name:"Sant Silvestre Lleida",loc:"Lleida",dist:"5k",date:"31/12",month:"Diciembre",doy:365,confirmed:true,web:"https://santsilvestrelleida.es/",lat:41.6167,lng:0.6167},
-{name:"Sant Silvestre Tarragona",loc:"Tarragona",dist:"6,5k",date:"31/12",month:"Diciembre",doy:365,confirmed:true,web:"https://www.athleticevents.net/cursa/21a-cursa-sant-silvestre-de-tarragona-509",lat:41.1167,lng:1.25},
-{name:"Sant Silvestre Reus",loc:"Reus",dist:"5k",date:"31/12",month:"Diciembre",doy:365,confirmed:true,web:"https://santsilvestrereus.wixsite.com/santsilvestrereus",lat:41.15,lng:1.1},
-{name:"Sant Silvestre Berga",loc:"Berga",dist:"5k",date:"31/12",month:"Diciembre",doy:365,confirmed:true,web:"https://www.jaberga.com/santsilvestre",lat:42.1,lng:1.85},
-{name:"Sant Silvestre Navatenca",loc:"Navata",dist:"2,5k y 5k",date:"31/12",month:"Diciembre",doy:365,confirmed:false,web:"https://www.curses.cat/",lat:42.2167,lng:2.9333},
-{name:"Sant Silvestre Cadaquès",loc:"Cadaquès",dist:"10k",date:"31/12",month:"Diciembre",doy:365,confirmed:false,web:"https://www.instagram.com/p/DSFmXD5iOP1/",lat:42.2833,lng:3.2833},
-{name:"Cursa Dels Nassos Maçanet",loc:"Maçanet de Cabrenys",dist:"5k",date:"31/12",month:"Diciembre",doy:365,confirmed:false,web:"https://www.clubexcursionistamassanetenc.cat/",lat:42.3333,lng:2.7833},
-{name:"Sant Silvestre Fortià",loc:"Fortià",dist:"5k",date:"31/12",month:"Diciembre",doy:365,confirmed:false,web:"https://fortia.cat/sant-silvestre-a-fortia/",lat:42.2167,lng:3.0333},
-{name:"Sant Silvestre La Seu",loc:"La Seu d'Urgell",dist:"3,6k",date:"31/12",month:"Diciembre",doy:365,confirmed:false,web:"https://santsilvestrelaseu.com/",lat:42.3583,lng:1.4583},
-{name:"Sant Silvestre Manlleunca",loc:"Manlleu",dist:"5k",date:"31/12",month:"Diciembre",doy:365,confirmed:false,web:"https://www.olimpicmanlleu.cat/st-silvestre-manlleuenca/",lat:42.0,lng:2.2833},
-{name:"Sant Silvestre De Bellver",loc:"Bellver de Cerdanya",dist:"5,7k",date:"31/12",month:"Diciembre",doy:365,confirmed:false,web:"https://esportsbellver.org/sant-silvestre-25/",lat:42.3667,lng:1.7667},
-{name:"Sant Silvestre Borgonyà",loc:"Cornellà de Terri",dist:"5k",date:"31/12",month:"Diciembre",doy:365,confirmed:false,web:"https://www.facebook.com/SansilvestreBorgonya/",lat:42.0833,lng:2.8167},
-{name:"Sant Silvestre Vilanova Del Camí",loc:"Vilanova del Camí",dist:"5k",date:"31/12",month:"Diciembre",doy:365,confirmed:false,web:"https://www.vilanovadelcami.cat/actualitat/agenda/26a-cursa-sant-silvestre.html",lat:41.5667,lng:1.6333},
-{name:"Sant Silvestre Montblanc",loc:"Montblanc",dist:"3,4k",date:"31/12",month:"Diciembre",doy:365,confirmed:false,web:"https://atleticmontblanc.cat/category/curses/cursasantsilvestre/",lat:41.3833,lng:1.1667},
-{name:"Sant Silvestre Puigcerdà",loc:"Puigcerdà",dist:"5k",date:"31/12",month:"Diciembre",doy:365,confirmed:false,web:"https://www.puigcerda.cat/ca/serveis/esports/14a-sant-silvestre-puigcerda-2026/",lat:42.4333,lng:1.9333},
-{name:"Sant Silvestre Cunit",loc:"Cunit",dist:"5k",date:"31/12",month:"Diciembre",doy:365,confirmed:false,web:"https://santsilvestrecunit.com/",lat:41.2,lng:1.6333},
-{name:"Sant Silvestre La Garriga",loc:"La Garriga",dist:"7k",date:"31/12",month:"Diciembre",doy:365,confirmed:false,web:"https://www.lagarriga.cat/actualitat/agenda/16a-cursa-de-sant-silvestre-",lat:41.6833,lng:2.2833},
-{name:"Sant Silvestre Bagà",loc:"Bagà",dist:"10k y 5k",date:"31/12",month:"Diciembre",doy:365,confirmed:false,web:"https://www.atletismebaga.cat/v-cursa-sant-silvestre-de-baga-31-de-desembre-de-2025/",lat:42.25,lng:1.8667},
-{name:"Sant Silvestre Terra Endins",loc:"Torelló",dist:"5k",date:"31/12",month:"Diciembre",doy:365,confirmed:false,web:"https://www.matxos.cat/",lat:42.05,lng:2.2667}
+  {name:"Crematorrons Lliçà d'Amunt",loc:"Lliçà d'Amunt",dist:"5,5k",date:"03/01",month:"Enero",doy:3,confirmed:true,web:"https://www.llicamunt.cat/actualitat/agenda/cursa-popular-crematorrons.html",guideUrl:""},
+  {name:"Cursa Reis Cornellà",loc:"Cornellà de Llobregat",dist:"5k",date:"04/01",month:"Enero",doy:4,confirmed:true,web:"http://www.corresolidaris.org/cursadereis/",guideUrl:""},
+  {name:"Mitja Sitges",loc:"Sitges",dist:"21k y 10k",date:"11/01",month:"Enero",doy:11,confirmed:true,web:"https://www.zonavipevents.com/carreras/mitja-sitges/",guideUrl:""},
+  {name:"Marxa Nadalenca Olot",loc:"Olot",dist:"8k",date:"11/01",month:"Enero",doy:11,confirmed:true,web:"https://www.marxanadalencaolot.cat/p/la-marxa.html",guideUrl:""},
+  {name:"Crematorrons Miami Platja",loc:"Miami Platja",dist:"10k y 5k",date:"11/01",month:"Enero",doy:11,confirmed:true,web:"https://webtretzesports.wixsite.com/crematorrons",guideUrl:""},
+  {name:"Towerruning Torre Glòries",loc:"Barcelona",dist:"34 plantas",date:"17/01",month:"Enero",doy:17,confirmed:true,web:"https://www.miradortorreglories.com/tower-running/",guideUrl:""},
+  {name:"Cursa Polinyà",loc:"Polinyà",dist:"10k",date:"17/01",month:"Enero",doy:17,confirmed:true,web:"https://cursapolinya.cat/",guideUrl:""},
+  {name:"Cursa De L'Oli Borges Blanques",loc:"Les Borges Blanques",dist:"10k y 5k",date:"18/01",month:"Enero",doy:18,confirmed:true,web:"https://clubatleticborges.cat/",guideUrl:""},
+  {name:"Mitja Granollers",loc:"Granollers",dist:"21k, 10k y 5k",date:"18/01",month:"Enero",doy:18,confirmed:true,web:"https://www.lamitja.cat/open-de-la-mitja/",guideUrl:""},
+  {name:"Cursa Sant Antoni",loc:"Barcelona",dist:"10k y 5k",date:"25/01",month:"Enero",doy:25,confirmed:true,web:"https://cursasantantoni.cat/",guideUrl:""},
+  {name:"Cursa De La Dona L'Escala",loc:"L'Escala",dist:"5k",date:"25/01",month:"Enero",doy:25,confirmed:true,web:"https://esportslescala.cat/cursa-de-la-dona/",guideUrl:""},
+  {name:"10K De Vilafranca",loc:"Vilafranca del Penedès",dist:"10k",date:"25/01",month:"Enero",doy:25,confirmed:true,web:"https://10kvilafranca.org/",guideUrl:""},
+  {name:"Cursa Agrollobera De Sant Blai",loc:"El Palau d'Anglesola",dist:"10k y 5k",date:"25/01",month:"Enero",doy:25,confirmed:true,web:"https://www.cursadesantblai.cat/",guideUrl:""},
+  {name:"The Bosco Run",loc:"Barcelona",dist:"5k",date:"01/02",month:"Febrero",doy:32,confirmed:true,web:"https://www.salesianssarria.com/the-bosco-run",guideUrl:""},
+  {name:"Cursa De Sant Vicenç De Mollet",loc:"Mollet del Vallès",dist:"10k y 5k",date:"01/02",month:"Febrero",doy:32,confirmed:true,web:"https://camollet.cat/",guideUrl:""},
+  {name:"Mitja Terrassa",loc:"Terrassa",dist:"21k y 5k",date:"01/02",month:"Febrero",doy:32,confirmed:true,web:"https://www.mitjaterrassa.org/curses/mitja-marato/",guideUrl:""},
+  {name:"Mitja Sant Cugat",loc:"Sant Cugat",dist:"21k, 10k y 5k",date:"01/02",month:"Febrero",doy:32,confirmed:true,web:"https://mitjasantcugat.cat/",guideUrl:""},
+  {name:"Cursa De La Serra",loc:"Puigverd de Lleida",dist:"10k, 6,5k y Trail 13k",date:"01/02",month:"Febrero",doy:32,confirmed:true,web:"https://aecpuigverd.org/",guideUrl:""},
+  {name:"En Marxa Contra El Càncer Girona",loc:"Girona",dist:"10k y 5k",date:"01/02",month:"Febrero",doy:32,confirmed:true,web:"https://www.instagram.com/contraelcancer.girona/",guideUrl:""},
+  {name:"Cursa La Pineda Platja",loc:"La Pineda",dist:"10k y 5k",date:"08/02",month:"Febrero",doy:39,confirmed:true,web:"https://www.athleticevents.net/cursa/14a-cursa-solidaria-aquum-spa-la-pineda-platja-517",guideUrl:""},
+  {name:"Cursa Carnestoltes",loc:"Reus",dist:"5k",date:"08/02",month:"Febrero",doy:39,confirmed:true,web:"https://webtretzesports.wixsite.com/cursadecarnestoltes",guideUrl:""},
+  {name:"Run For Càncer",loc:"Diverses localitats Girona",dist:"5k-10k",date:"08/02",month:"Febrero",doy:39,confirmed:true,web:"https://oncolligagirona.cat/reptes-solidaris/run4cancer.html",guideUrl:""},
+  {name:"En Marxa Contra El Càncer Vilafant",loc:"Vilafant",dist:"10k y 5k",date:"08/02",month:"Febrero",doy:39,confirmed:true,web:"https://curses.cat/vilafantenmarxa2026/",guideUrl:""},
+  {name:"Cursa Popular Camiral",loc:"Caldes de Malavella",dist:"10k y 5k",date:"08/02",month:"Febrero",doy:39,confirmed:true,web:"https://web.rockthesport.com/ca/event/4a-cursa-popular-camiral",guideUrl:""},
+  {name:"Mitja Barcelona",loc:"Barcelona",dist:"21k",date:"15/02",month:"Febrero",doy:46,confirmed:true,web:"https://www.mitjamarato.barcelona/es/",guideUrl:""},
+  {name:"Pujada A Peu Als Àngels",loc:"Girona",dist:"9,1k",date:"15/02",month:"Febrero",doy:46,confirmed:true,web:"https://geieg.cat/pujada-a-peu-als-angels/",guideUrl:""},
+  {name:"Mitja Colomenca",loc:"Santa Coloma de Gramenet",dist:"21k y 10k",date:"22/02",month:"Febrero",doy:53,confirmed:true,web:"https://uca.cat/categoria/curses/mitja-marato-colomenca/",guideUrl:""},
+  {name:"Cursa Malalties Minoritàries",loc:"Badalona",dist:"10k y 5k",date:"22/02",month:"Febrero",doy:53,confirmed:true,web:"https://cursa-benefica-malalties-minoritaries.webnode.es/",guideUrl:""},
+  {name:"Volta Al Pantà D'Utxesa",loc:"Torres de Segre",dist:"10k, 6,5k y Trail 13k",date:"22/02",month:"Febrero",doy:53,confirmed:true,web:"https://xtsportevents.com/reglament-volta-al-panta-dutxesa/",guideUrl:""},
+  {name:"Unirun",loc:"Barcelona",dist:"5k",date:"01/03",month:"Marzo",doy:60,confirmed:true,web:"https://unirun.cat/es/home-es/",guideUrl:""},
+  {name:"Cursa Dona Cornellà",loc:"Cornellà de Llob.",dist:"5k",date:"01/03",month:"Marzo",doy:60,confirmed:true,web:"https://web.rockthesport.com/es/event/cursa-de-la-dona-de-cornella-2026",guideUrl:""},
+  {name:"Mitja Cambrils",loc:"Cambrils",dist:"21k y 10k",date:"01/03",month:"Marzo",doy:60,confirmed:true,web:"https://mitjadecambrils.com/",guideUrl:""},
+  {name:"Mitja Garrotxa",loc:"Olot",dist:"21k y 10k",date:"01/03",month:"Marzo",doy:60,confirmed:true,web:"https://www.cnolot.cat/",guideUrl:""},
+  {name:"Cursa De L'Orelleta",loc:"Castellnou de Seana",dist:"10k y 5k",date:"01/03",month:"Marzo",doy:60,confirmed:true,web:"https://cursaorelleta.wixsite.com/cursaorelleta",guideUrl:""},
+  {name:"Cursa Igualtat Bigues I Riells",loc:"Bigues i Riells",dist:"8k",date:"07/03",month:"Marzo",doy:66,confirmed:true,web:"https://www.instagram.com/p/DU-XKuYiGla/",guideUrl:""},
+  {name:"Cursa Les Vetes",loc:"Llagostera",dist:"9,5k",date:"07/03",month:"Marzo",doy:66,confirmed:true,web:"http://www.lesvetes.cat/ca/fundacio-les-vetes/projeccio-social/xii-cursa-popular-les-vetes",guideUrl:""},
+  {name:"10.000 I 5.000 L'Ampolla",loc:"L'Ampolla",dist:"10k y 5k",date:"08/03",month:"Marzo",doy:67,confirmed:true,web:"https://www.runningseries.net/calendari/",guideUrl:""},
+  {name:"Mitja Balaguer",loc:"Balaguer",dist:"21k, 10k y 5k",date:"08/03",month:"Marzo",doy:67,confirmed:true,web:"https://www.runners.cat/mitja-marato-2026/",guideUrl:""},
+  {name:"Corsa Dera Hemna",loc:"Vielha",dist:"5k",date:"08/03",month:"Marzo",doy:67,confirmed:true,web:"https://web.rockthesport.com/es/event/12au-corsa-dera-hemna",guideUrl:""},
+  {name:"Cursa De Les Dones Santa Coloma",loc:"Santa Coloma de Gramenet",dist:"5k",date:"14/03",month:"Marzo",doy:73,confirmed:true,web:"https://www.conselharan.org/es/inscripciones-abiertas-para-la-12-a-edicion-de-la-corsa-dera-hemna/",guideUrl:""},
+  {name:"Marató Barcelona",loc:"Barcelona",dist:"42k",date:"15/03",month:"Marzo",doy:74,confirmed:true,web:"https://www.zurichmaratobarcelona.es/",guideUrl:""},
+  {name:"Cursa De L'Arbre",loc:"El Prat de Llobregat",dist:"10k",date:"15/03",month:"Marzo",doy:74,confirmed:true,web:"https://www.instagram.com/cursadelarbre/",guideUrl:""},
+  {name:"Cursa De La Dona Canonja",loc:"La Canonja",dist:"5k",date:"15/03",month:"Marzo",doy:74,confirmed:true,web:"https://webtretzesports.wixsite.com/cursadonacanonja",guideUrl:""},
+  {name:"Cursa De La Dona Lleida",loc:"Lleida",dist:"5,6k",date:"15/03",month:"Marzo",doy:74,confirmed:true,web:"https://www.cursadeladonalleida.com/",guideUrl:""},
+  {name:"Cursa De Sant Valentí",loc:"Les Cabanyes",dist:"3k",date:"15/03",month:"Marzo",doy:74,confirmed:true,web:"https://cursalescabanyes.wordpress.com/",guideUrl:""},
+  {name:"Cursa Vilanova Del Camí",loc:"Vilanova del Camí",dist:"10k",date:"15/03",month:"Marzo",doy:74,confirmed:true,web:"https://www.vilanovadelcami.cat/actualitat/agenda/5143-cursa-i-caminada-popular-de-vilanova-del-cami.html",guideUrl:""},
+  {name:"Cursa Dones Viladecans",loc:"Viladecans",dist:"5k",date:"15/03",month:"Marzo",doy:74,confirmed:true,web:"https://www.viladecans.cat/ca/cursadona26",guideUrl:""},
+  {name:"Cursa Dones Barberà Del Vallès",loc:"Barberà del Vallès",dist:"5k",date:"15/03",month:"Marzo",doy:74,confirmed:true,web:"https://www.bdv.cat/cursa-del-dia-internacional-de-les-dones#:~:text=La%20cursa%2C%20que%20es%20dur%C3%A0,quil%C3%B2metres%20pels%20carrers%20de%20Barber%C3%A0.",guideUrl:""},
+  {name:"Cursa Científica Sant Pau",loc:"Barcelona",dist:"10 i 5 voltes",date:"22/03",month:"Marzo",doy:81,confirmed:true,web:"https://www.santpau.cat/",guideUrl:""},
+  {name:"Mou-Te Per Epilèpsia",loc:"Tarragona",dist:"5k",date:"22/03",month:"Marzo",doy:81,confirmed:true,web:"https://www.rockthesport.com/ca/esdeveniment/v-mou-te-per-lepilepsia-2026",guideUrl:""},
+  {name:"Cursa Entrepobles Gironès",loc:"Llagostera",dist:"10k",date:"22/03",month:"Marzo",doy:81,confirmed:true,web:"https://www.entrepobles.run/cursa-girones-llagostera/",guideUrl:""},
+  {name:"Mitja De Rams",loc:"Vic",dist:"21k y 5k",date:"22/03",month:"Marzo",doy:81,confirmed:true,web:"https://www.lamitjaderams.cat/",guideUrl:""},
+  {name:"Cursa Caldes D'Estrach 3 Viles",loc:"Caldes d'Estrach",dist:"10k",date:"22/03",month:"Marzo",doy:81,confirmed:true,web:"https://gesport.cat/cursa-caldes-3-viles-10k/",guideUrl:""},
+  {name:"Cursa / Marxa Hospital Trueta",loc:"Girona",dist:"10k y 5k",date:"22/03",month:"Marzo",doy:81,confirmed:true,web:"https://colabora.hospitaltrueta.cat/cursamarxa70anys",guideUrl:""},
+  {name:"Cursa Sed Lleida",loc:"Lleida",dist:"5k",date:"22/03",month:"Marzo",doy:81,confirmed:true,web:"https://sedcatalunya.cat/cursased/",guideUrl:""},
+  {name:"Cursa Del Sucre",loc:"Menàrguens",dist:"10k y 5k",date:"22/03",month:"Marzo",doy:81,confirmed:true,web:"https://lacursadelsucre.web.app/",guideUrl:""},
+  {name:"La Pera Run",loc:"Albatàrrec",dist:"10k",date:"22/03",month:"Marzo",doy:81,confirmed:true,web:"https://albatarrec.cat/la-pera-run-dalbatarrec/",guideUrl:""},
+  {name:"Cursa Dona Manresa",loc:"Manresa",dist:"5k",date:"22/03",month:"Marzo",doy:81,confirmed:true,web:"https://www.cursadonamanresa.com/",guideUrl:""},
+  {name:"La Cursa Del Pont",loc:"Deltebre",dist:"10k y 5k",date:"22/03",month:"Marzo",doy:81,confirmed:true,web:"https://www.runningseries.net/calendari/",guideUrl:""},
+  {name:"Cursa Dona Pineda De Mar",loc:"Pineda de Mar",dist:"5k",date:"22/03",month:"Marzo",doy:81,confirmed:true,web:"https://gesport.cat/4a-cursa-de-la-dona-pineda-de-mar-5k/",guideUrl:""},
+  {name:"Correpoble",loc:"Santa Cristina d'Aro",dist:"10k",date:"28/03",month:"Marzo",doy:87,confirmed:true,web:"https://www.correpoble.cat/",guideUrl:""},
+  {name:"Cursa Martorell",loc:"Martorell",dist:"10k y 5k",date:"29/03",month:"Marzo",doy:88,confirmed:true,web:"https://martorellatletic.cat/25a-cursa-martorell/",guideUrl:""},
+  {name:"Cursa Del Llangardaix",loc:"La Portella",dist:"10k y 5k",date:"29/03",month:"Marzo",doy:88,confirmed:true,web:"https://xtsportevents.com/reglament-ca-cursa-del-llangardaix/",guideUrl:""},
+  {name:"CA CO per el T.E.A.",loc:"Piera",dist:"5k",date:"06/04",month:"Abril",doy:96,confirmed:true,web:"https://web.rockthesport.com/es/event/caco-per-el-tea",guideUrl:""},
+  {name:"Cursa Sant Josep Figueres",loc:"Figueres",dist:"10k y 5k",date:"06/04",month:"Abril",doy:96,confirmed:true,web:"https://curses.cat/",guideUrl:""},
+  {name:"Salomon Run",loc:"Barcelona",dist:"10k y 5k",date:"11/04",month:"Abril",doy:101,confirmed:true,web:"https://salomonrunbarcelona.com/es/home-esp/",guideUrl:""},
+  {name:"10K Salou",loc:"Salou",dist:"10k y 5k",date:"11/04",month:"Abril",doy:101,confirmed:true,web:"https://10ksalou.com/es",guideUrl:""},
+  {name:"Cursa del Sahara",loc:"Centelles",dist:"10k y 5k",date:"11/04",month:"Abril",doy:101,confirmed:true,web:"https://www.instagram.com/cursadelsahara/",guideUrl:""},
+  {name:"Cursa Mossos D'Esquadra Badalona",loc:"Badalona",dist:"10k y 5k",date:"12/04",month:"Abril",doy:102,confirmed:true,web:"https://www.cursamossos.cat/",guideUrl:""},
+  {name:"Cursa Bombers Lleida",loc:"Lleida",dist:"10k",date:"12/04",month:"Abril",doy:102,confirmed:true,web:"https://cursesinfantilsbomberslleida.com/",guideUrl:""},
+  {name:"Cursa Fem Salut",loc:"Reus",dist:"5k",date:"12/04",month:"Abril",doy:102,confirmed:true,web:"https://femsalutsantjoan.cat/",guideUrl:""},
+  {name:"Mitja Montornès",loc:"Montornès",dist:"21k y 6k",date:"12/04",month:"Abril",doy:102,confirmed:true,web:"https://mitjamontornes.com/",guideUrl:""},
+  {name:"Mitja Pla De L'Estany",loc:"Banyoles",dist:"21k y 6k",date:"12/04",month:"Abril",doy:102,confirmed:true,web:"https://cnbanyoles.cat/competicions/mitja-marato-del-pla-de-lestany/",guideUrl:""},
+  {name:"Cursa Dona Canyelles",loc:"Canyelles",dist:"8k y 4k",date:"12/04",month:"Abril",doy:102,confirmed:true,web:"https://www.weevens.com/esdeveniments/3a-cursa-de-la-dona-de-canyelles/",guideUrl:""},
+  {name:"Cursa De La Sanitat",loc:"Badalona",dist:"10k y 5,5k",date:"17/04",month:"Abril",doy:107,confirmed:true,web:"https://www.hospitalgermanstrias.cat/ca/web/guest/31-cursa-atletica-de-la-sanitat-catalana",guideUrl:""},
+  {name:"Cursa De L'Horta",loc:"Lleida",dist:"10k y 5k",date:"18/04",month:"Abril",doy:108,confirmed:true,web:"https://labandadelhorta.com/esdeveniments/la-cursa-de-lhorta/",guideUrl:""},
+  {name:"Mitja Miami Platja",loc:"Montroig",dist:"21k, 10k y 5k",date:"19/04",month:"Abril",doy:109,confirmed:true,web:"https://webtretzesports.wixsite.com/mitjamiamiplatja",guideUrl:""},
+  {name:"Cursa Lo Caspolino",loc:"Móra la Nova",dist:"10k y 5k",date:"19/04",month:"Abril",doy:109,confirmed:true,web:"https://www.runningseries.net/calendari/",guideUrl:""},
+  {name:"Cursa De La Nòria",loc:"Torrelameu",dist:"10k y 5k",date:"19/04",month:"Abril",doy:109,confirmed:true,web:"https://cursadelanoria.weebly.com/",guideUrl:""},
+  {name:"10 Km De Girona",loc:"Girona",dist:"10k y 5k",date:"19/04",month:"Abril",doy:109,confirmed:true,web:"https://esportsparra.com/",guideUrl:""},
+  {name:"Marató Empúries",loc:"Empúries",dist:"42k, 21k, 10k y 5k",date:"19/04",month:"Abril",doy:109,confirmed:true,web:"https://esportslescala.cat/marato-dempuries/",guideUrl:""},
+  {name:"Castarun",loc:"Sant Joan Despí",dist:"10k y 5k",date:"25/04",month:"Abril",doy:115,confirmed:true,web:"https://www.castarun.com/",guideUrl:""},
+  {name:"Cursa Medijocs",loc:"Sant Cugat",dist:"7k",date:"25/04",month:"Abril",doy:115,confirmed:true,web:"https://medijocs.comb.cat/cursaatletica.htm",guideUrl:""},
+  {name:"Cursa Interempreses Can Gavarra",loc:"Polinyà",dist:"5,6k",date:"25/04",month:"Abril",doy:115,confirmed:true,web:"https://cangavarra.cat/",guideUrl:""},
+  {name:"Marató Del Mediterrani",loc:"Castelldefels",dist:"21k, 10k y 5k",date:"26/04",month:"Abril",doy:116,confirmed:true,web:"https://www.zonavipevents.com/marato-del-mediterrani/",guideUrl:""},
+  {name:"Marató Per Equips",loc:"Cornellà",dist:"42k y 7k",date:"26/04",month:"Abril",doy:116,confirmed:true,web:"http://www.corresolidaris.org/marato-per-equips/",guideUrl:""},
+  {name:"Carrera Ponle Freno",loc:"Badalona",dist:"10k y 5k",date:"26/04",month:"Abril",doy:116,confirmed:true,web:"https://www.atresmedia.com/ponle-freno/carreras/2026/badalona/",guideUrl:""},
+  {name:"Cursa De Balafià",loc:"Lleida",dist:"10k y 5k",date:"26/04",month:"Abril",doy:116,confirmed:true,web:"https://balafia.org/cursa-balafia-2025/",guideUrl:""},
+  {name:"Cursa Montilivi",loc:"Girona",dist:"10k y 5k",date:"26/04",month:"Abril",doy:116,confirmed:true,web:"https://www.cursamontilivi.cat/",guideUrl:""},
+  {name:"Cursa Dona Castelló D'Empúries",loc:"Castelló d'Empúries",dist:"5k",date:"26/04",month:"Abril",doy:116,confirmed:true,web:"https://www.curses.cat/donacastello2026/",guideUrl:""},
+  {name:"Cursa Badia Del Vallès",loc:"Badia del Vallès",dist:"10k y 3,5k",date:"26/04",month:"Abril",doy:116,confirmed:true,web:"https://www.instagram.com/lacursadebadia/",guideUrl:""},
+  {name:"Cursa Sant Jordi",loc:"Sant Esteve Sesrovires",dist:"5,2k y 2,8k",date:"26/04",month:"Abril",doy:116,confirmed:true,web:"https://www.sesrovires.cat/actualitat/agenda-completa/sant-jordi-2026-38a-cursa-de-sant-jordi.html",guideUrl:""},
+  {name:"Cursa Montgat",loc:"Montgat",dist:"10k y 5k",date:"01/05",month:"Mayo",doy:121,confirmed:true,web:"https://www.lasansieventos.com/es/cursa-montgat",guideUrl:""},
+  {name:"Cursa De Les Tortugues",loc:"La Garriga",dist:"14k y 7k",date:"01/05",month:"Mayo",doy:121,confirmed:true,web:"https://www.lestortugues.cat/cursa-1-de-maig/",guideUrl:""},
+  {name:"Cros 1 De Maig",loc:"Artès",dist:"10k y 5k",date:"01/05",month:"Mayo",doy:121,confirmed:true,web:"https://amicsdelacursa.cat/",guideUrl:""},
+  {name:"Run Castell",loc:"Figueres",dist:"10k y 4,5k",date:"01/05",month:"Mayo",doy:121,confirmed:true,web:"https://www.instagram.com/runcastell/",guideUrl:""},
+  {name:"Cursa Sant Josep",loc:"Montblanc",dist:"10k",date:"01/05",month:"Mayo",doy:121,confirmed:true,web:"https://atleticmontblanc.cat/",guideUrl:""},
+  {name:"Cursa Altafulla",loc:"Altafulla",dist:"5k",date:"01/05",month:"Mayo",doy:121,confirmed:true,web:"https://www.athleticevents.net/cursa/17a-cursa-cursa-1r-maig-altafulla-2026-518",guideUrl:""},
+  {name:"Milla Urbana Santa Eulàlia",loc:"L'Hospitalet de Llobregat",dist:"1,6k",date:"01/05",month:"Mayo",doy:121,confirmed:true,web:"https://millaurbanasantaeulalia.cat/",guideUrl:""},
+  {name:"Cursa De La Moixina",loc:"Olot",dist:"10k",date:"01/05",month:"Mayo",doy:121,confirmed:true,web:"https://cursadelamoixina.farandularacingteam.cat/",guideUrl:""},
+  {name:"Milla Del Berguedà",loc:"Berga",dist:"1,6k",date:"01/05",month:"Marzo",doy:121,confirmed:true,web:"https://lamilladelbergueda.org/lacursa",guideUrl:""},
+  {name:"Cursa Solidària Cardedeu",loc:"Cardedeu",dist:"10k y 17k trail",date:"03/05",month:"Mayo",doy:123,confirmed:true,web:"https://corrigaires.cat/cursa-solidaria-de-cardedeu/",guideUrl:""},
+  {name:"Cursa Dones Reus",loc:"Reus",dist:"5k",date:"03/05",month:"Mayo",doy:123,confirmed:true,web:"https://www.cursadonesreus.cat/",guideUrl:""},
+  {name:"Milla Modernista",loc:"Terrassa",dist:"1,6k",date:"09/05",month:"Marzo",doy:129,confirmed:true,web:"https://www.ce-terrassa.cat/millamodernista",guideUrl:""},
+  {name:"5.000 I 10.000 L'Aldea",loc:"L'Aldea",dist:"10k y 5k",date:"09/05",month:"Mayo",doy:129,confirmed:true,web:"https://www.runningseries.net/calendari/",guideUrl:""},
+  {name:"Cursa Delta Prat",loc:"El Prat de Llob.",dist:"10k y 5k",date:"10/05",month:"Mayo",doy:130,confirmed:true,web:"https://www.cursadeltaprat.org/",guideUrl:""},
+  {name:"Corre Por Una Causa",loc:"Cornellà de Llob.",dist:"10k y 5k",date:"10/05",month:"Mayo",doy:130,confirmed:true,web:"https://correporunacausa.org/ca/home-ca/",guideUrl:""},
+  {name:"Mitja Tàrrega",loc:"Tàrrega",dist:"21k y 10k",date:"10/05",month:"Mayo",doy:130,confirmed:true,web:"https://fondistestarrega.com/ca/pc/2-mitja-marato-i-10-km-ciutat-de-tarrega",guideUrl:""},
+  {name:"Entrepobles Alt Empordà",loc:"Per decidir",dist:"10k",date:"10/05",month:"Mayo",doy:130,confirmed:true,web:"https://www.entrepobles.run/cursa-alt-emporda/",guideUrl:""},
+  {name:"Cursa El Corte Inglés",loc:"Barcelona",dist:"10k y 5k",date:"10/05",month:"Mayo",doy:130,confirmed:true,web:"https://cursaelcorteingles.cat/",guideUrl:""},
+  {name:"Cursa Dones Rubí",loc:"Rubí",dist:"3,6k",date:"10/05",month:"Mayo",doy:130,confirmed:true,web:"https://www.instagram.com/oncolligarubi/",guideUrl:""},
+  {name:"Carrera Km contra el cáncer Gavà",loc:"Gavà",dist:"5k",date:"10/05",month:"Mayo",doy:130,confirmed:true,web:"https://barcelonaenmarxa.org/es/#calendari",guideUrl:""},
+  {name:"Cursa Green Urban",loc:"Badalona",dist:"5k",date:"10/05",month:"Mayo",doy:130,confirmed:true,web:"https://www.instagram.com/green_urban_games_/",guideUrl:""},
+  {name:"Cursa De Font En Font",loc:"Gurb",dist:"10k",date:"10/05",month:"Mayo",doy:130,confirmed:true,web:"https://www.instagram.com/cursadefontenfont/",guideUrl:""},
+  {name:"Cursa Del Corriol",loc:"Solsona",dist:"10k y 5k",date:"10/05",month:"Mayo",doy:130,confirmed:true,web:"https://www.instagram.com/cursadelcorriol/",guideUrl:""},
+  {name:"Batalla Dels Herois",loc:"El Bruc",dist:"21k y 10k",date:"10/05",month:"Mayo",doy:130,confirmed:true,web:"https://www.instagram.com/p/DUjEfHTDQUD/",guideUrl:""},
+  {name:"Cursa de la Fira dels somnis",loc:"Balaguer",dist:"5k y 3k",date:"10/05",month:"Mayo",doy:130,confirmed:true,web:"https://www.instagram.com/p/DXrtZn6DErq/?igsh=YWVvaDBmZXY2bGxt",guideUrl:""},
+  {name:"Cursa Nocturna L'Hospitalet",loc:"L'Hospitalet de Llob.",dist:"10k y 5k",date:"16/05",month:"Mayo",doy:136,confirmed:true,web:"https://cursanocturnalh.cat/",guideUrl:""},
+  {name:"Cursa De La Cervesa",loc:"Sant Miquel de Balenyà",dist:"10k",date:"16/05",month:"Mayo",doy:136,confirmed:true,web:"https://cervesamontseny.cat/cursa-de-la-cervesa/",guideUrl:""},
+  {name:"Cursa Nou Barris",loc:"Barcelona",dist:"10k y 5k",date:"17/05",month:"Mayo",doy:137,confirmed:true,web:"http://www.cursanoubarris.cat/",guideUrl:""},
+  {name:"Checkpoint Race",loc:"Barcelona",dist:"10-30k orientació",date:"17/05",month:"Mayo",doy:137,confirmed:true,web:"https://www.checkpointbcn.com/",guideUrl:""},
+  {name:"Cursa Ipsi Solidària",loc:"Barcelona",dist:"2k",date:"17/05",month:"Mayo",doy:137,confirmed:true,web:"https://ampaipsi.cat/cursa/",guideUrl:""},
+  {name:"5K I 10K Vilanova",loc:"Vilanova i la Geltrú",dist:"10k y 5k",date:"17/05",month:"Mayo",doy:137,confirmed:true,web:"https://cursa10kmvng.com/",guideUrl:""},
+  {name:"Cursa Sant Quirze",loc:"Sant Quirze del Vallès",dist:"10k y 5k",date:"17/05",month:"Mayo",doy:137,confirmed:true,web:"https://activitats.corredors.cat/cursasantquirze/cursa/",guideUrl:""},
+  {name:"Cursa de Primavera",loc:"Sant Andreu de la Barca",dist:"5k",date:"17/05",month:"Mayo",doy:137,confirmed:true,web:"https://esports.sabarca.cat/noticies/182",guideUrl:""},
+  {name:"Run Festival Tossa",loc:"Tossa de Mar",dist:"21k, 10k y 5k",date:"17/05",month:"Mayo",doy:137,confirmed:true,web:"https://runfestivaltossa.com/",guideUrl:""},
+  {name:"Cursa Claver",loc:"Raimat",dist:"10k y 5k",date:"17/05",month:"Mayo",doy:137,confirmed:true,web:"https://sites.google.com/fje.edu/events/cursa-claver-natura-2026",guideUrl:""},
+  {name:"Cursa Embarrocat",loc:"Aitona",dist:"10k y 5,5k",date:"17/05",month:"Mayo",doy:137,confirmed:true,web:"https://embarrocat.wixsite.com/aitona",guideUrl:""},
+  {name:"Cursa Des-Connecta Per L'Autisme",loc:"Castelldefels",dist:"5k y 1k",date:"17/05",month:"Mayo",doy:137,confirmed:true,web:"https://asociacionistea.com/",guideUrl:""},
+  {name:"Cursa Vallparadís",loc:"Terrassa",dist:"4,7k",date:"17/05",month:"Mayo",doy:137,confirmed:true,web:"https://ceterrassa.cat/barris/",guideUrl:""},
+  {name:"Cursa Antiracista Terrassa",loc:"Terrassa",dist:"6k",date:"23/05",month:"Mayo",doy:143,confirmed:true,web:"https://cursaantiracista.com/",guideUrl:""},
+  {name:"Igualada Urban Running",loc:"Igualada",dist:"5k",date:"23/05",month:"Mayo",doy:143,confirmed:true,web:"https://igualadaurbanrunning.cat/",guideUrl:""},
+  {name:"10.000 I 5.000 El Perelló",loc:"El Perelló",dist:"10k y 5k",date:"23/05",month:"Mayo",doy:143,confirmed:true,web:"https://www.runningseries.net/calendari/",guideUrl:""},
+  {name:"Milla Urbana Cambrils",loc:"Cambrils",dist:"Milla",date:"23/05",month:"Mayo",doy:143,confirmed:true,web:"https://www.rockthesport.com/ca/esdeveniment/vi-milla-urbana-solidaria-cambrils-2026",guideUrl:""},
+  {name:"Cursa De La Bassella",loc:"Miralcamp",dist:"10k y 5k",date:"24/05",month:"Mayo",doy:144,confirmed:true,web:"https://www.instagram.com/cursadelabassella/",guideUrl:""},
+  {name:"Cursa Dir Guàrdia Urbana",loc:"Barcelona",dist:"10k y 5k",date:"24/05",month:"Mayo",doy:144,confirmed:true,web:"https://www.dir.cat/ca/cursa-diagonal",guideUrl:""},
+  {name:"Milla Urbana Montcada I Reixac",loc:"Montcada i Reixac",dist:"Milla",date:"24/05",month:"Mayo",doy:144,confirmed:true,web:"https://www.jam.cat/lamilla.html",guideUrl:""},
+  {name:"Fun Run Port Aventura",loc:"Vila-seca",dist:"10k y 5k",date:"24/05",month:"Mayo",doy:144,confirmed:true,web:"https://fundacionportaventura.org/eventos/funrun/",guideUrl:""},
+  {name:"Cursa Solidària Esplugues",loc:"Esplugues de Llob.",dist:"10k y 5k",date:"24/05",month:"Mayo",doy:144,confirmed:true,web:"https://cursasolidaria.esplugues.cat/",guideUrl:""},
+  {name:"Cursa Del Dimoni",loc:"Caldes de Montbui",dist:"10k y 5k",date:"24/05",month:"Mayo",doy:144,confirmed:true,web:"https://clubatleticcalderi.com/curses1/index",guideUrl:""},
+  {name:"Cursa Ens Movem Per L'Ela",loc:"Sant Jaume d'Enveja",dist:"6k",date:"24/05",month:"Mayo",doy:144,confirmed:true,web:"https://webtretzesports.wixsite.com/ensmovemperlela",guideUrl:""},
+  {name:"Cursa de la Dona Premià de Mar",loc:"Premià de Mar",dist:"5k",date:"24/05",month:"Mayo",doy:144,confirmed:true,web:"https://www.9hsports.cat/ca/informacio_cursa/1209",guideUrl:""},
+  {name:"Cursa de la Dona Priorat",loc:"Ulldemolins",dist:"10k y 5k",date:"24/05",month:"Mayo",doy:144,confirmed:true,web:"https://sites.google.com/view/aemontsant-cursadonapriorat/3a-cursa-de-la-dona-del-priorat?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnOkqE4PKta5Fk4ChJCXpttX5DvYaIYUZu9LjRUpO34FlOkj9v5nJfkk4HOR4_aem_eiJVcAT6DvoRvZBXUyziIA",guideUrl:""},
+  {name:"Cursa Sant Pere",loc:"Terrassa",dist:"6,1k",date:"24/05",month:"Mayo",doy:144,confirmed:true,web:"https://ceterrassa.cat/barris/",guideUrl:""},
+  {name:"Cursa Antiracista Sallent",loc:"Sallent",dist:"5k",date:"24/05",month:"Mayo",doy:144,confirmed:true,web:"https://cursaantiracista.com/",guideUrl:""},
+  {name:"Cursa Maristes Girona",loc:"Girona",dist:"10k y 5k",date:"24/05",month:"Mayo",doy:144,confirmed:true,web:"https://app.girona.cat/agenda/i/1779108875age52365/cursa-popular-maristes-girona",guideUrl:""},
+  {name:"Ens movemn per l'ELA",loc:"Sant Jaume d'Enveja",dist:"5k",date:"31/05",month:"Mayo",doy:151,confirmed:true,web:"https://web.rockthesport.com/es/event/ens-movem-per-lela-2026",guideUrl:""},
+  {name:"Cursa del Dimoni",loc:"Badalona",dist:"10k y 5k",date:"31/05",month:"Mayo",doy:151,confirmed:true,web:"https://www.badalona.cat/ca/actualitat/noticies/la-46a-cursa-popular-ciutat-de-badalona-cursa-del-dimoni-se-celebra-el-dissabte-30-de-maig-en-horari-de-tarda",guideUrl:""},
+  {name:"Cursa Vall D'Hebron",loc:"Barcelona",dist:"5k",date:"31/05",month:"Mayo",doy:151,confirmed:true,web:"https://www.vallhebron.com/cursa",guideUrl:""},
+  {name:"Corro Contra El Càncer",loc:"Sabadell",dist:"5k",date:"31/05",month:"Mayo",doy:151,confirmed:true,web:"https://corrocontraelcancer.cat/",guideUrl:""},
+  {name:"Pujada Al Coll De Pal",loc:"Bagà",dist:"19k",date:"31/05",month:"Mayo",doy:151,confirmed:true,web:"https://www.atletismebaga.cat/category/curses/pujada-coll-de-pal/",guideUrl:""},
+  {name:"Carrera Km contra el cáncer Barcelona",loc:"Barcelona",dist:"5k y 2k",date:"31/05",month:"Mayo",doy:151,confirmed:true,web:"https://barcelonaenmarxa.org/es/#calendari",guideUrl:""},
+  {name:"Cursa Pla de Bonaire",loc:"Terrassa",dist:"5,7k",date:"31/05",month:"Mayo",doy:151,confirmed:true,web:"https://ceterrassa.cat/barris/",guideUrl:""},
+  {name:"Cursa Antiracista Girona/Salt",loc:"Salt",dist:"5k",date:"31/05",month:"Mayo",doy:151,confirmed:true,web:"https://cursaantiracista.com/",guideUrl:""},
+  {name:"Cursa de la Dona al Port de la Selva",loc:"El Port de la Selva",dist:"4k",date:"31/05",month:"Mayo",doy:151,confirmed:true,web:"https://www.instagram.com/p/DXtZvJuDJAd/?igsh=MWRiaXg4N2JheXU0Mg%3D%3D",guideUrl:""},
+  {name:"Mitja Rural de Reus",loc:"Reus",dist:"21k y 10k",date:"31/05",month:"Mayo",doy:151,confirmed:true,web:"https://inscripcions.reus.cat/4aediciodelamitjamaratoruraldereus",guideUrl:""},
+  {name:"Cursa solidària: cada pas, un nom de dona",loc:"Botarell",dist:"10k y 5k",date:"31/05",month:"Mayo",doy:151,confirmed:true,web:"https://rgproject.org/ca/carrera-solidaria/",guideUrl:""},
+  {name:"Abrera Corre D9",loc:"Abrera",dist:"10k y 5k",date:"07/06",month:"Junio",doy:158,confirmed:true,web:"https://cursaabrera.wordpress.com/",guideUrl:""},
+  {name:"Cursa Antiracista Vic",loc:"Vic",dist:"Por confirmar",date:"07/06",month:"Junio",doy:158,confirmed:true,web:"https://cursaantiracista.com/",guideUrl:""},
+  {name:"Cursa Ela Sant Adrià",loc:"Sant Adrià de Besòs",dist:"5k",date:"07/06",month:"Junio",doy:158,confirmed:true,web:"https://www.lasansi.com/ca/sant-adria-de-besos",guideUrl:""},
+  {name:"Els 10 Blaus",loc:"Barcelona",dist:"10k y 5k",date:"07/06",month:"Junio",doy:158,confirmed:true,web:"https://cvg.cat/cursa",guideUrl:""},
+  {name:"Cursa Pineda De Mar",loc:"Pineda de Mar",dist:"10k",date:"07/06",month:"Junio",doy:158,confirmed:true,web:"https://gesport.cat/curses/",guideUrl:""},
+  {name:"Cursa Memorial Ramon Oliu",loc:"Cantonigròs",dist:"10k",date:"07/06",month:"Junio",doy:158,confirmed:true,web:"http://cursaramonoliu.cat/",guideUrl:""},
+  {name:"Els 10 De Santa",loc:"Santa Perpètua de Mogoda",dist:"10k",date:"07/06",month:"Junio",doy:158,confirmed:true,web:"https://www.staperpetua.cat/ajuntament/plans-campanyes-i-programes/els-10-de-santa.html",guideUrl:""},
+  {name:"Carrera Km contra el cáncer Sant Cugat",loc:"Sant Cugat del Vallès",dist:"5k",date:"07/06",month:"Junio",doy:158,confirmed:true,web:"https://barcelonaenmarxa.org/es/#calendari",guideUrl:""},
+  {name:"Cursa Antiracista Barcelona",loc:"Barcelona",dist:"5k",date:"13/06",month:"Junio",doy:164,confirmed:true,web:"https://cursaantiracista.com/",guideUrl:""},
+  {name:"La Cursa dels 150 anys",loc:"El Prat de Llobregat",dist:"5k",date:"14/06",month:"Junio",doy:165,confirmed:true,web:"https://cursa150.estrelladamm.com/",guideUrl:""},
+  {name:"10.000 I 5.000 La Sénia",loc:"La Sénia",dist:"10k y 5k",date:"13/06",month:"Junio",doy:164,confirmed:true,web:"https://www.runningseries.net/calendari/",guideUrl:""},
+  {name:"Cursa De La Guineu",loc:"Vilanova de Bellpuig",dist:"10k y 5k",date:"13/06",month:"Junio",doy:164,confirmed:false,web:"https://cursaguineu.cat/",guideUrl:""},
+  {name:"La Cursa dels 150 anys",loc:"El Prat de Llobregat",dist:"5k",date:"14/06",month:"Junio",doy:165,confirmed:true,web:"https://cursa150.estrelladamm.com/",guideUrl:""},
+  {name:"Cursa Del Foc",loc:"Olesa de Montserrat",dist:"10k y 5k",date:"14/06",month:"Junio",doy:165,confirmed:true,web:"https://www.cursadelfoc.cat/",guideUrl:""},
+  {name:"Just Urban Trail",loc:"Sant Just Desvern",dist:"3,2k",date:"14/06",month:"Junio",doy:165,confirmed:true,web:"https://trailbarcelona.com/ca/justurbantrail",guideUrl:""},
+  {name:"Cursa Rotary Banyoles",loc:"Banyoles",dist:"6,4k",date:"14/06",month:"Junio",doy:165,confirmed:true,web:"https://www.instagram.com/p/DVu6ECkCOSP/",guideUrl:""},
+  {name:"Cursa Roc Blanc",loc:"Terrassa",dist:"5,2k",date:"14/06",month:"Junio",doy:165,confirmed:true,web:"https://ceterrassa.cat/barris/",guideUrl:""},
+  {name:"Cursa del Secà d'Alcano",loc:"Alcanó",dist:"10k y 5k",date:"14/06",month:"Junio",doy:165,confirmed:true,web:"https://cursadelsecadalcano.com/",guideUrl:""},
+  {name:"Pujada a Miramar",loc:"Valls",dist:"15k",date:"14/06",month:"Junio",doy:165,confirmed:true,web:"https://www.aaeet.com/wp/?page_id=1299",guideUrl:""},
+  {name:"Cursa Nocturna Cornellà Running 1900",loc:"Cornellà de Llobregat",dist:"5k",date:"20/06",month:"Junio",doy:171,confirmed:true,web:"https://www.corresolidaris.org/cursa-nocturna-cornella/",guideUrl:""},
+  {name:"Cursa Estiu Premià",loc:"Premià de Mar",dist:"10k y 5k",date:"20/06",month:"Junio",doy:171,confirmed:true,web:"https://premiademar.cat/cursadestiu",guideUrl:""},
+  {name:"Milla Urbana Badalona",loc:"Badalona",dist:"Milla",date:"20/06",month:"Junio",doy:171,confirmed:true,web:"https://gesport.cat/2026-milla-urbana-badalona/",guideUrl:""},
+  {name:"Milla Urbana Canet de Mar",loc:"Canet de Mar",dist:"Milla",date:"20/06",month:"Junio",doy:171,confirmed:true,web:"https://fcatletisme.cat/event/10a-milla-urbana-de-canet-de-mar/",guideUrl:""},
+  {name:"Cursa Vinyes Del Mig",loc:"Bell-lloc d'Urgell",dist:"10k y 5k",date:"20/06",month:"Junio",doy:171,confirmed:true,web:"https://sites.google.com/view/cursavinyesdelmig",guideUrl:""},
+  {name:"La Cursiva",loc:"Badalona",dist:"5k",date:"21/06",month:"Junio",doy:172,confirmed:true,web:"https://www.instagram.com/lacima_club/",guideUrl:""},
+  {name:"Cursa Ciutat Cooperativa",loc:"Sant Boi de Llobregat",dist:"10k y 5k",date:"21/06",month:"Junio",doy:172,confirmed:true,web:"https://www.instagram.com/runners_cooperativa/",guideUrl:""},
+  {name:"Cursa Solidària PN i GU L'Hospitalet",loc:"L'Hospitalet de Llob.",dist:"5,5k",date:"21/06",month:"Junio",doy:172,confirmed:true,web:"https://www.ipacatalunya.org/cursa-per-la-paralisi-cerebal-ruta-091-hospitalet/",guideUrl:""},
+  {name:"Cursa Aquopolis Costa Daurada",loc:"Vila-seca",dist:"5k",date:"21/06",month:"Junio",doy:172,confirmed:true,web:"https://www.athleticevents.net/cursa/11a-cursa-solidaria-aquopolis-costa-daurada-la-pineda-platja-529?fbclid=IwY2xjawR4-eVleHRuA2FlbQIxMABicmlkETFmRmhvdk5lUGI1bFRnckM3c3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHqUNfSw0o5woBzklRrKweNWI7JCXYLwPNYI3iV4pCcXA0Pss57wCE86xAkgC_aem_ac1RlNTxsLaVtOFhkI5I8A",guideUrl:""},
+  {name:"Cros de Sant Joan",loc:"El Prat de Lluçanès",dist:"6k",date:"24/06",month:"Junio",doy:175,confirmed:false,web:"https://www.instagram.com/crossantjoan/",guideUrl:""},
+  {name:"Pujada a les Dues Pedres",loc:"Santa Coloma de Gramenet",dist:"10k y 5k",date:"28/06",month:"Junio",doy:179,confirmed:true,web:"https://uca.cat/33-pujada-a-les-dues-pedres-informacio-inscripcions/",guideUrl:"https://wp.me/pNuBu-o1K"},
+  {name:"Milla Urbana de Sant Pere",loc:"Palau-solità i Plegamans",dist:"1,6k",date:"28/06",month:"Junio",doy:179,confirmed:true,web:"https://www.instagram.com/millaurbanasantpere/",guideUrl:""},
+  {name:"Cursa Popular del Gornal",loc:"L'Hospitalet de Llob.",dist:"Por confirmar",date:"28/06",month:"Junio",doy:179,confirmed:true,web:"https://www.instagram.com/millaurbanasantpere/",guideUrl:""},
+  {name:"La Cogullada",loc:"Terrassa",dist:"5,3k",date:"28/06",month:"Junio",doy:179,confirmed:true,web:"https://ceterrassa.cat/barris/",guideUrl:""},
+  {name:"Els 7 Portals",loc:"Vic",dist:"5k",date:"01/07",month:"Julio",doy:182,confirmed:true,web:"https://www.vic.cat/serveis/esports/esdeveniments/cursa-nocturna-els-7-portals-1",guideUrl:""},
+  {name:"Cursa Dani Vilassar",loc:"Vilassar de Mar",dist:"10k y 5k",date:"04/07",month:"Julio",doy:185,confirmed:true,web:"https://danievents.cat/",guideUrl:""},
+  {name:"Cursa Lo Balcó Del Delta",loc:"Camarles",dist:"10k y 5k",date:"04/07",month:"Julio",doy:185,confirmed:true,web:"https://www.runningseries.net/calendari/",guideUrl:""},
+  {name:"Cursa Nectarina Atlètica",loc:"Alcarràs",dist:"10k y 5,5k",date:"04/07",month:"Julio",doy:185,confirmed:true,web:"https://www.instagram.com/nectarinaatletica/",guideUrl:""},
+  {name:"Cros De Carme",loc:"Carme",dist:"5,5k",date:"04/07",month:"Julio",doy:185,confirmed:true,web:"https://www.instagram.com/cross_de_carme/",guideUrl:""},
+  {name:"Cursa Festa Major Terrassa",loc:"Terrassa",dist:"6k",date:"04/07",month:"Julio",doy:185,confirmed:true,web:"https://ceterrassa.cat/cursa-festa-major/",guideUrl:""},
+  {name:"Cursa Pallejà",loc:"Pallejà",dist:"10k y 5k",date:"05/07",month:"Julio",doy:186,confirmed:true,web:"https://cursadepalleja.es/",guideUrl:""},
+  {name:"Miilla Urbana Arenys de Mar",loc:"Arenys de Mar",dist:"Milla",date:"05/07",month:"Julio",doy:186,confirmed:true,web:"https://gesport.cat/formulari/milla-urbana-arenys-de-mar-2026/",guideUrl:""},
+  {name:"Cursa Festa Major Barberà",loc:"Barberà del Vallès",dist:"5k",date:"05/07",month:"Julio",doy:186,confirmed:false,web:"https://uabarbera.com/eventos/xxiii-carrera-de-la-fiesta-mayor-de-barbera-del-valles-2025/",guideUrl:""},
+  {name:"Cursa de la Dona Riudoms",loc:"Riudoms",dist:"5k",date:"10/07",month:"Julio",doy:191,confirmed:true,web:"https://webtretzesports.wixsite.com/cursadonariudoms",guideUrl:""},
+  {name:"La Gurrinada",loc:"Santa Maria de Martorelles",dist:"12k",date:"10/07",month:"Julio",doy:191,confirmed:true,web:"https://lagurrinada.com/",guideUrl:""},
+  {name:"Sansi Viladecans",loc:"Viladecans",dist:"5k",date:"11/07",month:"Julio",doy:192,confirmed:true,web:"https://www.lasansi.com/es/sansi-viladecans",guideUrl:""},
+  {name:"Cursa Dels Firals",loc:"Bellvís",dist:"10k y 5,5k",date:"11/07",month:"Julio",doy:192,confirmed:true,web:"https://cursadelsfirals.cat/#about",guideUrl:""},
+  {name:"Cursa Ca n'Anglada",loc:"Terrassa",dist:"5k",date:"11/07",month:"Julio",doy:192,confirmed:true,web:"https://ceterrassa.cat/barris/",guideUrl:""},
+  {name:"Cursa La Plana",loc:"Vila-seca",dist:"5k",date:"11/07",month:"Julio",doy:192,confirmed:true,web:"https://www.runnersvilaseca.com/cursalaplana",guideUrl:""},
+  {name:"Cursa Llafranc · Pujada al Far de Sant Sebastià",loc:"Palafrugell",dist:"10k",date:"12/07",month:"Julio",doy:193,confirmed:true,web:"https://www.capalafrugell.cat/llafranc/",guideUrl:""},
+  {name:"Milla Urbana barri de Covadonga",loc:"Sabadell",dist:"Milla",date:"18/07",month:"Julio",doy:199,confirmed:true,web:"https://www.instagram.com/avcovadonga/",guideUrl:""},
+  {name:"La Ultraplana de la Barquera",loc:"Roda de Berà",dist:"5k",date:"18/07",month:"Julio",doy:199,confirmed:true,web:"https://www.athleticevents.net/reglament/cursa-popular-la-ultraplana-de-la-barquera-2026-530",guideUrl:""},
+  {name:"Cursa Solidària La Granada",loc:"La Granada",dist:"15k y 7k",date:"18/07",month:"Julio",doy:199,confirmed:true,web:"https://www.instagram.com/cursasolidarialagranada/",guideUrl:""},
+  {name:"Cursa Nocturna de Vilafant",loc:"Vilafant",dist:"10k y 5k",date:"18/07",month:"Julio",doy:199,confirmed:true,web:"https://www.instagram.com/la.nocturna.de.vilafant/",guideUrl:""},
+  {name:"Cursa Poble Sec",loc:"Barcelona",dist:"10k y 5k",date:"19/07",month:"Julio",doy:200,confirmed:true,web:"http://www.carunning.net/",guideUrl:""},
+  {name:"Nocturna de Sant Jaume",loc:"Reus",dist:"10k",date:"24/07",month:"Julio",doy:205,confirmed:true,web:"https://webtretzesports.wixsite.com/nocturnasantjaume",guideUrl:""},
+  {name:"Cursa del Cor",loc:"Gironella",dist:"5k",date:"24/07",month:"Julio",doy:205,confirmed:true,web:"https://web.rockthesport.com/es/event/cursa-del-cor-47a-cursa-sant-jaume-gironella-memorial-quim-raich",guideUrl:""},
+  {name:"Cursa de l'Àngel d'Almenar",loc:"Almenar",dist:"10k y 5k",date:"25/07",month:"Julio",doy:206,confirmed:true,web:"https://www.instagram.com/paeriaalmenaresports/?igshid=OGQ5ZDc2ODk2ZA%3D%3D",guideUrl:""},
+  {name:"Cursa L'Hospitalet de l'Infant",loc:"L'Hospitalet de l'Infant",dist:"5k",date:"26/07",month:"Julio",doy:207,confirmed:true,web:"https://webtretzesports.wixsite.com/cursahospitalet",guideUrl:""},
+  {name:"Cursa Les Santes Mataró",loc:"Mataró",dist:"5,5k",date:"28/07",month:"Julio",doy:209,confirmed:true,web:"https://www.lessantes.cat/agenda-cultura/2026-46a-cursa-popular-les-santes",guideUrl:""},
+  {name:"Cursa L'Espluga De Francolí",loc:"L'Espluga de Francolí",dist:"10k y 5k",date:"01/08",month:"Agosto",doy:213,confirmed:true,web:"https://caesplugui.cat/cursa-atletica/",guideUrl:""},
+  {name:"Cros Vila de Torredembarra",loc:"Torredembarra",dist:"6,5k y 3,2k",date:"01/08",month:"Agosto",doy:213,confirmed:true,web:"https://web.rockthesport.com/es/event/48e-cros-popular-vila-de-torredembarra-2026",guideUrl:""},
+  {name:"Era Nocturna Vielha",loc:"Vielha",dist:"10k y 5k",date:"01/08",month:"Agosto",doy:213,confirmed:false,web:"https://www.nocturnadevielha.com/",guideUrl:""},
+  {name:"Cursa Festa Major La Garriga",loc:"La Garriga",dist:"4,2k",date:"01/08",month:"Agosto",doy:213,confirmed:false,web:"http://lagarriga.cat/ajuntament-seu-electronica/informacio-oficial/2830-actuacions/cursa-popular-de-la-garriga",guideUrl:""},
+  {name:"Cursa del Seguici",loc:"Tarragona",dist:"5k",date:"01/08",month:"Agosto",doy:213,confirmed:true,web:"https://alliberadrenalina.com/cursa_seguici_tgn/",guideUrl:""},
+  {name:"Cursa Popular Bagà",loc:"Bagà",dist:"8k",date:"02/08",month:"Agosto",doy:214,confirmed:true,web:"https://www.atletismebaga.cat/category/curses/cursa-popular/",guideUrl:""},
+  {name:"Cursa Campi qui Pugui",loc:"El Papiolet",dist:"10k",date:"02/08",month:"Agosto",doy:214,confirmed:true,web:"https://www.athleticevents.net/cursa/20a-cursa-campi-qui-pugui-del-papiolet-528",guideUrl:""},
+  {name:"Cursa del gos de Massoteres",loc:"Massoteres",dist:"10k",date:"21/08",month:"Agosto",doy:233,confirmed:true,web:"https://www.instagram.com/joventut_massoteres/",guideUrl:""},
+  {name:"Cursa Festa Major Manlleu",loc:"Manlleu",dist:"5k",date:"23/08",month:"Agosto",doy:235,confirmed:true,web:"https://www.olimpicmanlleu.cat/cursa-de-la-festa-major/",guideUrl:""},
+  {name:"Cursa Festa Major Castellbisbal",loc:"Castellbisbal",dist:"6,3k",date:"23/08",month:"Agosto",doy:235,confirmed:false,web:"https://www.mindundisteam.com/esdeveniments/",guideUrl:""},
+  {name:"Cursa Pedestre Móra d´Ebre",loc:"Mora d'Ebre",dist:"1k",date:"29/08",month:"Agosto",doy:241,confirmed:true,web:"https://picossatrail.cat/cursa-pedestre/",guideUrl:""},
+  {name:"Cursa Tossal de les Tenalles",loc:"Sidamon",dist:"10k y 5k",date:"29/08",month:"Agosto",doy:241,confirmed:true,web:"https://www.cursatossaldelestenalles.cat/",guideUrl:""},
+  {name:"Cursa La Farga",loc:"Barcelona",dist:"2k",date:"29/08",month:"Agosto",doy:241,confirmed:true,web:"https://www.corresolidaris.org/cursa-placa-la-farga/",guideUrl:""},
+  {name:"Cursa Festa Major Ripollet",loc:"Ripollet",dist:"10k y 5k",date:"30/08",month:"Agosto",doy:242,confirmed:false,web:"https://www.ripolletua.com/cursa-de-festa-major-2025/",guideUrl:""},
+  {name:"Cursa Festa Major Sants",loc:"Barcelona",dist:"2k",date:"30/08",month:"Agosto",doy:242,confirmed:false,web:"https://aacatalunya.net/cursa-xvii-festa-major-sants/",guideUrl:""},
+  {name:"Mini-marató Calella de Palafrugell",loc:"Palafrugell",dist:"8,8k",date:"30/08",month:"Agosto",doy:242,confirmed:true,web:"https://www.capalafrugell.cat/mini-marato-calella-de-palafrugell/",guideUrl:""},
+  {name:"Social Run Gimenells",loc:"Gimenells",dist:"10k y 5k",date:"30/08",month:"Agosto",doy:242,confirmed:true,web:"https://www.instagram.com/socialrungimenells/",guideUrl:""},
+  {name:"Cursa Festa Major Santa Coloma",loc:"Santa Coloma de Gramenet",dist:"5k",date:"05/09",month:"Septiembre",doy:248,confirmed:false,web:"https://esportsgramenet.cat/cursafestamajor&lang=cat",guideUrl:""},
+  {name:"Cursa Festa Major Santa Perpètua",loc:"Santa Perpètua de la Mogoda",dist:"5k",date:"05/09",month:"Septiembre",doy:248,confirmed:false,web:"https://www.staperpetua.cat/actualitat/noticies/sobren-les-inscripcions-a-la-cursa-de-festa-major.html",guideUrl:""},
+  {name:"Cursa 'Parlem del suïcidi'",loc:"Avinyonet de Puigventós",dist:"9k",date:"05/09",month:"Septiembre",doy:248,confirmed:true,web:"https://tdssuicidio.com/",guideUrl:""},
+  {name:"Cursa del Mosquit",loc:"Manresa",dist:"10k y 5k",date:"06/09",month:"Septiembre",doy:249,confirmed:true,web:"https://www.theclubpadel.com/theclub-portfolio/cursa-mosquit/",guideUrl:""},
+  {name:"Cursa De La Vinya",loc:"Sant Llorenç d'Hortons",dist:"21k y 10k",date:"06/09",month:"Septiembre",doy:249,confirmed:false,web:"https://www.ajhortons.cat/temes/esport/la-28-ena-cursa-de-la-vinya-i-la-7ena-pampol-trail-",guideUrl:""},
+  {name:"Cursa Festa Major Sabadell",loc:"Sabadell",dist:"5k",date:"06/09",month:"Septiembre",doy:249,confirmed:false,web:"https://www.cursafestamajorsabadell.cat/",guideUrl:""},
+  {name:"Milla del Drac",loc:"Barcelona",dist:"Milla",date:"10/09",month:"Septiembre",doy:253,confirmed:false,web:"https://dracpoblenou.cat/la-milla-del-drac/",guideUrl:""},
+  {name:"Cursa Popular Viladecans",loc:"Viladecans",dist:"5k",date:"11/09",month:"Septiembre",doy:254,confirmed:true,web:"https://www.catvila.org/",guideUrl:""},
+  {name:"Cursa Popular Vall De Tenes",loc:"Bigues",dist:"10k",date:"11/09",month:"Septiembre",doy:254,confirmed:false,web:"https://www.mancomunitatvalltenes.cat/actualitat/noticies/xxxvi-cursa-de-la-vall-del-tenes.html",guideUrl:""},
+  {name:"La 6.6 Bellaterra",loc:"Bellaterra",dist:"6,6k",date:"11/09",month:"Septiembre",doy:254,confirmed:false,web:"https://la6punt6debellaterra.cat/",guideUrl:""},
+  {name:"Cursa Bellvitge",loc:"L'Hospitalet de Llobregat",dist:"5k",date:"12/09",month:"Septiembre",doy:255,confirmed:false,web:"https://www.instagram.com/cursasolidariabellvitge/",guideUrl:""},
+  {name:"Pujada a la Torre Collserola",loc:"Barcelona",dist:"2,2k",date:"12/09",month:"Septiembre",doy:255,confirmed:false,web:"https://veinsdevallvidrera.blogspot.com/",guideUrl:""},
+  {name:"Cursa Apaguem El Càncer (Bombers Girona)",loc:"Girona",dist:"10k y 5k",date:"13/09",month:"Septiembre",doy:256,confirmed:true,web:"https://www.cursabombersgirona.cat/",guideUrl:""},
+  {name:"Cros Ametlla Merola",loc:"L'Ametlla de Merola",dist:"10k y 5k",date:"13/09",month:"Septiembre",doy:256,confirmed:false,web:"http://cross.ametllademerola.cat/",guideUrl:""},
+  {name:"La Cursa de la Coia",loc:"Reus",dist:"5k",date:"13/09",month:"Septiembre",doy:256,confirmed:true,web:"https://www.xiquetsdereus.cat/la-cursa-de-la-coia/",guideUrl:""},
+  {name:"10K I 5K De Jesús",loc:"Jesús (Tortosa)",dist:"10k y 5k",date:"19/09",month:"Septiembre",doy:262,confirmed:true,web:"https://www.runningseries.net/calendari/",guideUrl:""},
+  {name:"Cursa Festa Major Sant Feliu Codines",loc:"Sant Feliu de Codines",dist:"8k",date:"19/09",month:"Septiembre",doy:262,confirmed:false,web:"https://www.santfeliudecodines.cat/actualitat/noticies/obertes-les-inscripcions-a-les-curses-de-festa-major-2025.html",guideUrl:""},
+  {name:"Km Contra el Càncer Badia",loc:"Badia del Vallès",dist:"3,5k",date:"19/09",month:"Septiembre",doy:262,confirmed:true,web:"https://barcelonaenmarxa.org/es/",guideUrl:""},
+  {name:"Km Contra el Càncer El Bedorc",loc:"El Bedorc",dist:"7k",date:"19/09",month:"Septiembre",doy:262,confirmed:true,web:"https://barcelonaenmarxa.org/es/",guideUrl:""},
+  {name:"Km Contra el Càncer Granollers",loc:"Granollers",dist:"5k",date:"20/09",month:"Septiembre",doy:263,confirmed:true,web:"https://barcelonaenmarxa.org/es/",guideUrl:""},
+  {name:"Km Contra el Càncer Sant Cebrià",loc:"Sant Cebrià de Vallalta",dist:"Por confirmar",date:"20/09",month:"Septiembre",doy:263,confirmed:true,web:"https://barcelonaenmarxa.org/es/",guideUrl:""},
+  {name:"Cursa - Caminada Entremuralles",loc:"Cervera",dist:"5k",date:"20/09",month:"Septiembre",doy:263,confirmed:false,web:"https://cesegarra.cat/cursa-popular-entre-muralles/",guideUrl:""},
+  {name:"Seu Vella Night Race",loc:"Lleida",dist:"5,4k",date:"20/09",month:"Septiembre",doy:263,confirmed:false,web:"https://www.instagram.com/westrunnersproject/",guideUrl:""},
+  {name:"Cursa Mercè",loc:"Barcelona",dist:"10k",date:"20/09",month:"Septiembre",doy:263,confirmed:true,web:"https://www.barcelona.cat/cursamerce/ca",guideUrl:""},
+  {name:"Cursa Sant Miquel Molins",loc:"Molins de Rei",dist:"10k y 3,5k",date:"20/09",month:"Septiembre",doy:263,confirmed:false,web:"https://www.molinsderei.site/cursasantmiquel/",guideUrl:""},
+  {name:"Cursa De La Vaca",loc:"Vallfogona",dist:"10k y 5k",date:"20/09",month:"Septiembre",doy:263,confirmed:true,web:"https://www.cansallebres.cat/",guideUrl:""},
+  {name:"Cursa L'Ametlla De Vilagrassa",loc:"L'Ametlla de Vilagrassa",dist:"10k y 5k",date:"20/09",month:"Septiembre",doy:263,confirmed:true,web:"https://www.vilagrassa.cat/firametlla/cursa",guideUrl:""},
+  {name:"Cursa De La Dona Ripoll",loc:"Ripoll",dist:"5k",date:"20/09",month:"Septiembre",doy:263,confirmed:false,web:"https://ripoll.cat/cursadeladona/",guideUrl:""},
+  {name:"Cursa De La Dona De Roses",loc:"Roses",dist:"5k",date:"20/09",month:"Septiembre",doy:263,confirmed:true,web:"https://www.atletismeroses.cat/cursa-de-la-dona",guideUrl:""},
+  {name:"Cursa Popular Prat",loc:"El Prat de Llobregat",dist:"10k y 5k",date:"27/09",month:"Septiembre",doy:270,confirmed:false,web:"https://www.elprat.cat/esports/actes-esportius/cursa-popular",guideUrl:""},
+  {name:"Cursa La Llagosta",loc:"La Llagosta",dist:"10k y 5k",date:"27/09",month:"Septiembre",doy:270,confirmed:true,web:"https://www.lasansieventos.com/ca/cursa-de-la-llagosta",guideUrl:""},
+  {name:"Km Contra el Càncer La Pobla de Claramunt",loc:"La Pobla de Claramunt",dist:"7k",date:"27/09",month:"Septiembre",doy:270,confirmed:true,web:"https://barcelonaenmarxa.org/es/",guideUrl:""},
+  {name:"Cursa Bacus De Verdú",loc:"Verdú",dist:"10k y 5k",date:"27/09",month:"Septiembre",doy:270,confirmed:false,web:"https://www.verdu.cat/actualitat/agenda/iia-cursa-bacus",guideUrl:""},
+  {name:"Cursa Dona Girona",loc:"Girona",dist:"5,5k",date:"27/09",month:"Septiembre",doy:270,confirmed:true,web:"https://www.cursadeladonagirona.com/",guideUrl:""},
+  {name:"Cursa Solidària I Inclusiva Del Trampolí",loc:"La Bisbal d'Empordà",dist:"10k y 5k",date:"27/09",month:"Septiembre",doy:270,confirmed:false,web:"https://www.instagram.com/p/DOYF4D4jLCc/",guideUrl:""},
+  {name:"Cursa Sant Miquel (Iter 5)",loc:"Lleida",dist:"10k y 5k",date:"27/09",month:"Septiembre",doy:270,confirmed:true,web:"http://www.cursasantmiquel.net/",guideUrl:""},
+  {name:"Sosciathlon",loc:"Salou",dist:"5k",date:"27/09",month:"Septiembre",doy:270,confirmed:true,web:"https://www.sosciathlon.org/ca/",guideUrl:""},
+  {name:"Cursa Can Jofresa",loc:"Terrassa",dist:"Por confirmar",date:"27/09",month:"Septiembre",doy:270,confirmed:true,web:"https://ceterrassa.cat/barris/",guideUrl:""},
+  {name:"Cursa Matonera",loc:"Marganell",dist:"12k",date:"27/09",month:"Septiembre",doy:270,confirmed:true,web:"https://www.instagram.com/cursamatonera/",guideUrl:""},
+  {name:"Metropolitan Sky Run",loc:"L'Hospitalet de Llobregat",dist:"-",date:"03/10",month:"Octubre",doy:276,confirmed:true,web:"https://metropolitanskyrun.com/",guideUrl:""},
+  {name:"Cursa De La Tardor Sant Andreu Barca",loc:"Sant Andreu de la Barca",dist:"10k y 5k",date:"03/10",month:"Octubre",doy:276,confirmed:false,web:"https://cursadelatardor.com/",guideUrl:""},
+  {name:"Cursa Nick Horta",loc:"Barcelona",dist:"5k",date:"04/10",month:"Octubre",doy:277,confirmed:false,web:"https://www.instagram.com/cursa_nick_horta_/",guideUrl:""},
+  {name:"Cursa Lo Carrilet",loc:"Tortosa",dist:"10k y 5k",date:"04/10",month:"Octubre",doy:277,confirmed:false,web:"https://www.runningseries.net/calendari/",guideUrl:""},
+  {name:"Cursa Antiracista Sabadell",loc:"Sabadell",dist:"5k",date:"04/10",month:"Octubre",doy:277,confirmed:true,web:"https://cursaantiracista.com/",guideUrl:""},
+  {name:"Cursa Fanny Sallès",loc:"Terrassa",dist:"5k",date:"04/10",month:"Octubre",doy:277,confirmed:true,web:"https://www.mitjaterrassa.org/curses/cursa-de-les-dones-terrassa/",guideUrl:""},
+  {name:"Cursa De La Tardor Sant Andreu Barca",loc:"Sant Andreu de la Barca",dist:"10k y 5k",date:"04/10",month:"Octubre",doy:277,confirmed:false,web:"https://cursadelatardor.com/",guideUrl:""},
+  {name:"Cursa Nosaltres També Podem",loc:"Lleida",dist:"10k y 5k",date:"04/10",month:"Octubre",doy:277,confirmed:true,web:"https://aspros.cat/cursa-aspros/",guideUrl:""},
+  {name:"Cursa I Caminada 5K L'Arboç",loc:"L'Arboç",dist:"5k",date:"04/10",month:"Octubre",doy:277,confirmed:false,web:"https://www.facebook.com/cursa5Klarboc/?locale=ca_ES",guideUrl:""},
+  {name:"Cursa Parets De Vallès",loc:"Parets del Vallès",dist:"10k y 5k",date:"04/10",month:"Octubre",doy:277,confirmed:false,web:"https://www.caparets.com/la-cursa",guideUrl:""},
+  {name:"Cursa Dona Vilanova I La Geltrú",loc:"Vilanova i la Geltrú",dist:"5k",date:"04/10",month:"Octubre",doy:277,confirmed:false,web:"https://cursadeladonavilanovailageltru.com/",guideUrl:""},
+  {name:"Cursa Antiracista Garrotxa",loc:"Olot",dist:"7k",date:"10/10",month:"Octubre",doy:283,confirmed:true,web:"https://cursaantiracista.com/",guideUrl:""},
+  {name:"Cursa Del Torró D'Agramunt",loc:"Agramunt",dist:"10k y 5k",date:"11/10",month:"Octubre",doy:284,confirmed:false,web:"https://agramuntesports.cat/cursa-del-torro-2025/#:~:text=com%20sempre%20l'Ajuntament%20d,cursa%20%C3%A9s%20a%20les%2010h.",guideUrl:""},
+  {name:"Cursa Del Remei",loc:"Santa Maria de Palautordera",dist:"10k",date:"11/10",month:"Octubre",doy:284,confirmed:false,web:"https://www.facebook.com/p/Cursa-10-Km-del-Remei-100064279255530/",guideUrl:""},
+  {name:"10K Lleida Internacional Race",loc:"Lleida",dist:"10k",date:"11/10",month:"Octubre",doy:284,confirmed:true,web:"https://10klleida.com/",guideUrl:""},
+  {name:"Volta Aeroport Alguaire",loc:"Alguaire",dist:"10k y 5,4k",date:"12/10",month:"Octubre",doy:285,confirmed:true,web:"https://lomakot.cat/cartell-2/",guideUrl:""},
+  {name:"Lleida Mou-Te Contra El Càncer",loc:"Lleida",dist:"10k y 5k",date:"17/10",month:"Octubre",doy:290,confirmed:false,web:"https://enmarcha.contraelcancer.es/es/evento/lleida-en-marcha-contra-el-cancer-2025",guideUrl:""},
+  {name:"Cursa Vertical Walden",loc:"Sant Just Desvern",dist:"-",date:"17/10",month:"Octubre",doy:290,confirmed:false,web:"https://trailbarcelona.com/ca/vertical-walden",guideUrl:""},
+  {name:"Cursa Lluís Companys",loc:"Barcelona",dist:"10k y 5k",date:"17/10",month:"Octubre",doy:290,confirmed:false,web:"https://cursacompanys.cat/",guideUrl:""},
+  {name:"Cros De Sants",loc:"Barcelona",dist:"10k",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://crospopulardesants.cat/",guideUrl:""},
+  {name:"Cursa Mercabarna",loc:"Barcelona",dist:"10k y 5k",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://www.cursamercabarna.cat/",guideUrl:""},
+  {name:"Km Contra el Càncer Santa Coloma",loc:"Santa Coloma de Gramenet",dist:"5k",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://barcelonaenmarxa.org/es/",guideUrl:""},
+  {name:"Km Contra el Càncer Sant Feliu",loc:"Sant Feliu de Llobregat",dist:"Por confirmar",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://barcelonaenmarxa.org/es/",guideUrl:""},
+  {name:"Cursa De La Dona Corbera",loc:"Corbera de Llobregat",dist:"7k",date:"18/10",month:"Octubre",doy:291,confirmed:false,web:"https://www.cinccims.cat/cursa-de-la-dona-19-10-25/",guideUrl:""},
+  {name:"Pink Run Montcada I Reixac",loc:"Montcada i Reixac",dist:"5k",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://www.nonstoprun.com/pinkrun/",guideUrl:""},
+  {name:"La De Deu De Cornellà",loc:"Cornellà de Llobregat",dist:"10k y 5k",date:"18/10",month:"Octubre",doy:291,confirmed:false,web:"https://cornellaatletic.com/la-de-deu/",guideUrl:""},
+  {name:"Mitja Mollerussa",loc:"Mollerussa",dist:"21k y 5k",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://sites.google.com/mollerussa.cat/mitjamollerussa/",guideUrl:""},
+  {name:"Mitja Puigcerdà",loc:"Puigcerdà",dist:"21k, 10k y 5k",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://www.puigcerda.cat/ca/serveis/esports/28a-mitja-marato-de-puigcerda-by-bwt-2026/",guideUrl:""},
+  {name:"Mitja Vila-Seca",loc:"Vila-seca",dist:"21k, 10k, 5k",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://www.runnersvilaseca.com/",guideUrl:""},
+  {name:"Cursa Carrer 9 Girona",loc:"Girona",dist:"10k y 5k",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://cursacarrernou.cat/",guideUrl:""},
+  {name:"Women Race Cursa Corte Inglés",loc:"Tarragona",dist:"5k",date:"18/10",month:"Octubre",doy:291,confirmed:false,web:"https://womenrace.cat/",guideUrl:""},
+  {name:"Carrera Km contra el cáncer Santa Coloma",loc:"Santa Coloma de Gramenet",dist:"5k",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://barcelonaenmarxa.org/es/#calendari",guideUrl:""},
+  {name:"Corre Cava",loc:"Sant Sadurní d'Anoia",dist:"10k",date:"18/10",month:"Octubre",doy:291,confirmed:false,web:"https://www.tretzesports.org/",guideUrl:""},
+  {name:"Cursa Torresana",loc:"Terrassa",dist:"Por confirmar",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://ceterrassa.cat/barris/",guideUrl:""},
+  {name:"La Vicentina",loc:"Sant Vicenç dels Horts",dist:"10k y 5k",date:"18/10",month:"Octubre",doy:291,confirmed:true,web:"https://gesport.cat/curses/",guideUrl:""},
+  {name:"Race For Life",loc:"Sabadell",dist:"5k",date:"18/10",month:"Octubre",doy:291,confirmed:false,web:"https://www.oncolliga.cat/oncolliga-sabadell-presenta-la-4a-race-for-life-pel-cancer-de-mama/",guideUrl:""},
+  {name:"Cursa De La Dona Figueres",loc:"Figueres",dist:"5k",date:"18/10",month:"Octubre",doy:291,confirmed:false,web:"https://www.figueres.cat/actualitat/cursa-de-la-dona",guideUrl:""},
+  {name:"Cursa De Les Dones Torres De L'Ebre",loc:"Miravet",dist:"5k",date:"18/10",month:"Octubre",doy:291,confirmed:false,web:"https://www.instagram.com/cursadelesdonesebre/",guideUrl:""},
+  {name:"Corre Per Les Mames",loc:"Diverses localitats Girona",dist:"3k-10k",date:"18/10",month:"Octubre",doy:291,confirmed:false,web:"https://oncolligagirona.cat/activitats-solidaries/corre-per-les-mames.html",guideUrl:""},
+  {name:"Cursa Antiracista Solsona",loc:"Solsona",dist:"5k",date:"24/10",month:"Octubre",doy:297,confirmed:true,web:"https://cursaantiracista.com/",guideUrl:""},
+  {name:"Cursa Udl",loc:"Lleida",dist:"5k",date:"24/10",month:"Octubre",doy:297,confirmed:false,web:"https://estudiantat.udl.cat/ca/ce/CEUdL/230/",guideUrl:""},
+  {name:"Mitja Vendrell",loc:"El Vendrell",dist:"21k, 10k y 5k",date:"25/10",month:"Octubre",doy:298,confirmed:true,web:"https://mitjavendrell.runnerselvendrell.cat/",guideUrl:""},
+  {name:"Mitja Costa Barcelona Maresme",loc:"Calella",dist:"21k",date:"25/10",month:"Octubre",doy:298,confirmed:true,web:"https://gesport.cat/mitja-marato-costa-barcelona-maresme-2026/",guideUrl:""},
+  {name:"10.000 I 5.000 Santa Bàrbara",loc:"Santa Bárbara",dist:"10k y 5k",date:"25/10",month:"Octubre",doy:298,confirmed:true,web:"https://www.runningseries.net/calendari/",guideUrl:""},
+  {name:"5K/10K Manresa",loc:"Manresa",dist:"10k y 5k",date:"25/10",month:"Octubre",doy:298,confirmed:true,web:"https://clubatleticmanresa.cat/cursa-urbana-de-manresa/",guideUrl:""},
+  {name:"Cursa De La Barca De Vilanova De La Barca",loc:"Vilanova de la Barca",dist:"10k y 5k",date:"25/10",month:"Octubre",doy:298,confirmed:true,web:"https://xtsportevents.com/reglament-ca-cursa-la-barca/",guideUrl:""},
+  {name:"Cursa Pau Dinarès",loc:"Terrassa",dist:"10k",date:"25/10",month:"Octubre",doy:298,confirmed:true,web:"https://xeu.cat/associacio-dina35/",guideUrl:""},
+  {name:"Cursa Antiracista Osona",loc:"Vic",dist:"5k",date:"25/10",month:"Octubre",doy:298,confirmed:true,web:"https://cursaantiracista.com/",guideUrl:""},
+  {name:"Km Contra el Càncer Santa Margarida",loc:"Santa Margarida de Montbui",dist:"Por confirmar",date:"25/10",month:"Octubre",doy:298,confirmed:true,web:"https://barcelonaenmarxa.org/es/",guideUrl:""},
+  {name:"Km Contra el Càncer Premià",loc:"Premià de Mar",dist:"Por confirmar",date:"25/10",month:"Octubre",doy:298,confirmed:true,web:"https://barcelonaenmarxa.org/es/",guideUrl:""},
+  {name:"10K Montbrió Del Camp",loc:"Montbrió del Camp",dist:"10k y 5k",date:"25/10",month:"Octubre",doy:298,confirmed:false,web:"https://webtretzesports.wixsite.com/10kmontbriodelcamp",guideUrl:""},
+  {name:"Cursa De La Dona - Calafell",loc:"Calafell",dist:"4k",date:"25/10",month:"Octubre",doy:298,confirmed:false,web:"https://www.athleticevents.net/cursa/vii-cursa-de-la-dona-calafell-506",guideUrl:""},
+  {name:"Pink Run Palau",loc:"Palau de Plegamans",dist:"3,6k",date:"25/10",month:"Octubre",doy:298,confirmed:true,web:"https://www.nonstoprun.com/pinkrunpalau/index.php?lang=es",guideUrl:""},
+  {name:"Tast Mitja",loc:"La Garriga - Les Franqueses",dist:"10k",date:"31/10",month:"Octubre",doy:304,confirmed:false,web:"https://eltast.lamitja.cat/",guideUrl:""},
+  {name:"Cursa Nocturna De La Cerveza Montseny",loc:"Sant Miquel de Balenyà",dist:"10k",date:"01/11",month:"Noviembre",doy:305,confirmed:false,web:"https://cervesamontseny.cat/es/carrera-de-la-cerveza-nocturna/",guideUrl:""},
+  {name:"Montjuïc A Tibidabo",loc:"Barcelona",dist:"21k y 10k",date:"01/11",month:"Noviembre",doy:305,confirmed:false,web:"https://montjuictibidabo.cat/es/",guideUrl:""},
+  {name:"Cursa De Sant Crist De Balaguer",loc:"Balaguer",dist:"10k y 5k",date:"07/11",month:"Noviembre",doy:311,confirmed:false,web:"https://www.runners.cat/5k-cursa-del-sant-crist-balaguer-2025/",guideUrl:""},
+  {name:"Mitja Tarragona",loc:"Tarragona",dist:"21k y 10k",date:"08/11",month:"Noviembre",doy:312,confirmed:false,web:"https://www.mitjatarragona.cat/es/",guideUrl:""},
+  {name:"10.000 I 5.000 Amposta",loc:"Amposta",dist:"10k y 5k",date:"08/11",month:"Noviembre",doy:312,confirmed:true,web:"https://www.runningseries.net/calendari/",guideUrl:""},
+  {name:"Cursa Bombers",loc:"Barcelona",dist:"10k",date:"08/11",month:"Noviembre",doy:312,confirmed:false,web:"https://cursadebombers.barcelona/es/",guideUrl:""},
+  {name:"Córrer Per Córrer",loc:"Manlleu",dist:"10k",date:"08/11",month:"Noviembre",doy:312,confirmed:false,web:"https://www.olimpicmanlleu.cat/correr-per-correr/",guideUrl:""},
+  {name:"Volta A L'Estany D'Ivars",loc:"Ivars d'Urgell",dist:"10k y 7k",date:"08/11",month:"Noviembre",doy:312,confirmed:true,web:"https://atletismeivars.wixsite.com/caivars/copia-de-grup-excursionista-2",guideUrl:""},
+  {name:"Cursa Valldeneu",loc:"Sant Martí de Centelles",dist:"5k",date:"14/11",month:"Noviembre",doy:318,confirmed:false,web:"https://www.instagram.com/p/DPmOYreCCrD/",guideUrl:""},
+  {name:"Vilanova Night Run",loc:"Vilanova i la Geltrú",dist:"5k",date:"14/11",month:"Noviembre",doy:318,confirmed:false,web:"https://vilanovanightrun.com/",guideUrl:""},
+  {name:"Nocturna D'Avià",loc:"Avià",dist:"5k",date:"14/11",month:"Noviembre",doy:318,confirmed:false,web:"https://voltaalamaria.wixsite.com/misitio",guideUrl:""},
+  {name:"Milles Cerdanyola",loc:"Cerdanyola del Vallès",dist:"10k y 5k",date:"14/11",month:"Noviembre",doy:318,confirmed:false,web:"https://www.atcerdanyola.com/curses/milles-cerdanyola/",guideUrl:""},
+  {name:"Cursa Vertical Torre Diagonal One",loc:"Barcelona",dist:"24 plantas",date:"14/11",month:"Noviembre",doy:318,confirmed:false,web:"https://www.carreraverticaltorrediagonalone.es/",guideUrl:""},
+  {name:"Cursa Sant Martí",loc:"Barcelona",dist:"10k y 5k",date:"15/11",month:"Noviembre",doy:319,confirmed:false,web:"https://www.cursasantmarti.cat/",guideUrl:""},
+  {name:"Cursa CN Sabadell",loc:"Sabadell",dist:"5k",date:"15/11",month:"Noviembre",doy:319,confirmed:false,web:"https://www.cursacns.cat/",guideUrl:""},
+  {name:"Els 10 De Les Franqueses",loc:"Les Franqueses del Vallès",dist:"10k",date:"15/11",month:"Noviembre",doy:319,confirmed:false,web:"http://www.els10delesfranqueses.cat/",guideUrl:""},
+  {name:"Carrera Km contra el cáncer Igualada",loc:"Igualada",dist:"5k",date:"15/11",month:"Noviembre",doy:319,confirmed:true,web:"https://barcelonaenmarxa.org/es/#calendari",guideUrl:""},
+  {name:"5K/10K Vic",loc:"Vic",dist:"10k y 5k",date:"15/11",month:"Noviembre",doy:319,confirmed:false,web:"https://5k10kvic.cat/",guideUrl:""},
+  {name:"Mitja Lleida",loc:"Lleida",dist:"21k y 5k",date:"15/11",month:"Noviembre",doy:319,confirmed:false,web:"https://mitjalleida.com/",guideUrl:""},
+  {name:"Km Contra el Càncer Igualada",loc:"Igualada",dist:"5k",date:"15/11",month:"Noviembre",doy:319,confirmed:true,web:"https://barcelonaenmarxa.org/es/",guideUrl:""},
+  {name:"Milla Sagrada Família",loc:"Barcelona",dist:"Milla",date:"15/11",month:"Noviembre",doy:319,confirmed:true,web:"https://claror.cat/es/la-milla/",guideUrl:""},
+  {name:"Cros 3 Turons",loc:"Barcelona",dist:"12k",date:"15/11",month:"Noviembre",doy:319,confirmed:false,web:"https://www.cros3turons-ladiablada.cat/",guideUrl:""},
+  {name:"Cursa Trinitat Vella",loc:"Barcelona",dist:"5k",date:"15/11",month:"Noviembre",doy:319,confirmed:false,web:"https://www.asme.cat/cursa-trinitat-vella-2025/",guideUrl:""},
+  {name:"Mitja Ripoll",loc:"Ripoll",dist:"21k, 10k y 5k",date:"15/11",month:"Noviembre",doy:319,confirmed:false,web:"https://www.mitjamarato.cat/",guideUrl:""},
+  {name:"Vinya Cross",loc:"Manresa",dist:"21k, 10k y 5k",date:"15/11",month:"Noviembre",doy:319,confirmed:false,web:"https://www.vinya-cross.es/",guideUrl:""},
+  {name:"Cursa De La Dona Barcelona",loc:"Barcelona",dist:"6,5k",date:"22/11",month:"Noviembre",doy:326,confirmed:false,web:"https://www.carreradelamujer.com/muj-barcelona",guideUrl:""},
+  {name:"Mitja Gavà",loc:"Gavà",dist:"21k",date:"22/11",month:"Noviembre",doy:326,confirmed:false,web:"https://www.instagram.com/mitjagava/",guideUrl:""},
+  {name:"Mitja Espirall",loc:"Vilafranca del Penedès",dist:"21k y 10k",date:"22/11",month:"Noviembre",doy:326,confirmed:true,web:"https://mitja.vilafranca.cat/",guideUrl:""},
+  {name:"Mitja Dani Maresme",loc:"Vilassar de Mar",dist:"21k, 10k y 6k",date:"22/11",month:"Noviembre",doy:326,confirmed:true,web:"https://danievents.cat/service/cursa-dani-maresme/",guideUrl:""},
+  {name:"Cursa DiR Mossos d'Esquadra",loc:"Sant Cugat del Vallès",dist:"10k y 5k",date:"22/11",month:"Noviembre",doy:326,confirmed:true,web:"https://danievents.cat/service/cursa-dani-maresme/",guideUrl:""},
+  {name:"Entrepobles Garrotxa",loc:"Olot",dist:"10k",date:"22/11",month:"Noviembre",doy:326,confirmed:true,web:"https://www.entrepobles.run/",guideUrl:""},
+  {name:"Correblau",loc:"Barcelona",dist:"10k y 5k",date:"22/11",month:"Noviembre",doy:326,confirmed:false,web:"https://www.aprenemautisme.org/correblau/",guideUrl:""},
+  {name:"Cursa Popular Vila De Sant Boi",loc:"Sant Boi de Llobregat",dist:"10k y 5k",date:"22/11",month:"Noviembre",doy:326,confirmed:false,web:"https://www.cursasantboi.com/",guideUrl:""},
+  {name:"CNG 4 Camins",loc:"Granollers",dist:"14k y 6k",date:"22/11",month:"Noviembre",doy:326,confirmed:false,web:"https://cngranollers.org/4camins/",guideUrl:""},
+  {name:"Cursa Del Vi De Gandesa",loc:"Gandesa",dist:"10k y 5k",date:"22/11",month:"Noviembre",doy:326,confirmed:true,web:"https://www.runningseries.net/calendari/",guideUrl:""},
+  {name:"Pujada i Baixada a Guanta",loc:"Sentmenat",dist:"12k y 6k",date:"22/11",month:"Noviembre",doy:326,confirmed:true,web:"https://www.runningseries.net/calendari/",guideUrl:""},
+  {name:"Tarraco Health Race",loc:"Tarragona",dist:"10k y 5k",date:"22/11",month:"Noviembre",doy:326,confirmed:false,web:"https://tarracohealthrace.com/",guideUrl:""},
+  {name:"5K Sant Vicenç Montalt",loc:"Sant Vicenç Montalt",dist:"5k",date:"29/11",month:"Noviembre",doy:333,confirmed:false,web:"https://gesport.cat/",guideUrl:""},
+  {name:"Jean Bouin",loc:"Barcelona",dist:"10k y 5k",date:"29/11",month:"Noviembre",doy:333,confirmed:true,web:"https://jeanbouin.mundodeportivo.com/",guideUrl:""},
+  {name:"Cursa Dona Castellar",loc:"Castellar del Vallès",dist:"5k",date:"29/11",month:"Noviembre",doy:333,confirmed:false,web:"https://www.castellarvalles.cat/14352/acte/16515/",guideUrl:""},
+  {name:"Cursa Dona Sant Joan de Vilatorrada",loc:"Sant Joan de Vilatorrada",dist:"5k",date:"29/11",month:"Noviembre",doy:333,confirmed:false,web:"https://www.santjoanvilatorrada.cat/ca/actualitat/noticies/fem-cursa-cursa-de-la-dona-2025-ja-et-pots-inscriure-als-entrenaments",guideUrl:""},
+  {name:"Cursa Sant Andreu",loc:"Barcelona",dist:"5k",date:"06/12",month:"Diciembre",doy:340,confirmed:true,web:"https://www.cnsantandreu.com/cursa-de-sant-andreu-2025/",guideUrl:""},
+  {name:"Mitja Figueres",loc:"Figueres",dist:"21k y 10k",date:"06/12",month:"Diciembre",doy:340,confirmed:true,web:"https://mitjafigueres.com/",guideUrl:""},
+  {name:"Cursa Urbana Jeroni Juan",loc:"Sant Jaume d'Enveja",dist:"10k y 5k",date:"13/12",month:"Diciembre",doy:347,confirmed:true,web:"https://www.runningseries.net/calendari/",guideUrl:""},
+  {name:"Cursa Sagrera",loc:"Barcelona",dist:"10k y 5k",date:"13/12",month:"Diciembre",doy:347,confirmed:true,web:"https://www.cursadelasagrera.cat/",guideUrl:""},
+  {name:"Cursa de les Ciutats contra el Càncer de Pàncrees",loc:"Barcelona",dist:"10k y 5k",date:"13/12",month:"Diciembre",doy:347,confirmed:true,web:"https://carreracancerpancreas.es/cursa-barcelona/",guideUrl:""},
+  {name:"Mitja Vilanova",loc:"Vilanova i la Geltrú",dist:"21k y 10k",date:"13/12",month:"Diciembre",doy:347,confirmed:false,web:"https://mitjavilanova.com/",guideUrl:""},
+  {name:"Cursa UAB",loc:"Campus UAB Bellaterra",dist:"11,6k y 6k",date:"13/12",month:"Diciembre",doy:347,confirmed:false,web:"https://micromecenatge.uab.cat/lacursadelauab",guideUrl:""},
+  {name:"Cursa De Les Empreses",loc:"Barcelona",dist:"10k",date:"13/12",month:"Diciembre",doy:347,confirmed:false,web:"https://www.cursaempreses.com/",guideUrl:""},
+  {name:"La De Nadal (Cursa Dels Elfs I Elfes)",loc:"Santa Coloma de Gramenet",dist:"5k",date:"19/12",month:"Diciembre",doy:353,confirmed:false,web:"https://esportsgramenet.cat/ladenadal&lang=cat",guideUrl:""},
+  {name:"Cursa Pare Noel",loc:"Barcelona",dist:"5k",date:"20/12",month:"Diciembre",doy:354,confirmed:false,web:"https://www.cursaparenoel.cat/",guideUrl:""},
+  {name:"Cursa Nadal Sant Sadurní",loc:"Sant Sadurní d'Anoia",dist:"10k y 5k",date:"20/12",month:"Diciembre",doy:354,confirmed:false,web:"https://sansasua.cat/cursa-de-nadal/",guideUrl:""},
+  {name:"Sant Silvestre L'Hospitalet De L'Infant",loc:"L'Hospitalet de l'Infant",dist:"4k",date:"20/12",month:"Diciembre",doy:354,confirmed:false,web:"https://webtretzesports.wixsite.com/santsansihospitalet",guideUrl:""},
+  {name:"Cursa Del Gall Riudecanyes",loc:"Riudecanyes",dist:"7,5k",date:"20/12",month:"Diciembre",doy:354,confirmed:false,web:"https://webtretzesports.wixsite.com/cursadelgall",guideUrl:""},
+  {name:"Cursa del Tió",loc:"Cabrils",dist:"5k",date:"20/12",month:"Diciembre",doy:354,confirmed:false,web:"https://xeventsports.com/la-cursa-del-tio/",guideUrl:""},
+  {name:"Cursa Vicente Ferrer",loc:"Terrassa",dist:"8k y 5k",date:"20/12",month:"Diciembre",doy:354,confirmed:true,web:"https://ceterrassa.cat/barris/",guideUrl:""},
+  {name:"Cursa Nadal Portbou",loc:"Portbou",dist:"5k y 2,5k",date:"24/12",month:"Diciembre",doy:358,confirmed:false,web:"https://www.instagram.com/cursadenadalportbou/",guideUrl:""},
+  {name:"Cursa Dona La Jonquera",loc:"La Jonquera",dist:"5k",date:"26/12",month:"Diciembre",doy:360,confirmed:false,web:"https://www.curses.cat/",guideUrl:""},
+  {name:"Sant Silvestre Manresana",loc:"Manresa",dist:"9,5k",date:"26/12",month:"Diciembre",doy:360,confirmed:false,web:"https://cube.cat/sant-silvestre-2025/",guideUrl:""},
+  {name:"Sant Esteve Run",loc:"L'Escala",dist:"5k",date:"26/12",month:"Diciembre",doy:360,confirmed:false,web:"https://esportslescala.cat/sant-esteve-run/",guideUrl:""},
+  {name:"Sant Silvestre El Vendrell",loc:"El Vendrell",dist:"5k",date:"26/12",month:"Diciembre",doy:360,confirmed:false,web:"https://www.runnerselvendrell.cat/?page_id=6420",guideUrl:""},
+  {name:"La Folguerenca",loc:"Folgueroles",dist:"5k",date:"26/12",month:"Diciembre",doy:360,confirmed:false,web:"https://lafolguerolenca.cat/",guideUrl:""},
+  {name:"Cursa Del Bolet",loc:"Ullastrell",dist:"6k",date:"26/12",month:"Diciembre",doy:360,confirmed:true,web:"https://www.cursadelbolet.cat/",guideUrl:""},
+  {name:"Sant Silvestre Masnou",loc:"El Masnou",dist:"5k",date:"26/12",month:"Diciembre",doy:360,confirmed:true,web:"https://www.lasansi.com/es/sant-silvestre-masnou",guideUrl:""},
+  {name:"Cursa De L'Indiot",loc:"Mollerussa",dist:"10k",date:"26/12",month:"Diciembre",doy:360,confirmed:true,web:"https://www.xafatolls.cat/indiot",guideUrl:""},
+  {name:"Sant Silvestre Palafrugell",loc:"Palafrugell",dist:"5k",date:"26/12",month:"Diciembre",doy:360,confirmed:false,web:"https://www.instagram.com/p/DRhz394DUBt/",guideUrl:""},
+  {name:"Cursa Del Capó",loc:"Castelldefels",dist:"6,7k",date:"27/12",month:"Diciembre",doy:361,confirmed:false,web:"https://www.sedentaris.cat/el-capo-puja-al-castell/",guideUrl:""},
+  {name:"Sant Silvestre Badalona",loc:"Badalona",dist:"10k y 5k",date:"27/12",month:"Diciembre",doy:361,confirmed:false,web:"https://www.zonavipevents.com/sant-silvestre-badalona/",guideUrl:""},
+  {name:"Mitja Badia De Roses",loc:"Roses",dist:"21k y 7,5k",date:"27/12",month:"Diciembre",doy:361,confirmed:false,web:"https://www.atletismeroses.cat/mitjabadiaderoses",guideUrl:""},
+  {name:"Cursa Nassos",loc:"Barcelona",dist:"10k",date:"31/12",month:"Diciembre",doy:365,confirmed:true,web:"https://www.cursadenassos.barcelona/ca",guideUrl:""},
+  {name:"Cap D'Any Race",loc:"Sabadell",dist:"10k y 5k",date:"31/12",month:"Diciembre",doy:365,confirmed:true,web:"https://www.capdanyrace.cat/",guideUrl:""},
+  {name:"Cursa Del Gall",loc:"Sant Cugat del Vallès",dist:"5k",date:"31/12",month:"Diciembre",doy:365,confirmed:true,web:"https://cursadelgall.cat/",guideUrl:""},
+  {name:"Sant Silvestre Girona",loc:"Girona",dist:"5k",date:"31/12",month:"Diciembre",doy:365,confirmed:true,web:"https://web.girona.cat/ssilvestre",guideUrl:""},
+  {name:"Sant Silvestre Lleida",loc:"Lleida",dist:"5k",date:"31/12",month:"Diciembre",doy:365,confirmed:true,web:"https://santsilvestrelleida.es/",guideUrl:""},
+  {name:"Sant Silvestre Tarragona",loc:"Tarragona",dist:"6,5k",date:"31/12",month:"Diciembre",doy:365,confirmed:true,web:"https://www.athleticevents.net/cursa/21a-cursa-sant-silvestre-de-tarragona-509",guideUrl:""},
+  {name:"Sant Silvestre Reus",loc:"Reus",dist:"5k",date:"31/12",month:"Diciembre",doy:365,confirmed:true,web:"https://santsilvestrereus.wixsite.com/santsilvestrereus",guideUrl:""},
+  {name:"Sant Silvestre Berga",loc:"Berga",dist:"5k",date:"31/12",month:"Diciembre",doy:365,confirmed:true,web:"https://www.jaberga.com/santsilvestre",guideUrl:""},
+  {name:"Sant Silvestre Navatenca",loc:"Navata",dist:"2,5k y 5k",date:"31/12",month:"Diciembre",doy:365,confirmed:false,web:"https://www.curses.cat/",guideUrl:""},
+  {name:"Sant Silvestre Cadaquès",loc:"Cadaquès",dist:"10k",date:"31/12",month:"Diciembre",doy:365,confirmed:false,web:"https://www.instagram.com/p/DSFmXD5iOP1/",guideUrl:""},
+  {name:"Cursa Dels Nassos Maçanet",loc:"Maçanet de Cabrenys",dist:"5k",date:"31/12",month:"Diciembre",doy:365,confirmed:false,web:"https://www.clubexcursionistamassanetenc.cat/",guideUrl:""},
+  {name:"Sant Silvestre Fortià",loc:"Fortià",dist:"5k",date:"31/12",month:"Diciembre",doy:365,confirmed:false,web:"https://fortia.cat/sant-silvestre-a-fortia/",guideUrl:""},
+  {name:"Sant Silvestre La Seu",loc:"La Seu d'Urgell",dist:"3,6k",date:"31/12",month:"Diciembre",doy:365,confirmed:false,web:"https://santsilvestrelaseu.com/",guideUrl:""},
+  {name:"Sant Silvestre Manlleunca",loc:"Manlleu",dist:"5k",date:"31/12",month:"Diciembre",doy:365,confirmed:false,web:"https://www.olimpicmanlleu.cat/st-silvestre-manlleuenca/",guideUrl:""},
+  {name:"Sant Silvestre De Bellver",loc:"Bellver de Cerdanya",dist:"5,7k",date:"31/12",month:"Diciembre",doy:365,confirmed:false,web:"https://esportsbellver.org/sant-silvestre-25/",guideUrl:""},
+  {name:"Sant Silvestre Borgonyà",loc:"Cornellà de Terri",dist:"5k",date:"31/12",month:"Diciembre",doy:365,confirmed:false,web:"https://www.facebook.com/SansilvestreBorgonya/",guideUrl:""},
+  {name:"Sant Silvestre Vilanova Del Camí",loc:"Vilanova del Camí",dist:"5k",date:"31/12",month:"Diciembre",doy:365,confirmed:false,web:"https://www.vilanovadelcami.cat/actualitat/agenda/26a-cursa-sant-silvestre.html",guideUrl:""},
+  {name:"Sant Silvestre Montblanc",loc:"Montblanc",dist:"3,4k",date:"31/12",month:"Diciembre",doy:365,confirmed:false,web:"https://atleticmontblanc.cat/category/curses/cursasantsilvestre/",guideUrl:""},
+  {name:"Sant Silvestre Puigcerdà",loc:"Puigcerdà",dist:"5k",date:"31/12",month:"Diciembre",doy:365,confirmed:false,web:"https://www.puigcerda.cat/ca/serveis/esports/14a-sant-silvestre-puigcerda-2026/",guideUrl:""},
+  {name:"Sant Silvestre Cunit",loc:"Cunit",dist:"5k",date:"31/12",month:"Diciembre",doy:365,confirmed:false,web:"https://santsilvestrecunit.com/",guideUrl:""},
+  {name:"Sant Silvestre La Garriga",loc:"La Garriga",dist:"7k",date:"31/12",month:"Diciembre",doy:365,confirmed:false,web:"https://www.lagarriga.cat/actualitat/agenda/16a-cursa-de-sant-silvestre-",guideUrl:""},
+  {name:"Sant Silvestre Bagà",loc:"Bagà",dist:"10k y 5k",date:"31/12",month:"Diciembre",doy:365,confirmed:false,web:"https://www.atletismebaga.cat/v-cursa-sant-silvestre-de-baga-31-de-desembre-de-2025/",guideUrl:""},
+  {name:"Sant Silvestre Terra Endins",loc:"Torelló",dist:"5k",date:"31/12",month:"Diciembre",doy:365,confirmed:false,web:"https://www.matxos.cat/",guideUrl:""}
 ];
 
 const BASE_COORDS = {
@@ -613,73 +599,41 @@ const BASE_COORDS = {
   "Vilassar de Mar":[41.5,2.3833]
 };
 
-// Saved coords from localStorage (only used by editor)
-const savedCoords = {}; // in-memory, no localStorage needed
-function getCoordByRace(name, loc) {
-  return savedCoords[name] || BASE_COORDS[loc] || null;
-}
-function getCoord(loc) {
-  return BASE_COORDS[loc] || null;
-}
+// Coords modified by editor (in-memory per session)
+const savedCoords = {};
 
-// Unique localities for search
-const allLocs = [...new Set(RACES.map(r=>r.loc))].sort();
-
-// Date helpers
-const MONTH_LABELS = ['','Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
-function doyToLabel(doy) {
-  if(doy >= 366) return '31 Dic';
-  if(doy <= 1) return '1 Ene';
-  const months = [0,31,28,31,30,31,30,31,31,30,31,30,31];
-  let m=1, d=doy;
-  while(m<=12 && d>months[m]){d-=months[m];m++;}
-  if(m>12) return '31 Dic';
-  return `${d} ${MONTH_LABELS[m]}`;
+function getRaceCoord(r) {
+  if(savedCoords[r.name]) return savedCoords[r.name];
+  if(BASE_COORDS[r.loc]) return BASE_COORDS[r.loc];
+  return null;
 }
 
-// Map setup
+// ── MAP ───────────────────────────────────────────────────────────────────────
 const map = L.map('map').setView([41.7, 1.8], 8);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   maxZoom: 19
 }).addTo(map);
-setTimeout(()=>{
-  document.querySelectorAll('.leaflet-tile-pane').forEach(el=>{
-    el.style.filter='grayscale(100%) brightness(1.05)';
+setTimeout(() => {
+  document.querySelectorAll('.leaflet-tile-pane').forEach(el => {
+    el.style.filter = 'grayscale(100%) brightness(1.05)';
   });
-},300);
+}, 400);
 
-let selectedPin = null;
-let allMarkers = []; // store all markers to toggle popups
-
-map.on('click', function(e) {
-  if(!editMode || !selectedPin) return;
-  const key = selectedPin.key;
-  const marker = selectedPin.marker;
-  const latlng = e.latlng;
-  marker.setLatLng(latlng);
-  savedCoords[key] = [+latlng.lat.toFixed(5), +latlng.lng.toFixed(5)];
-  document.getElementById('edit-coords').textContent =
-    '✓ ' + key + '\n[' + +latlng.lat.toFixed(5) + ', ' + +latlng.lng.toFixed(5) + ']';
-  updateChangeCount();
-  const el = marker.getElement();
-  if(el){ el.style.opacity='0.4'; setTimeout(()=>{el.style.opacity='1';el.style.outline='none';},400); }
-  selectedPin = null;
-});
-
-let mode = 'race';
+// ── STATE ─────────────────────────────────────────────────────────────────────
 let editMode = false;
+let selectedPin = null; // {name, marker}
 let sliderMin = 1, sliderMax = 366;
 let searchFilter = null;
 let markersLayer = L.layerGroup().addTo(map);
 
-// SECRET EDITOR: triple-click on title to toggle
+// ── SECRET EDITOR: triple-click on title ─────────────────────────────────────
 let titleClicks = 0, titleTimer = null;
-function titleClickEdit() {
+function titleClick() {
   titleClicks++;
-  if(titleTimer) clearTimeout(titleTimer);
+  clearTimeout(titleTimer);
   titleTimer = setTimeout(() => { titleClicks = 0; }, 600);
-  if(titleClicks >= 3) {
+  if (titleClicks >= 3) {
     titleClicks = 0;
     editMode = !editMode;
     selectedPin = null;
@@ -688,49 +642,72 @@ function titleClickEdit() {
   }
 }
 
+// ── MAP CLICK: move selected pin ─────────────────────────────────────────────
+map.on('click', function(e) {
+  if (!editMode || !selectedPin) return;
+  const { name, marker } = selectedPin;
+  const latlng = e.latlng;
+  marker.setLatLng(latlng);
+  savedCoords[name] = [+latlng.lat.toFixed(5), +latlng.lng.toFixed(5)];
+  // Update panel
+  const n = Object.keys(savedCoords).length;
+  document.getElementById('edit-coords').textContent =
+    `✓ Movida: ${name}\n[${savedCoords[name][0]}, ${savedCoords[name][1]}]`;
+  document.getElementById('btn-export').textContent =
+    `Ver cambios (${n} pin${n > 1 ? 'es' : ''})`;
+  // Flash
+  const el = marker.getElement();
+  if (el) { el.style.opacity = '0.3'; setTimeout(() => { el.style.opacity = '1'; el.style.outline = 'none'; }, 400); }
+  selectedPin = null;
+});
 
+// ── SLIDER ────────────────────────────────────────────────────────────────────
+const MONTH_LABELS = ['','Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+function doyToLabel(doy) {
+  if (doy >= 366) return '31 Dic';
+  if (doy <= 1) return '1 Ene';
+  const md = [0,31,28,31,30,31,30,31,31,30,31,30,31];
+  let m = 1, d = doy;
+  while (m <= 12 && d > md[m]) { d -= md[m]; m++; }
+  return m > 12 ? '31 Dic' : `${d} ${MONTH_LABELS[m]}`;
+}
 
-// Slider
 const sMin = document.getElementById('slider-min');
 const sMax = document.getElementById('slider-max');
 const sFill = document.getElementById('slider-fill');
 
-function updateSliderFill() {
-  const pct1 = (sliderMin-1)/365*100;
-  const pct2 = (sliderMax-1)/365*100;
-  sFill.style.left = pct1+'%';
-  sFill.style.width = (pct2-pct1)+'%';
-  const label = document.getElementById('slider-label');
-  label.textContent = (sliderMin===1 && sliderMax===366)
-    ? 'Busca por fecha'
-    : doyToLabel(sliderMin) + ' → ' + doyToLabel(sliderMax);
+function updateSlider() {
+  const p1 = (sliderMin - 1) / 365 * 100;
+  const p2 = (sliderMax - 1) / 365 * 100;
+  sFill.style.left = p1 + '%';
+  sFill.style.width = (p2 - p1) + '%';
+  document.getElementById('slider-label').textContent =
+    (sliderMin === 1 && sliderMax === 366) ? 'Busca por fecha' : doyToLabel(sliderMin) + ' → ' + doyToLabel(sliderMax);
   renderMarkers();
 }
-sMin.addEventListener('input', () => { sliderMin=Math.min(parseInt(sMin.value),sliderMax-1); sMin.value=sliderMin; updateSliderFill(); });
-sMax.addEventListener('input', () => { sliderMax=Math.max(parseInt(sMax.value),sliderMin+1); sMax.value=sliderMax; updateSliderFill(); });
-updateSliderFill();
+sMin.addEventListener('input', () => { sliderMin = Math.min(+sMin.value, sliderMax - 1); sMin.value = sliderMin; updateSlider(); });
+sMax.addEventListener('input', () => { sliderMax = Math.max(+sMax.value, sliderMin + 1); sMax.value = sliderMax; updateSlider(); });
+updateSlider();
 
-// Search
+// ── SEARCH ────────────────────────────────────────────────────────────────────
+const allLocs = [...new Set(RACES.map(r => r.loc))].sort();
+
 function onSearchInput() {
   const q = document.getElementById('search-input').value.toLowerCase().trim();
   document.getElementById('search-clear').style.display = q ? 'block' : 'none';
-  if(!q) { searchFilter=null; hideDropdown(); renderMarkers(); return; }
-  const matches = allLocs.filter(l => l.toLowerCase().includes(q));
-  showDropdown(matches, q);
+  if (!q) { searchFilter = null; hideDropdown(); renderMarkers(); return; }
+  showDropdown(allLocs.filter(l => l.toLowerCase().includes(q)));
 }
 function onSearchFocus() {
-  const q = document.getElementById('search-input').value.toLowerCase().trim();
-  if(!q) showDropdown(allLocs.slice(0,12), '');
+  if (!document.getElementById('search-input').value.trim()) showDropdown(allLocs.slice(0, 12));
 }
 function onSearchBlur() { setTimeout(hideDropdown, 200); }
-function showDropdown(locs, q) {
+function showDropdown(locs) {
   const dd = document.getElementById('search-dropdown');
-  if(!locs.length){dd.innerHTML='<div class="search-item" style="color:#aaa">Sin resultados</div>';dd.classList.add('visible');return;}
-  dd.innerHTML = locs.slice(0,15).map(l => {
-    const count = RACES.filter(r=>r.loc===l).length;
-    return `<div class="search-item" onmousedown="selectLoc('${l.replace(/'/,"\\'")}')">
-      <span>${l}</span><span>${count} carrera${count>1?'s':''}</span>
-    </div>`;
+  if (!locs.length) { dd.innerHTML = '<div class="search-item" style="color:#aaa">Sin resultados</div>'; dd.classList.add('visible'); return; }
+  dd.innerHTML = locs.slice(0, 15).map(l => {
+    const n = RACES.filter(r => r.loc === l).length;
+    return `<div class="search-item" onmousedown="selectLoc('${l.replace(/'/g,"\\'")}')"><span>${l}</span><span>${n} carrera${n > 1 ? 's' : ''}</span></div>`;
   }).join('');
   dd.classList.add('visible');
 }
@@ -741,9 +718,8 @@ function selectLoc(loc) {
   document.getElementById('search-clear').style.display = 'block';
   hideDropdown();
   renderMarkers();
-  // Pan to location
-  const c = getCoord(loc);
-  if(c) map.setView(c, 13);
+  const c = BASE_COORDS[loc];
+  if (c) map.setView(c, 13);
 }
 function clearSearch() {
   searchFilter = null;
@@ -752,123 +728,82 @@ function clearSearch() {
   renderMarkers();
 }
 
-// Filter
-function filteredRaces() {
-  return RACES.filter(r => {
-    const dateOk = r.doy >= sliderMin && r.doy <= sliderMax;
-    const locOk = !searchFilter || r.loc === searchFilter;
-    return dateOk && locOk;
-  });
-}
-
-// Icons
-function makeIcon(confirmed, count) {
+// ── ICONS ─────────────────────────────────────────────────────────────────────
+function makeIcon(confirmed) {
   const bg = confirmed ? '#4a7c59' : '#c47c3e';
-  const s = count > 9 ? 34 : count > 4 ? 30 : count > 1 ? 26 : 22;
-  const badge = count > 1
-    ? `<div style="position:absolute;top:-7px;right:-7px;background:#111;color:#fff;font-size:9px;font-weight:700;border-radius:50%;width:15px;height:15px;display:flex;align-items:center;justify-content:center">${count}</div>`
-    : '';
   return L.divIcon({
-    html: `<div style="position:relative;width:${s}px;height:${s}px;background:${bg};border-radius:50%;border:2.5px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.25)">${badge}</div>`,
-    iconSize:[s,s], iconAnchor:[s/2,s/2], className:''
+    html: `<div style="width:18px;height:18px;background:${bg};border-radius:50%;border:2.5px solid #fff;box-shadow:0 2px 5px rgba(0,0,0,.25)"></div>`,
+    iconSize: [18, 18], iconAnchor: [9, 9], className: ''
   });
 }
 
-
-
+// ── RENDER ────────────────────────────────────────────────────────────────────
 function renderMarkers() {
   markersLayer.clearLayers();
-  allMarkers = [];
-  const fr = filteredRaces();
-  if(mode === 'locality') {
-    const byLoc = {};
-    fr.forEach(r => { if(!byLoc[r.loc])byLoc[r.loc]=[]; byLoc[r.loc].push(r); });
-    let shown = 0;
-    Object.entries(byLoc).forEach(([loc, rs]) => {
-      const c = getCoord(loc);
-      if(!c) return;
-      const allConf = rs.every(r=>r.confirmed);
-      const marker = L.marker(c, {icon:makeIcon(allConf,rs.length), draggable:false});
-      marker.bindPopup(makePopupLoc(loc,rs),{maxWidth:290});
-      if(editMode) {
-        marker.unbindPopup();
-        marker.on('click', ()=>{
-          selectPin(loc, marker);
-        });
-      }
-      markersLayer.addLayer(marker);
-      shown++;
-    });
-    document.getElementById('stats').innerHTML=`<strong>${shown}</strong> localidades · <strong>${fr.length}</strong> carreras`;
-  } else {
-    const jitter=()=>(Math.random()-0.5)*0.006;
-    fr.forEach(r=>{
-      const c=getCoord(r.loc);
-      if(!c)return;
-      const marker=L.marker([c[0]+jitter(),c[1]+jitter()],{icon:makeIcon(r.confirmed,1),draggable:editMode});
-      marker.bindPopup(`<div style="min-width:190px">
+  const fr = RACES.filter(r => {
+    return r.doy >= sliderMin && r.doy <= sliderMax && (!searchFilter || r.loc === searchFilter);
+  });
+
+  const jitter = () => (Math.random() - 0.5) * 0.005;
+
+  fr.forEach(r => {
+    const base = getRaceCoord(r);
+    if (!base) return;
+    // Use saved exact coord or jittered base
+    const hasCustom = !!savedCoords[r.name];
+    const lat = hasCustom ? base[0] : base[0] + jitter();
+    const lng = hasCustom ? base[1] : base[1] + jitter();
+    const marker = L.marker([lat, lng], { icon: makeIcon(r.confirmed), draggable: false });
+
+    if (editMode) {
+      // In edit mode: click selects pin, no popup
+      marker.on('click', function() {
+        // Deselect previous
+        if (selectedPin) {
+          const prev = selectedPin.marker.getElement();
+          if (prev) prev.style.outline = 'none';
+        }
+        selectedPin = { name: r.name, marker };
+        const el = marker.getElement();
+        if (el) el.style.outline = '3px solid #111';
+        document.getElementById('edit-coords').textContent =
+          `📍 ${r.name}\n${r.loc} · ${r.date}\n\nHaz clic en el mapa para moverlo`;
+      });
+    } else {
+      // Normal mode: popup
+      marker.bindPopup(`<div style="min-width:180px">
         <div class="popup-title">${r.name}</div>
-        <div class="popup-sub">${r.loc} · ${r.date} · ${r.month}</div>
-        <div style="margin-top:5px;font-size:11px;color:#777">${r.dist}</div>
-        ${r.web?`<a class="popup-link" href="${r.web}" target="_blank">↗ Web oficial</a>`:''}
-      </div>`,{maxWidth:280});
-      allMarkers.push({marker, name:r.name});
-      markersLayer.addLayer(marker);
-    });
-    document.getElementById('stats').innerHTML=`<strong>${fr.length}</strong> carreras`;
+        <div class="popup-sub">${r.loc} · ${r.date} · ${r.month}<br>${r.dist}</div>
+        ${r.web ? `<a class="popup-link" href="${r.web}" target="_blank" rel="noopener">↗ Web oficial</a>` : ''}
+      </div>`, { maxWidth: 260 });
+    }
+    markersLayer.addLayer(marker);
+  });
+
+  document.getElementById('stats').innerHTML = `<strong>${fr.length}</strong> carreras`;
+}
+
+// ── EDITOR ACTIONS ────────────────────────────────────────────────────────────
+function exportCoords() {
+  if (!Object.keys(savedCoords).length) {
+    alert('No hay cambios todavía.\n\n1. Haz clic en un pin (se marca con borde negro)\n2. Haz clic en el mapa para moverlo');
+    return;
   }
-}
-
-function selectPin(key, marker, isRace) {
-  if(selectedPin && selectedPin.marker !== marker) {
-    const el = selectedPin.marker.getElement();
-    if(el) el.style.outline = 'none';
-  }
-  selectedPin = {key, marker, isRace};
-  const el = marker.getElement();
-  if(el) el.style.outline = '3px solid #111';
-  const latlng = marker.getLatLng();
-  document.getElementById('edit-coords').textContent =
-    '📍 ' + key + '\nHaz clic en el mapa para moverlo';
-}
-
-function showEditCoords(loc, latlng) {
-  const lat = typeof latlng.lat === 'function' ? latlng.lat() : latlng[0] || latlng.lat;
-  const lng = typeof latlng.lng === 'function' ? latlng.lng() : latlng[1] || latlng.lng;
-  document.getElementById('edit-coords').textContent=`"${loc}": [${(+lat).toFixed(5)}, ${(+lng).toFixed(5)}]`;
-}
-function updateChangeCount() {
-  const n = Object.keys(savedCoords).length;
-  const btn = document.querySelectorAll('.btn-edit')[1];
-  btn.textContent = n > 0 ? `Ver cambios (${n} pin${n>1?'es':''} movido${n>1?'s':''})` : 'Ver todos los cambios';
-}
-
-function copyCoords() {
-  const text=document.getElementById('edit-coords').textContent;
-  const area=document.getElementById('export-area');
-  area.style.display='block';
-  area.value=text;
+  let text = 'COORDENADAS MODIFICADAS:\n(Pega esto en el chat con Claude)\n\n';
+  Object.entries(savedCoords).forEach(([name, c]) => { text += `"${name}": [${c[0]}, ${c[1]}]\n`; });
+  const area = document.getElementById('export-area');
+  area.style.display = 'block';
+  area.value = text;
+  area.focus();
   area.select();
 }
 
-function exportCoords() {
-  const saved=savedCoords;
-  if(!Object.keys(saved).length){alert('No hay cambios todavía.');return;}
-  let text='COORDENADAS MODIFICADAS:\n(Pega esto en el chat con Claude)\n\n';
-  Object.entries(saved).forEach(([loc,c])=>{ text+=`"${loc}": [${c[0]}, ${c[1]}]\n`; });
-  navigator.clipboard.writeText(text).then(()=>{
-    const btn=document.querySelectorAll('.btn-edit')[1];
-    btn.textContent='✓ Copiado — pégalo en el chat'; setTimeout(()=>btn.textContent='Exportar todos los cambios',3000);
-  });
-}
-
 function closeEdit() {
-  editMode=false;
+  editMode = false;
+  selectedPin = null;
   document.getElementById('edit-panel').classList.remove('visible');
   renderMarkers();
 }
-
-
 
 renderMarkers();
 </script>
