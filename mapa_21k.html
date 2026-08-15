@@ -9,24 +9,32 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;height:100vh;display:flex;flex-direction:column}
-.topbar{background:#fff;border-bottom:1px solid #e0e0e0;padding:10px 14px;flex-shrink:0}
-.row1{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
-.maptitle{font-size:15px;font-weight:600;color:#111}
+.topbar{background:#fff;border-bottom:1px solid #e0e0e0;padding:8px 14px;flex-shrink:0}
+.row1{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.maptitle{font-size:14px;font-weight:600;color:#111;cursor:default;user-select:none}
 .searchwrap{position:relative;flex:1;max-width:220px}
-.searchinput{width:100%;font-size:12px;padding:5px 10px 5px 28px;border:1px solid #ddd;border-radius:20px;outline:none;color:#333}
+.searchinput{width:100%;font-size:12px;padding:5px 10px 5px 26px;border:1px solid #ddd;border-radius:20px;outline:none;color:#333}
 .searchinput:focus{border-color:#888}
-.searchicon{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:#aaa;font-size:13px;pointer-events:none}
+.searchicon{position:absolute;left:8px;top:50%;transform:translateY(-50%);color:#aaa;font-size:12px;pointer-events:none}
 .searchdrop{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border:1px solid #ddd;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.12);z-index:2000;max-height:200px;overflow-y:auto;display:none}
 .searchdrop.vis{display:block}
-.searchitem{padding:7px 12px;font-size:12px;cursor:pointer;color:#333}
+.searchitem{padding:6px 12px;font-size:12px;cursor:pointer;color:#333}
 .searchitem:hover{background:#f5f5f5}
 .mapstats{font-size:11px;color:#aaa;margin-left:auto}
 .mapstats strong{color:#555}
-.filterrow{display:flex;flex-wrap:wrap;gap:6px}
-.fbtn{font-size:11px;font-weight:500;padding:4px 10px;border-radius:16px;border:1px solid #ddd;background:#fff;color:#666;cursor:pointer;transition:all .15s}
-.fbtn.active{background:#111;color:#fff;border-color:#111}
+.filterrow{display:flex;flex-wrap:wrap;gap:5px}
+.fbtn{font-size:11px;font-weight:500;padding:4px 10px;border-radius:16px;border:1px solid #ddd;background:#fff;color:#666;cursor:pointer;transition:all .15s;white-space:nowrap}
 .fbtn:hover:not(.active){background:#f5f5f5}
+.fbtn.active{background:#111;color:#fff;border-color:#111}
 #map{flex:1;position:relative}
+.edit-panel{position:absolute;top:10px;right:10px;z-index:1000;background:#fff;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,.15);padding:14px;width:250px;display:none;font-size:12px}
+.edit-panel.visible{display:block}
+.edit-panel h4{font-size:13px;font-weight:600;color:#111;margin-bottom:6px}
+.edit-panel p{color:#777;margin-bottom:8px;line-height:1.5;font-size:11px}
+.edit-coords{background:#f5f5f5;border-radius:6px;padding:8px;font-family:monospace;font-size:10px;color:#333;margin-bottom:8px;min-height:40px;white-space:pre-wrap;word-break:break-all}
+.btn-e{width:100%;padding:6px;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;margin-top:4px}
+.btn-green{background:#2e5e3e;color:#fff}
+.btn-grey{background:#eee;color:#666}
 .legend{position:absolute;bottom:24px;left:10px;z-index:1000;background:rgba(255,255,255,.95);padding:8px 12px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.12);font-size:11px}
 .legend-item{display:flex;align-items:center;gap:6px;margin-bottom:3px;color:#555}
 .legend-item:last-child{margin-bottom:0}
@@ -34,13 +42,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;height:1
 .popup-title{font-size:13px;font-weight:600;color:#111;margin-bottom:3px}
 .popup-sub{font-size:11px;color:#888;margin-bottom:4px}
 .popup-link{display:block;font-size:11px;color:#1565c0;margin-top:4px;text-decoration:none}
-.popup-guide{display:inline-block;font-size:11px;font-weight:600;color:#2e7d32;background:#e8f5e9;padding:2px 8px;border-radius:8px;margin-top:6px;text-decoration:none}
+.popup-guide{display:inline-block;font-size:11px;font-weight:600;color:#2e7d32;background:#e8f5e9;padding:2px 8px;border-radius:8px;margin-top:5px;text-decoration:none}
 </style>
 </head>
 <body>
 <div class="topbar">
   <div class="row1">
-    <span class="maptitle">Mitges Maratons Catalunya 2026-27</span>
+    <span class="maptitle" id="maptitle" onclick="titleClick()">Mitges Maratons Catalunya 2026-27</span>
     <div class="searchwrap">
       <span class="searchicon">&#128269;</span>
       <input class="searchinput" id="sinput" type="text" placeholder="Buscar carrera...">
@@ -51,124 +59,205 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;height:1
   <div class="filterrow" id="filters"></div>
 </div>
 <div id="map">
+  <div class="edit-panel" id="edit-panel">
+    <h4>&#9998; Editor de coordenades</h4>
+    <p><b>1.</b> Clic en un pin per seleccionar-lo<br><b>2.</b> Clic al mapa per moure'l<br><b>3.</b> Prem "Veure canvis" quan acabis</p>
+    <div class="edit-coords" id="edit-coords">Selecciona un pin per comencar</div>
+    <button class="btn-e btn-green" id="btn-export" onclick="exportCoords()">Veure canvis</button>
+    <textarea id="export-area" style="display:none;width:100%;margin-top:6px;font-size:10px;font-family:monospace;padding:6px;border:1px solid #ddd;border-radius:6px;height:100px;resize:vertical" readonly></textarea>
+    <button class="btn-e btn-grey" onclick="closeEdit()">Tancar editor</button>
+  </div>
   <div class="legend">
     <div class="legend-item"><div class="legend-dot" style="background:#4a7c59"></div>Confirmada</div>
     <div class="legend-item"><div class="legend-dot" style="background:#c47c3e"></div>Pendiente</div>
   </div>
 </div>
+
 <script>
-var RACES = [{"name": "MITJA DE MOLLERUSSA", "loc": "Mollerussa", "dist": "21k · 5k", "date": "18/10", "month": "Octubre 2026", "doy": 291, "year": "2026", "confirmed": true, "web": "https://sites.google.com/mollerussa.cat/mitjamollerussa/", "guideUrl": "", "lat": 41.6333, "lng": 0.8833}, {"name": "MITJA DE VILA-SECA", "loc": "Vila-Seca", "dist": "21k · 10k · 5k", "date": "18/10", "month": "Octubre 2026", "doy": 291, "year": "2026", "confirmed": true, "web": "https://www.runnersvilaseca.com/lamedia", "guideUrl": "https://wp.me/pNuBu-oXn", "lat": 41.1167, "lng": 1.15}, {"name": "MITJA DE PUIGCERDÀ", "loc": "Puigcerdà", "dist": "21k · 10k", "date": "18/10", "month": "Octubre 2026", "doy": 291, "year": "2026", "confirmed": true, "web": "https://www.puigcerda.cat/ca/serveis/esports/28a-mitja-marato-de-puigcerda-by-bwt-2026/", "guideUrl": "https://wp.me/pNuBu-oO7", "lat": 42.4333, "lng": 1.9333}, {"name": "MITJA VENDRELL", "loc": "Coma-ruga", "dist": "21k · 10k · 5k", "date": "25/10", "month": "Octubre 2026", "doy": 298, "year": "2026", "confirmed": true, "web": "https://mitjavendrell.runnerselvendrell.cat/", "guideUrl": "https://wp.me/pNuBu-p0z", "lat": 41.1667, "lng": 1.5167}, {"name": "MITJA COSTA BARCELONA - MARESME", "loc": "Calella", "dist": "21k", "date": "25/10", "month": "Octubre 2026", "doy": 298, "year": "2026", "confirmed": true, "web": "https://gesport.cat/mitja-marato-costa-barcelona-maresme-2026/", "guideUrl": "https://wp.me/pNuBu-oO7", "lat": 41.6167, "lng": 2.65}, {"name": "MITJA DE TARRAGONA", "loc": "Tarragona", "dist": "21k · 10k", "date": "08/11", "month": "Noviembre 2026", "doy": 312, "year": "2026", "confirmed": true, "web": "https://www.mitjatarragona.cat/es/", "guideUrl": "https://wp.me/pNuBu-oWQ", "lat": 41.1167, "lng": 1.25}, {"name": "MITJA DE LLEIDA", "loc": "Lleida", "dist": "21k · 5k", "date": "15/11", "month": "Noviembre 2026", "doy": 319, "year": "2026", "confirmed": true, "web": "https://mitjalleida.com/", "guideUrl": "", "lat": 41.6167, "lng": 0.6167}, {"name": "MITJA DE RIPOLL", "loc": "Ripoll", "dist": "21k · 10k · 5k", "date": "15/11", "month": "Noviembre 2026", "doy": 319, "year": "2026", "confirmed": true, "web": "https://www.mitjamarato.cat/", "guideUrl": "", "lat": 42.2, "lng": 2.1833}, {"name": "MITJA DANI DEL MARESME", "loc": "Figueres", "dist": "21k · 10k · 6k", "date": "22/11", "month": "Noviembre 2026", "doy": 326, "year": "2026", "confirmed": true, "web": "https://lacursadani.com/service/cursa-dani-maresme/", "guideUrl": "https://wp.me/pNuBu-p91", "lat": 42.2667, "lng": 2.9667}, {"name": "MITJA DE L'ESPIRALL", "loc": "Vilafranca", "dist": "21k · 5k", "date": "22/11", "month": "Noviembre 2026", "doy": 326, "year": "2026", "confirmed": true, "web": "https://mitja.vilafranca.cat/", "guideUrl": "https://wp.me/pNuBu-p9o", "lat": 41.35, "lng": 1.7}, {"name": "MITJA DE FIGUERES", "loc": "Figueres", "dist": "21k · 10k", "date": "06/12", "month": "Diciembre 2026", "doy": 340, "year": "2026", "confirmed": true, "web": "https://www.instagram.com/mitjafigueres/?hl=es", "guideUrl": "https://wp.me/pNuBu-gWe", "lat": 42.2667, "lng": 2.9667}, {"name": "MITJA DE VILANOVA", "loc": "Vilanova i G.", "dist": "21k · 10k", "date": "13/12", "month": "Diciembre 2026", "doy": 347, "year": "2026", "confirmed": true, "web": "http://mitjavilanova.com/", "guideUrl": "https://wp.me/pNuBu-pkH", "lat": 41.2167, "lng": 1.725}, {"name": "MITJA BADIA DE ROSES", "loc": "Roses", "dist": "21k · 7,5k", "date": "27/12", "month": "Diciembre 2026", "doy": 361, "year": "2026", "confirmed": false, "web": "https://www.atletismeroses.cat/mitjabadiaderoses", "guideUrl": "", "lat": 42.2667, "lng": 3.1833}, {"name": "MITJA GAVÀ", "loc": "Gavà", "dist": "21k", "date": "Por confirmar", "month": " 2027", "doy": 0, "year": "2027", "confirmed": false, "web": "https://www.instagram.com/mitjagava/?hl=es", "guideUrl": "https://wp.me/pNuBu-oXw", "lat": 41.3, "lng": 2.0}, {"name": "MITJA BADIA DE ROSES", "loc": "Roses", "dist": "21k · 7,5k", "date": "03/01", "month": "Enero 2027", "doy": 3, "year": "2027", "confirmed": false, "web": "https://www.atletismeroses.cat/mitjabadiaderoses", "guideUrl": "", "lat": 42.2667, "lng": 3.1833}, {"name": "MITJA DE SITGES", "loc": "Sitges", "dist": "21k · Quart", "date": "10/01", "month": "Enero 2027", "doy": 10, "year": "2027", "confirmed": true, "web": "https://www.zonavipevents.com/mitja-sitges/", "guideUrl": "https://wp.me/pNuBu-pBU", "lat": 41.2333, "lng": 1.8167}, {"name": "MITJA DE GRANOLLERS", "loc": "Granollers", "dist": "21k · 10k · 5k", "date": "24/01", "month": "Enero 2027", "doy": 24, "year": "2027", "confirmed": true, "web": "https://lamitja.cat/", "guideUrl": "https://wp.me/pNuBu-pLQ", "lat": 41.6083, "lng": 2.2917}, {"name": "MITJA SANT CUGAT", "loc": "Sant Cugat del Vallès", "dist": "21k · 10k · 5k", "date": "31/01", "month": "Enero 2027", "doy": 31, "year": "2027", "confirmed": true, "web": "https://mitjasantcugat.cat/", "guideUrl": "https://wp.me/pNuBu-pSq", "lat": 41.4667, "lng": 2.0833}, {"name": "MITJA COLOMENCA", "loc": "Santa Coloma G.", "dist": "21k · 10k", "date": "07/02", "month": "Febrero 2027", "doy": 38, "year": "2027", "confirmed": false, "web": "https://uca.cat/categoria/curses/mitja-marato-colomenca/", "guideUrl": "https://wp.me/pNuBu-q7D", "lat": 41.45, "lng": 2.2083}, {"name": "MITJA DE BARCELONA", "loc": "Barcelona", "dist": "21k", "date": "14/02", "month": "Febrero 2027", "doy": 45, "year": "2027", "confirmed": true, "web": "https://www.mitjamarato.barcelona/", "guideUrl": "https://wp.me/pNuBu-q1Y", "lat": 41.3851, "lng": 2.1734}, {"name": "MITJA DE TERRASSA", "loc": "Terrassa", "dist": "21k · 5k", "date": "28/02", "month": "Febrero 2027", "doy": 59, "year": "2027", "confirmed": true, "web": "https://www.mitjaterrassa.org/curses/mitja-marato/", "guideUrl": "https://wp.me/pNuBu-pSr", "lat": 41.5583, "lng": 2.0083}, {"name": "MITJA DE CAMBRILS", "loc": "Cambrils", "dist": "21k · 10k", "date": "28/02", "month": "Febrero 2027", "doy": 59, "year": "2027", "confirmed": true, "web": "https://mitjadecambrils.com/", "guideUrl": "https://wp.me/pNuBu-q9w", "lat": 41.0667, "lng": 1.0583}, {"name": "MITJA DE GIRONA", "loc": "Girona", "dist": "21k · 10k", "date": "28/02", "month": "Febrero 2027", "doy": 59, "year": "2027", "confirmed": true, "web": "https://mitjamaratogirona.cat/", "guideUrl": "", "lat": 41.9833, "lng": 2.8167}, {"name": "MITJA GARROTXA", "loc": "Olot", "dist": "21k · 10k", "date": "07/03", "month": "Marzo 2027", "doy": 66, "year": "2027", "confirmed": true, "web": "http://www.cnolot.cat/catalan/esdeveniments-mitja-marato", "guideUrl": "https://wp.me/pNuBu-bX8", "lat": 42.1833, "lng": 2.4833}, {"name": "MITJA DE BALAGUER", "loc": "Balaguer", "dist": "21k · 10k · 5k", "date": "07/03", "month": "Marzo 2027", "doy": 66, "year": "2027", "confirmed": false, "web": "https://www.runners.cat/", "guideUrl": "https://wp.me/pNuBu-gma", "lat": 41.7833, "lng": 0.8167}, {"name": "MITJA DE RAMS", "loc": "Vic", "dist": "21k · 5k", "date": "21/03", "month": "Marzo 2027", "doy": 80, "year": "2027", "confirmed": false, "web": "https://www.lamitjaderams.cat/", "guideUrl": "https://wp.me/pNuBu-qqL", "lat": 41.9333, "lng": 2.25}, {"name": "MITJA PLA DE L'ESTANY", "loc": "Banyoles", "dist": "21k · 6k", "date": "04/04", "month": "Abril 2027", "doy": 94, "year": "2027", "confirmed": true, "web": "https://cnbanyoles.cat/competicions/mitja-marato-del-pla-de-lestany/", "guideUrl": "https://wp.me/pNuBu-nQL", "lat": 42.1167, "lng": 2.7667}, {"name": "MITJA MIAMI PLATJA", "loc": "Montroig del Camp", "dist": "21k · 10k · 5k", "date": "04/04", "month": "Abril 2027", "doy": 94, "year": "2027", "confirmed": false, "web": "https://webtretzesports.wixsite.com/mitjamiamiplatja", "guideUrl": "", "lat": 41.0833, "lng": 1.05}, {"name": "MITJA DE MONTORNÈS", "loc": "Montornès", "dist": "21k · 6k", "date": "11/04", "month": "Abril 2027", "doy": 101, "year": "2027", "confirmed": false, "web": "https://mitjamontornes.com/", "guideUrl": "https://wp.me/pNuBu-nPO", "lat": 41.55, "lng": 2.2667}, {"name": "MITJA D'EMPÚRIES", "loc": "L'Escala", "dist": "21k · 42k · 10k ·5k", "date": "18/04", "month": "Abril 2027", "doy": 108, "year": "2027", "confirmed": false, "web": "https://esportslescala.cat/marato-dempuries/", "guideUrl": "", "lat": 42.1167, "lng": 3.1333}, {"name": "MITJA DELTA DE L'EBRE", "loc": "Poblenou del Delta", "dist": "21k", "date": "18/04", "month": "Abril 2027", "doy": 108, "year": "2027", "confirmed": true, "web": "https://mitjadeltadelebre.com/", "guideUrl": "", "lat": 40.7167, "lng": 0.75}, {"name": "MITJA DEL MEDITERRANI", "loc": "Castelldefels", "dist": "21k · 10k · 5k", "date": "25/04", "month": "Abril 2027", "doy": 115, "year": "2027", "confirmed": true, "web": "https://www.zonavipevents.com/marato-del-mediterrani/", "guideUrl": "https://wp.me/pNuBu-qN3", "lat": 41.2833, "lng": 1.9667}, {"name": "MITJA MARATÓ VIES VERDES", "loc": "Girona / Platja D'Aro", "dist": "42k · 30k · 21k · 10k", "date": "25/04", "month": "Abril 2027", "doy": 115, "year": "2027", "confirmed": true, "web": "https://maratonviasverdes.com/ca/girona", "guideUrl": "", "lat": 41.8167, "lng": 3.0}, {"name": "MITJA DE TÀRREGA", "loc": "Tàrrega", "dist": "21k · 10k", "date": "09/05", "month": "Mayo 2027", "doy": 129, "year": "2027", "confirmed": false, "web": "https://fondistestarrega.com/ca/pc/2-mitja-marato-i-10-km-ciutat-de-tarrega", "guideUrl": "https://wp.me/pNuBu-o1H", "lat": 41.65, "lng": 1.15}, {"name": "21K LO CARO", "loc": "Tortosa", "dist": "21k ·10k", "date": "16/05", "month": "Mayo 2027", "doy": 136, "year": "2027", "confirmed": false, "web": "http://www.21kloport.cat/es/inicio/", "guideUrl": "", "lat": 40.8167, "lng": 0.5167}, {"name": "RUN FESTIVAL TOSSA DE MAR", "loc": "Tossa de Mar", "dist": "21k · 42k · 10k ·5k", "date": "16/05", "month": "Mayo 2027", "doy": 136, "year": "2027", "confirmed": true, "web": "https://runfestivaltossa.com/", "guideUrl": "https://wp.me/pNuBu-l6k", "lat": 41.7167, "lng": 2.9333}, {"name": "MITJA RURAL DE REUS", "loc": "Reus", "dist": "21k · 10k", "date": "30/05", "month": "Mayo 2027", "doy": 150, "year": "2027", "confirmed": false, "web": "https://webtretzesports.wixsite.com/mitjaruralreus", "guideUrl": "", "lat": 41.15, "lng": 1.1}];
+var RACES = [{"name": "MITJA DE MOLLERUSSA", "loc": "Mollerussa", "dist": "21k · 5k", "date": "18/10", "month": "Octubre 2026", "doy": 291, "year": "2026", "confirmed": true, "web": "https://sites.google.com/mollerussa.cat/mitjamollerussa/", "guideUrl": "", "lat": 41.6333, "lng": 0.8833}, {"name": "MITJA DE VILA-SECA", "loc": "Vila-Seca", "dist": "21k · 10k · 5k", "date": "18/10", "month": "Octubre 2026", "doy": 291, "year": "2026", "confirmed": true, "web": "https://www.runnersvilaseca.com/lamedia", "guideUrl": "https://wp.me/pNuBu-oXn", "lat": 41.1167, "lng": 1.15}, {"name": "MITJA DE PUIGCERDÀ", "loc": "Puigcerdà", "dist": "21k · 10k", "date": "18/10", "month": "Octubre 2026", "doy": 291, "year": "2026", "confirmed": true, "web": "https://www.puigcerda.cat/ca/serveis/esports/28a-mitja-marato-de-puigcerda-by-bwt-2026/", "guideUrl": "https://wp.me/pNuBu-oO7", "lat": 42.4333, "lng": 1.9333}, {"name": "MITJA VENDRELL", "loc": "Coma-ruga", "dist": "21k · 10k · 5k", "date": "25/10", "month": "Octubre 2026", "doy": 298, "year": "2026", "confirmed": true, "web": "https://mitjavendrell.runnerselvendrell.cat/", "guideUrl": "https://wp.me/pNuBu-p0z", "lat": 41.1667, "lng": 1.5167}, {"name": "MITJA COSTA BARCELONA - MARESME", "loc": "Calella", "dist": "21k", "date": "25/10", "month": "Octubre 2026", "doy": 298, "year": "2026", "confirmed": true, "web": "https://gesport.cat/mitja-marato-costa-barcelona-maresme-2026/", "guideUrl": "https://wp.me/pNuBu-oO7", "lat": 41.6167, "lng": 2.65}, {"name": "MITJA DE TARRAGONA", "loc": "Tarragona", "dist": "21k · 10k", "date": "08/11", "month": "Noviembre 2026", "doy": 312, "year": "2026", "confirmed": true, "web": "https://www.mitjatarragona.cat/es/", "guideUrl": "https://wp.me/pNuBu-oWQ", "lat": 41.1167, "lng": 1.25}, {"name": "MITJA DE LLEIDA", "loc": "Lleida", "dist": "21k · 5k", "date": "15/11", "month": "Noviembre 2026", "doy": 319, "year": "2026", "confirmed": true, "web": "https://mitjalleida.com/", "guideUrl": "", "lat": 41.6167, "lng": 0.6167}, {"name": "MITJA DE RIPOLL", "loc": "Ripoll", "dist": "21k · 10k · 5k", "date": "15/11", "month": "Noviembre 2026", "doy": 319, "year": "2026", "confirmed": true, "web": "https://www.mitjamarato.cat/", "guideUrl": "", "lat": 42.2, "lng": 2.1833}, {"name": "MITJA DANI DEL MARESME", "loc": "Figueres", "dist": "21k · 10k · 6k", "date": "22/11", "month": "Noviembre 2026", "doy": 326, "year": "2026", "confirmed": true, "web": "https://lacursadani.com/service/cursa-dani-maresme/", "guideUrl": "https://wp.me/pNuBu-p91", "lat": 42.2667, "lng": 2.9667}, {"name": "MITJA DE L'ESPIRALL", "loc": "Vilafranca", "dist": "21k · 5k", "date": "22/11", "month": "Noviembre 2026", "doy": 326, "year": "2026", "confirmed": true, "web": "https://mitja.vilafranca.cat/", "guideUrl": "https://wp.me/pNuBu-p9o", "lat": 41.35, "lng": 1.7}, {"name": "MITJA DE FIGUERES", "loc": "Figueres", "dist": "21k · 10k", "date": "06/12", "month": "Diciembre 2026", "doy": 340, "year": "2026", "confirmed": true, "web": "https://www.instagram.com/mitjafigueres/?hl=es", "guideUrl": "https://wp.me/pNuBu-gWe", "lat": 42.2667, "lng": 2.9667}, {"name": "MITJA DE VILANOVA", "loc": "Vilanova i G.", "dist": "21k · 10k", "date": "13/12", "month": "Diciembre 2026", "doy": 347, "year": "2026", "confirmed": true, "web": "http://mitjavilanova.com/", "guideUrl": "https://wp.me/pNuBu-pkH", "lat": 41.2167, "lng": 1.725}, {"name": "MITJA BADIA DE ROSES", "loc": "Roses", "dist": "21k · 7,5k", "date": "27/12", "month": "Diciembre 2026", "doy": 361, "year": "2026", "confirmed": false, "web": "https://www.atletismeroses.cat/mitjabadiaderoses", "guideUrl": "", "lat": 42.2667, "lng": 3.1833}, {"name": "MITJA GAVÀ", "loc": "Gavà", "dist": "21k", "date": "Por confirmar", "month": " 2027", "doy": 0, "year": "2027", "confirmed": false, "web": "https://www.instagram.com/mitjagava/?hl=es", "guideUrl": "https://wp.me/pNuBu-oXw", "lat": 41.3, "lng": 2.0}, {"name": "MITJA BADIA DE ROSES", "loc": "Roses", "dist": "21k · 7,5k", "date": "03/01", "month": "Enero 2027", "doy": 3, "year": "2027", "confirmed": false, "web": "https://www.atletismeroses.cat/mitjabadiaderoses", "guideUrl": "", "lat": 42.2667, "lng": 3.1833}, {"name": "MITJA DE SITGES", "loc": "Sitges", "dist": "21k · Quart", "date": "10/01", "month": "Enero 2027", "doy": 10, "year": "2027", "confirmed": true, "web": "https://www.zonavipevents.com/mitja-sitges/", "guideUrl": "https://wp.me/pNuBu-pBU", "lat": 41.2333, "lng": 1.8167}, {"name": "MITJA DE GRANOLLERS", "loc": "Granollers", "dist": "21k · 10k · 5k", "date": "24/01", "month": "Enero 2027", "doy": 24, "year": "2027", "confirmed": true, "web": "https://lamitja.cat/", "guideUrl": "https://wp.me/pNuBu-pLQ", "lat": 41.6083, "lng": 2.2917}, {"name": "MITJA SANT CUGAT", "loc": "Sant Cugat del Vallès", "dist": "21k · 10k · 5k", "date": "31/01", "month": "Enero 2027", "doy": 31, "year": "2027", "confirmed": true, "web": "https://mitjasantcugat.cat/", "guideUrl": "https://wp.me/pNuBu-pSq", "lat": 41.4667, "lng": 2.0833}, {"name": "MITJA COLOMENCA", "loc": "Santa Coloma G.", "dist": "21k · 10k", "date": "07/02", "month": "Febrero 2027", "doy": 38, "year": "2027", "confirmed": false, "web": "https://uca.cat/categoria/curses/mitja-marato-colomenca/", "guideUrl": "https://wp.me/pNuBu-q7D", "lat": 41.45, "lng": 2.2083}, {"name": "MITJA DE BARCELONA", "loc": "Barcelona", "dist": "21k", "date": "14/02", "month": "Febrero 2027", "doy": 45, "year": "2027", "confirmed": true, "web": "https://www.mitjamarato.barcelona/", "guideUrl": "https://wp.me/pNuBu-q1Y", "lat": 41.3851, "lng": 2.1734}, {"name": "MITJA DE TERRASSA", "loc": "Terrassa", "dist": "21k · 5k", "date": "28/02", "month": "Febrero 2027", "doy": 59, "year": "2027", "confirmed": true, "web": "https://www.mitjaterrassa.org/curses/mitja-marato/", "guideUrl": "https://wp.me/pNuBu-pSr", "lat": 41.5583, "lng": 2.0083}, {"name": "MITJA DE CAMBRILS", "loc": "Cambrils", "dist": "21k · 10k", "date": "28/02", "month": "Febrero 2027", "doy": 59, "year": "2027", "confirmed": true, "web": "https://mitjadecambrils.com/", "guideUrl": "https://wp.me/pNuBu-q9w", "lat": 41.0667, "lng": 1.0583}, {"name": "MITJA DE GIRONA", "loc": "Girona", "dist": "21k · 10k", "date": "28/02", "month": "Febrero 2027", "doy": 59, "year": "2027", "confirmed": true, "web": "https://mitjamaratogirona.cat/", "guideUrl": "", "lat": 41.9833, "lng": 2.8167}, {"name": "MITJA GARROTXA", "loc": "Olot", "dist": "21k · 10k", "date": "07/03", "month": "Marzo 2027", "doy": 66, "year": "2027", "confirmed": true, "web": "http://www.cnolot.cat/catalan/esdeveniments-mitja-marato", "guideUrl": "https://wp.me/pNuBu-bX8", "lat": 42.1833, "lng": 2.4833}, {"name": "MITJA DE BALAGUER", "loc": "Balaguer", "dist": "21k · 10k · 5k", "date": "07/03", "month": "Marzo 2027", "doy": 66, "year": "2027", "confirmed": false, "web": "https://www.runners.cat/", "guideUrl": "https://wp.me/pNuBu-gma", "lat": 41.7833, "lng": 0.8167}, {"name": "MITJA DE RAMS", "loc": "Vic", "dist": "21k · 5k", "date": "21/03", "month": "Marzo 2027", "doy": 80, "year": "2027", "confirmed": false, "web": "https://www.lamitjaderams.cat/", "guideUrl": "https://wp.me/pNuBu-qqL", "lat": 41.9333, "lng": 2.25}, {"name": "MITJA PLA DE L'ESTANY", "loc": "Banyoles", "dist": "21k · 6k", "date": "04/04", "month": "Abril 2027", "doy": 94, "year": "2027", "confirmed": true, "web": "https://cnbanyoles.cat/competicions/mitja-marato-del-pla-de-lestany/", "guideUrl": "https://wp.me/pNuBu-nQL", "lat": 42.1167, "lng": 2.7667}, {"name": "MITJA MIAMI PLATJA", "loc": "Montroig del Camp", "dist": "21k · 10k · 5k", "date": "04/04", "month": "Abril 2027", "doy": 94, "year": "2027", "confirmed": false, "web": "https://webtretzesports.wixsite.com/mitjamiamiplatja", "guideUrl": "", "lat": 41.0833, "lng": 1.05}, {"name": "MITJA DE MONTORNÈS", "loc": "Montornès", "dist": "21k · 6k", "date": "11/04", "month": "Abril 2027", "doy": 101, "year": "2027", "confirmed": false, "web": "https://mitjamontornes.com/", "guideUrl": "https://wp.me/pNuBu-nPO", "lat": 41.55, "lng": 2.2667}, {"name": "MITJA D'EMPÚRIES", "loc": "L'Escala", "dist": "21k · 42k · 10k ·5k", "date": "18/04", "month": "Abril 2027", "doy": 108, "year": "2027", "confirmed": false, "web": "https://esportslescala.cat/marato-dempuries/", "guideUrl": "", "lat": 42.1167, "lng": 3.1333}, {"name": "MITJA DELTA DE L'EBRE", "loc": "Poblenou del Delta", "dist": "21k", "date": "18/04", "month": "Abril 2027", "doy": 108, "year": "2027", "confirmed": true, "web": "https://mitjadeltadelebre.com/", "guideUrl": "", "lat": 40.64522, "lng": 0.68699}, {"name": "MITJA DEL MEDITERRANI", "loc": "Castelldefels", "dist": "21k · 10k · 5k", "date": "25/04", "month": "Abril 2027", "doy": 115, "year": "2027", "confirmed": true, "web": "https://www.zonavipevents.com/marato-del-mediterrani/", "guideUrl": "https://wp.me/pNuBu-qN3", "lat": 41.2833, "lng": 1.9667}, {"name": "MITJA MARATÓ VIES VERDES", "loc": "Girona / Platja D'Aro", "dist": "42k · 30k · 21k · 10k", "date": "25/04", "month": "Abril 2027", "doy": 115, "year": "2027", "confirmed": true, "web": "https://maratonviasverdes.com/ca/girona", "guideUrl": "", "lat": 41.8167, "lng": 3.0}, {"name": "MITJA DE TÀRREGA", "loc": "Tàrrega", "dist": "21k · 10k", "date": "09/05", "month": "Mayo 2027", "doy": 129, "year": "2027", "confirmed": false, "web": "https://fondistestarrega.com/ca/pc/2-mitja-marato-i-10-km-ciutat-de-tarrega", "guideUrl": "https://wp.me/pNuBu-o1H", "lat": 41.65, "lng": 1.15}, {"name": "21K LO CARO", "loc": "Tortosa", "dist": "21k ·10k", "date": "16/05", "month": "Mayo 2027", "doy": 136, "year": "2027", "confirmed": false, "web": "http://www.21kloport.cat/es/inicio/", "guideUrl": "", "lat": 40.8167, "lng": 0.5167}, {"name": "RUN FESTIVAL TOSSA DE MAR", "loc": "Tossa de Mar", "dist": "21k · 42k · 10k ·5k", "date": "16/05", "month": "Mayo 2027", "doy": 136, "year": "2027", "confirmed": true, "web": "https://runfestivaltossa.com/", "guideUrl": "https://wp.me/pNuBu-l6k", "lat": 41.7167, "lng": 2.9333}, {"name": "MITJA RURAL DE REUS", "loc": "Reus", "dist": "21k · 10k", "date": "30/05", "month": "Mayo 2027", "doy": 150, "year": "2027", "confirmed": false, "web": "https://webtretzesports.wixsite.com/mitjaruralreus", "guideUrl": "", "lat": 41.15, "lng": 1.1}];
 
 var MONTH_ORDER = ["Octubre 2026","Noviembre 2026","Diciembre 2026","Enero 2027","Febrero 2027","Marzo 2027","Abril 2027","Mayo 2027"];
-var activeFilter = "Todos";
+var SHORT = {"Octubre":"Oct","Noviembre":"Nov","Diciembre":"Dic","Enero":"Ene","Febrero":"Feb","Marzo":"Mar","Abril":"Abr","Mayo":"May","Septiembre":"Sep","Junio":"Jun","Julio":"Jul"};
 
-var map = L.map('map').setView([41.7, 1.8], 8);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '&copy; OpenStreetMap', maxZoom: 19
+var activeFilter = "Todos";
+var searchFilter = null;
+var editMode = false;
+var savedCoords = {};
+var selectedPin = null;
+
+// Map setup
+var map = L.map("map").setView([41.7, 1.8], 8);
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  attribution: "&copy; OpenStreetMap", maxZoom: 19
 }).addTo(map);
 setTimeout(function() {
-  document.querySelectorAll('.leaflet-tile-pane').forEach(function(el) {
-    el.style.filter = 'grayscale(100%) brightness(1.05)';
+  document.querySelectorAll(".leaflet-tile-pane").forEach(function(el) {
+    el.style.filter = "grayscale(100%) brightness(1.05)";
   });
 }, 400);
 
 var markersLayer = L.layerGroup().addTo(map);
 
+// Icon
 function makeIcon(confirmed) {
-  var bg = confirmed ? '#4a7c59' : '#c47c3e';
+  var bg = confirmed ? "#4a7c59" : "#c47c3e";
   return L.divIcon({
     html: '<div style="width:20px;height:20px;background:' + bg + ';border-radius:50%;border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.3)"></div>',
-    iconSize: [20, 20], iconAnchor: [10, 10], className: ''
+    iconSize: [20,20], iconAnchor: [10,10], className: ""
   });
 }
 
+// Filter
+function getFiltered() {
+  return RACES.filter(function(r) {
+    if (activeFilter !== "Todos") {
+      if (activeFilter === "2026" || activeFilter === "2027") {
+        if (r.year !== activeFilter) return false;
+      } else {
+        if (r.month !== activeFilter) return false;
+      }
+    }
+    if (searchFilter && r.name !== searchFilter) return false;
+    return true;
+  });
+}
+
+// Render
 function renderMarkers() {
   markersLayer.clearLayers();
-  var fr = RACES.filter(function(r) {
-    if (activeFilter === "Todos") return true;
-    if (activeFilter === "2026") return r.year === "2026";
-    if (activeFilter === "2027") return r.year === "2027";
-    return r.month_year === activeFilter;
-  });
-  var jitter = function() { return (Math.random() - 0.5) * 0.003; };
+  var fr = getFiltered();
+  var jitter = function() { return (Math.random()-0.5)*0.003; };
   fr.forEach(function(r) {
-    var marker = L.marker([r.lat + jitter(), r.lng + jitter()], { icon: makeIcon(r.confirmed) });
-    var popup = '<div style="min-width:200px;max-width:260px">';
-    popup += '<div class="popup-title">' + r.name + '</div>';
-    popup += '<div class="popup-sub">' + r.loc + ' &middot; ' + r.date + ' &middot; ' + r.month_year + '</div>';
-    popup += '<div style="font-size:11px;color:#777;margin-bottom:4px">' + r.dist + '</div>';
-    if (r.web) popup += '<a class="popup-link" href="' + r.web + '" target="_blank" rel="noopener">Web oficial</a>';
-    if (r.guideUrl) popup += '<a class="popup-guide" href="' + r.guideUrl + '" target="_blank" rel="noopener">Guia del recorregut</a>';
-    popup += '</div>';
-    marker.bindPopup(popup, { maxWidth: 280 });
+    var lat = savedCoords[r.name] ? savedCoords[r.name][0] : r.lat;
+    var lng = savedCoords[r.name] ? savedCoords[r.name][1] : r.lng;
+    if (!lat) return;
+    var useLat = savedCoords[r.name] ? lat : lat + jitter();
+    var useLng = savedCoords[r.name] ? lng : lng + jitter();
+    var marker = L.marker([useLat, useLng], {icon: makeIcon(r.confirmed)});
+    if (editMode) {
+      marker.on("click", function() {
+        if (selectedPin) {
+          var prev = selectedPin.marker.getElement();
+          if (prev) prev.style.outline = "none";
+        }
+        selectedPin = {name: r.name, marker: marker};
+        var el = marker.getElement();
+        if (el) el.style.outline = "3px solid #111";
+        document.getElementById("edit-coords").textContent = r.name + "\n" + r.loc + "\n\nClic al mapa per moure'l";
+      });
+    } else {
+      var p = '<div style="min-width:200px;max-width:260px">';
+      p += '<div class="popup-title">' + r.name + "</div>";
+      p += '<div class="popup-sub">' + r.loc + " &middot; " + r.date + " &middot; " + r.month + "</div>";
+      p += '<div style="font-size:11px;color:#777;margin-bottom:4px">' + r.dist + "</div>";
+      if (r.web) p += '<a class="popup-link" href="' + r.web + '" target="_blank" rel="noopener">Web oficial</a>';
+      if (r.guideUrl) p += '<a class="popup-guide" href="' + r.guideUrl + '" target="_blank" rel="noopener">Guia del recorregut</a>';
+      p += "</div>";
+      marker.bindPopup(p, {maxWidth: 280});
+    }
     markersLayer.addLayer(marker);
   });
-  document.getElementById('stats').innerHTML = '<strong>' + fr.length + '</strong> mitges';
+  document.getElementById("stats").innerHTML = "<strong>" + fr.length + "</strong> mitges";
 }
 
-function buildFilters() {
-  var el = document.getElementById('filters');
-  el.innerHTML = '';
+// Map click to move pin
+map.on("click", function(e) {
+  if (!editMode || !selectedPin) return;
+  var name = selectedPin.name;
+  var marker = selectedPin.marker;
+  marker.setLatLng(e.latlng);
+  savedCoords[name] = [+e.latlng.lat.toFixed(5), +e.latlng.lng.toFixed(5)];
+  document.getElementById("edit-coords").textContent = name + "\n[" + savedCoords[name][0] + ", " + savedCoords[name][1] + "]";
+  var n = Object.keys(savedCoords).length;
+  document.getElementById("btn-export").textContent = "Veure canvis (" + n + " pin" + (n > 1 ? "s" : "") + ")";
+  var el = marker.getElement();
+  if (el) { el.style.opacity = "0.3"; setTimeout(function(){el.style.opacity = "1"; el.style.outline = "none";}, 400); }
+  selectedPin = null;
+});
 
-  function addBtn(label, value) {
-    var btn = document.createElement('button');
-    btn.className = 'fbtn' + (value === activeFilter ? ' active' : '');
-    btn.textContent = label;
-    btn.addEventListener('click', function() {
-      activeFilter = value;
-      document.querySelectorAll('.fbtn').forEach(function(b) { b.classList.remove('active'); });
-      btn.classList.add('active');
+// Filters
+function buildFilters() {
+  var el = document.getElementById("filters");
+  el.innerHTML = "";
+  var months = ["Todos"].concat(MONTH_ORDER.filter(function(m) {
+    return RACES.some(function(r) { return r.month === m; });
+  }));
+  months.forEach(function(m) {
+    var btn = document.createElement("button");
+    btn.className = "fbtn" + (m === activeFilter ? " active" : "");
+    if (m === "Todos") { btn.textContent = "Todos"; }
+    else { var p = m.split(" "); btn.textContent = (SHORT[p[0]] || p[0]) + " " + p[1]; }
+    btn.addEventListener("click", function() {
+      activeFilter = m;
+      document.querySelectorAll(".fbtn").forEach(function(b){ b.classList.remove("active"); });
+      btn.classList.add("active");
       renderMarkers();
     });
     el.appendChild(btn);
-  }
-
-  addBtn('Todos', 'Todos');
-
-  var SHORT = {'Octubre':'Oct','Noviembre':'Nov','Diciembre':'Dic','Enero':'Ene','Febrero':'Feb','Marzo':'Mar','Abril':'Abr','Mayo':'May'};
-  MONTH_ORDER.forEach(function(my) {
-    if (RACES.some(function(r) { return r.month_year === my; })) {
-      var parts = my.split(' ');
-      var label = (SHORT[parts[0]] || parts[0]) + ' ' + parts[1];
-      addBtn(label, my);
-    }
   });
 }
 
 // Search
-var elInput = document.getElementById('sinput');
-var elDrop = document.getElementById('sdrop');
+var elInput = document.getElementById("sinput");
+var elDrop = document.getElementById("sdrop");
 
-elInput.addEventListener('input', function() {
+elInput.addEventListener("input", function() {
   var q = elInput.value.toLowerCase().trim();
-  if (!q) { elDrop.classList.remove('vis'); return; }
-  var matches = RACES.filter(function(r) { return r.name.toLowerCase().indexOf(q) >= 0 || r.loc.toLowerCase().indexOf(q) >= 0; });
+  if (!q) { searchFilter = null; elDrop.classList.remove("vis"); renderMarkers(); return; }
+  var matches = RACES.filter(function(r){ return r.name.toLowerCase().indexOf(q) >= 0 || r.loc.toLowerCase().indexOf(q) >= 0; });
   showDrop(matches);
 });
-elInput.addEventListener('focus', function() {
+elInput.addEventListener("focus", function() {
   if (!elInput.value.trim()) showDrop(RACES.slice(0, 12));
 });
-elInput.addEventListener('blur', function() { setTimeout(function() { elDrop.classList.remove('vis'); }, 200); });
+elInput.addEventListener("blur", function(){ setTimeout(function(){ elDrop.classList.remove("vis"); }, 200); });
 
 function showDrop(items) {
-  elDrop.innerHTML = '';
+  elDrop.innerHTML = "";
   items.slice(0, 15).forEach(function(r) {
-    var div = document.createElement('div');
-    div.className = 'searchitem';
-    div.textContent = r.name + ' \u00b7 ' + r.loc;
-    div.addEventListener('mousedown', function() {
-      elInput.value = r.name;
-      elDrop.classList.remove('vis');
-      markersLayer.clearLayers();
-      var marker = L.marker([r.lat, r.lng], { icon: makeIcon(r.confirmed) });
-      marker.addTo(markersLayer);
-      map.setView([r.lat, r.lng], 13);
-      marker.openPopup();
+    var d = document.createElement("div"); d.className = "searchitem";
+    d.textContent = r.name + " · " + r.loc;
+    d.addEventListener("mousedown", function() {
+      searchFilter = r.name; elInput.value = r.name;
+      elDrop.classList.remove("vis"); renderMarkers();
+      map.setView([r.lat, r.lng], 12);
     });
-    elDrop.appendChild(div);
+    elDrop.appendChild(d);
   });
   if (!items.length) elDrop.innerHTML = '<div class="searchitem" style="color:#aaa">Sense resultats</div>';
-  elDrop.classList.add('vis');
+  elDrop.classList.add("vis");
+}
+
+// Editor
+var titleClicks = 0, titleTimer = null;
+function titleClick() {
+  titleClicks++;
+  clearTimeout(titleTimer);
+  titleTimer = setTimeout(function(){ titleClicks = 0; }, 600);
+  if (titleClicks >= 3) {
+    titleClicks = 0;
+    editMode = !editMode;
+    selectedPin = null;
+    document.getElementById("edit-panel").classList.toggle("visible", editMode);
+    renderMarkers();
+  }
+}
+
+function exportCoords() {
+  if (!Object.keys(savedCoords).length) {
+    alert("Encara no hi ha canvis.\n\n1. Clic en un pin (es marca)\n2. Clic al mapa per moure'l");
+    return;
+  }
+  var text = "COORDENADES MODIFICADES 21K:\n(Enganxa aixo al xat amb Claude)\n\n";
+  Object.entries(savedCoords).forEach(function(e){ text += '"' + e[0] + '": [' + e[1][0] + ', ' + e[1][1] + "]\n"; });
+  var area = document.getElementById("export-area");
+  area.style.display = "block"; area.value = text; area.focus(); area.select();
+}
+
+function closeEdit() {
+  editMode = false; selectedPin = null;
+  document.getElementById("edit-panel").classList.remove("visible");
+  renderMarkers();
 }
 
 buildFilters();
