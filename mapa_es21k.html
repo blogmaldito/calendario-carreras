@@ -108,7 +108,7 @@ var filters = {month: 'Todos', loc: '', prov: '', com: ''};
 function getFiltered() {
   return RACES.filter(function(r) {
     if (!r.lat) return false;
-    if (filters.month !== 'Todos' && r.month !== filters.month) return false;
+    if (filters.month !== 'Todos' && r.month_year !== filters.month) return false;
     if (filters.loc && r.loc.toLowerCase().indexOf(filters.loc) < 0) return false;
     if (filters.prov && r.prov.toLowerCase().indexOf(filters.prov) < 0) return false;
     if (filters.com && r.com.toLowerCase().indexOf(filters.com) < 0) return false;
@@ -145,7 +145,7 @@ function renderMarkers() {
 function buildMonthFilters() {
   var el = document.getElementById('month-filters');
   var months = ['Todos'].concat(MONTH_ORDER.filter(function(m) {
-    return RACES.some(function(r) { return r.month === m; });
+    return RACES.some(function(r) { return r.month_year === m; });
   }));
   months.forEach(function(m) {
     var btn = document.createElement('button');
